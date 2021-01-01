@@ -8,8 +8,7 @@ import CategoriesForm from "./CategoriesForm";
 class CategoriesEdit extends Component
 {
   componentDidMount() {
-     console.log("From fetchCategory:",this.props);
-     this.props.fetchCategory(this.props.match.params.id);
+      this.props.fetchCategory(this.props.match.params.id);
   }
 
   addRoute() {
@@ -17,8 +16,7 @@ class CategoriesEdit extends Component
   } 
 
   onSubmit = (formValues) => {
-     console.log("from form values",formValues);
-     this.props.editCategory(this.props.match.params.id,formValues);
+      this.props.editCategory(this.props.match.params.id,formValues);
   }
     
   render() { 
@@ -34,8 +32,7 @@ class CategoriesEdit extends Component
      <CategoriesForm  
         initialValues =  {_.pick(this.props.categories, "name", "imgURL")}
         onSubmit= {this.onSubmit} />
-    {/* <form onSubmit= {this.props.handleSubmit(() => this.props.editCategory(this.props.formValues.values))}> */}
-       
+          
     </div>   
   );
 }

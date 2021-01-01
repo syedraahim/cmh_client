@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import logo from "../common/cmh_new.png";
 // import 'materialize-css/dist/css/materialize.min.css';
 
 class Header extends Component {
@@ -53,7 +54,7 @@ render() {
 <section>
     <div className="row">
       <div className="pull-left col-sm-12">
-        <img src="images/cmh_new.png" alt="Compare my Helper" className="float-left header-img" />
+        <img src= { logo } alt="Compare my Helper" className="float-left header-img" />
       </div>
 
      </div>

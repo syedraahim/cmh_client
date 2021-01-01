@@ -9,8 +9,9 @@ import MainAdmin from "./admin/MainAdmin";
 import CategoriesCreate from "./admin/Categories/CategoriesCreate";
 import CategoriesList from "./admin/Categories/CategoriesList";
 import CategoriesEdit from "./admin/Categories/CategoriesEdit";
-import CategoriedDelete from "./admin/Categories/CategoriesDelete";
+import CategoriesDelete from "./admin/Categories/CategoriesDelete";
 import SubcategoriesCreate from "./admin/Subcategories/SubcategoriesCreate";
+import SubcategoriesList from "./admin/Subcategories/SubcategoriesList";
 import QuestionsCreate from "./admin/Questions/QuestionsCreate";
 import SubcategoryQuestions from "./admin/SubcategoryQuestions";
 import Vendor from "./admin/Vendor";
@@ -22,7 +23,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Login from "./login/Login";
 import Register from "./login/Register";
-import CategoriesDelete from "./admin/Categories/CategoriesDelete";
 
 class App extends Component {
   componentDidMount() {
@@ -44,6 +44,7 @@ class App extends Component {
        <Route path= "/admin/categories/categoriesedit/:id" exact component= {CategoriesEdit} />
        <Route path= "/admin/categories/categoriesdelete/:id" exact component= {CategoriesDelete} />
        <Route path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
+       <Route path= "/admin/subcategories/subcategroieslist" exact component= {SubcategoriesList} />
        <Route path= "/admin/questions/questionscreate" exact component= {QuestionsCreate} />
        <Route path= "/admin/categoryquestions" exact component= {SubcategoryQuestions} />
        <Route path= "/admin/vendor" exact component= {Vendor} />

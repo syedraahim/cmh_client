@@ -12,7 +12,7 @@ class CategoriesCreate extends Component
    } 
 
    onSubmit= formValues => {
-        this.props.addCategory(formValues);
+            this.props.addCategory(formValues);
    }
     
   render() {  

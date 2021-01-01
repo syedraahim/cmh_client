@@ -35,8 +35,8 @@ renderOptions = ({fields}) => (
                    name= {option} 
                    type= "text"
                    component= {VendorField}
-                  label= {`Option # ${index + 1}`}
-               />   
+                   label= {`Option # ${index + 1}`}
+                 />   
           </div> 
          </div> 
          </li>                 
@@ -45,8 +45,8 @@ renderOptions = ({fields}) => (
       );
 
  renderFields() {
-    console.log("form Props from render fields");
-    return(
+   
+   return(
           <Field 
                label= "Question"
                type= "text"
@@ -55,14 +55,14 @@ renderOptions = ({fields}) => (
           />         
     ) }
 
-    onSubmit= (formValues) => {
+  onSubmit= (formValues) => {
         console.log("Form values from Questions form:",formValues);
         this.props.onSubmit(formValues);
     }
 
    
   render ()  {
-      
+        console.log("props from questionsform:", this.props);
         return (             
         <div>        
          <section className= "vendor-center">
@@ -72,7 +72,6 @@ renderOptions = ({fields}) => (
            <form onSubmit= {this.props.handleSubmit(this.onSubmit)}>
               {this.renderFields()} 
               <FieldArray
-                label= "Options" 
                 name= "options"        
                 component=  {this.renderOptions}
                 />                
@@ -80,7 +79,7 @@ renderOptions = ({fields}) => (
          </div>
          </div>                        
           <div className= "d-flex justify-content-center mt-1" >
-              <button className= "btn btn-primary font-weight-bold">Submit</button>
+              <button type="submit" className= "btn btn-primary font-weight-bold" name= "question">Submit</button>
           </div> 
         
         </section>
@@ -89,4 +88,4 @@ renderOptions = ({fields}) => (
   }
 }  
 
-export default reduxForm( {form: "questionForm"})(QuestionsForm);
+export default reduxForm( {form: "questionsForm"})(QuestionsForm);

@@ -8,7 +8,7 @@ const utilReducer = (state = {}, action ) => {
    {
      case FETCH_CATEGORIES_NAME :
         console.log("State value from reducer:",action.payload);
-        return {...state, ..._.mapKeys(action.payload, '_id' )};     
+        return {...state, categoryName:action.payload};     
     default: 
         return state;
     }  

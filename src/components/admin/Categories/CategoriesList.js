@@ -19,7 +19,7 @@ addRoute() {
 renderList() {
     return (this.props.categories.map( category =>
     {
-      // {console.log(category,"category")}
+     
       {if(category.name)
         return (                   
           <div className= "row"  key= {category._id}>            
@@ -68,7 +68,6 @@ render() {
 }
 
 const mapStateToProps = (state) => {
- console.log("State from mapstate", state);
  return { categories: Object.values(state.categories)};
 }
 

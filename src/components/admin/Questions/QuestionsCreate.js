@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
-import {addQuestion } from "../../../actions";
+import { addQuestion } from "../../../actions";
 
 
 class QuestionsCreate extends Component {
@@ -13,7 +13,7 @@ addRoute() {
 
 
 onSubmit = (formValues) => {
-        console.log("in submit form",formValues);
+        console.log("in submit form for questions",formValues);
         this.props.addQuestion(formValues);
     }
 
@@ -25,7 +25,7 @@ onSubmit = (formValues) => {
          />         
          <h1 className= "category-head font-weight-bold card-header">Questions Master</h1>  
          <QuestionsForm
-             onSubmit = {this.onSubmit()}
+             onSubmit = {this.onSubmit}
            />        
         </div>
     )
@@ -33,7 +33,8 @@ onSubmit = (formValues) => {
 }  
 
 function mapStateToProps(state) {
-    return { formValues: state.form.questionForm}
+    console.log("value of state from mapstate in question create", state.form.questionsForm);
+    return { formValues: state.form.questionsForm}
 }
 
 export default connect(mapStateToProps,{addQuestion})(QuestionsCreate);

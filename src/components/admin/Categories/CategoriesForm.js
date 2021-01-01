@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {reduxForm,Field, FieldArray} from "redux-form";
+import {reduxForm,Field} from "redux-form";
 import VendorField from "../../vendor/VendorField";
 
 class CategoriesForm extends Component

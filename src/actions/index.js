@@ -12,6 +12,11 @@ import {FETCH_USER,
         EDIT_CATEGORY,
         DELETE_CATEGORY,
         FETCH_CATEGORIES_NAME,
+        CREATE_SUBCATEGORY,
+        FETCH_SUBCATEGORIES,
+        FETCH_SUBCATEGORY,
+        EDIT_SUBCATEGORY,
+        DELETE_SUBCATEGORY,
         CREATE_QUESTION  
       } from "./types";
 
@@ -69,17 +74,25 @@ export const deleteCategory =(id) => {
   });
 };
 
-//util for fetching the category name
-export const fetchCategoriesName = () => async (dispatch) => {
-  const res= await axios.get("http://localhost:5000/api/categoryname");
-  console.log("Response from fetch categories name:", res.data);
-  dispatch({type: FETCH_CATEGORIES_NAME, payload: res.data});    
- };
+ //action creator for Subcategory Master
+ export const addSubcategory = (values) => async (dispatch) => {
+   console.log("Values from action creator",values);
+   const res = await axios.post("http://localhost:5000/api/subcategory",values);
+   dispatch({type: CREATE_SUBCATEGORY, payload: res.data});
+   //history.push("/admin/subcategores/subcategorieslist");s
+ }
+
+ export const fetchSubcategories = () => async (dispatch) => {
+    const res = await axios.get("http://localhost:5000/api/subcategory");
+    dispatch({ type: FETCH_SUBCATEGORIES, payload:res.data });
+ }
 
  //action creator for Questions Master
  export const addQuestion = (values) => {
    return( async (dispatch) => {
+      console.log("In questions action creator", values);
        const res = await axios.post("http://localhost:5000/api/questions", values);
+       console.log("Response from action creator:",res.data);
        dispatch({type: CREATE_QUESTION, payload: res.data});
    })
  }
@@ -102,6 +115,13 @@ export const submitVendorCategories = (values,history) => {
     window.location.href = '/'
    })
 }
+
+//util for fetching the category name
+export const fetchCategoriesName = () => async (dispatch) => {
+  const res= await axios.get("http://localhost:5000/api/categoryname");
+  console.log("Response from fetch categories name:", res.data);
+  dispatch({type: FETCH_CATEGORIES_NAME, payload: res.data});    
+ };
 
 
 

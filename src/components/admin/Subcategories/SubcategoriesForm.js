@@ -1,9 +1,16 @@
+//form to display the jsx for create and edit subcategory form
+
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import VendorField from "../../vendor/VendorField";
-import SubcategoriesMenu from "./SubcategoriesMenu";
+import {connect} from "react-redux";
+import { fetchCategoriesName } from "../../../actions";
 
-class SubcategoriesCreate extends React.Component {
+class SubcategoriesForm extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchCategoriesName();
+  }
 
     renderError(touched, error) {
       if (touched && error) {
@@ -15,31 +22,48 @@ class SubcategoriesCreate extends React.Component {
     }
 
     renderFields() {
+      
+      return(
       <div>
+      <div className= "form-group">
+        <label htmlFor="category" className= "font-weight-bold">Select a Category</label>
+        <Field
+          name= "category"          
+          className= "form-control"
+          component= "select" 
+         >
+          <option value= "">Select a category</option>   
+          console.log("Props from subcategoryForm",this.props);
+          {this.props.categoryName.length && this.props.categoryName[0].map(categoryval => {
+          
+           return <option key= {categoryval.name} value= {categoryval.name}> { categoryval.name} </option> 
+          }) 
+          }                           
+         </Field>
+         </div> 
+
           <Field
-            label= "Category"
-            name= "category"
-            component= "select"
-          />
-           <Field
-            label= "Subcategory"
-            type= "text"
-            name= "subcategory"
-            placeholder= "Enter a subcategory"
-            component= {VendorField}
-          />
-        </div>
-     }
+          label= "Subcategory"
+          type= "text"
+          name= "subcategory"
+          placeholder= "Enter a subcategory"
+          component= {VendorField} />            
+      </div>
+      );
+   }
+   
+   onSubmit = (formValues) => {
+      this.props.onSubmit(formValues);
+   }
 
     render() {       
             return (
              <div>
-             <SubcategoriesMenu />
-             <h1 className= "font-weight-bold card-header "> Add New Subcategory</h1> 
-             <div className= "container">
+            
+            <div className= "container">
              <div className= "card mt-2 mb-2" >
               <div className= "card-body">
-              <form>
+              <form onSubmit = { this.props.handleSubmit(this.onSubmit)}>
                 <div className= "row" >
                    <div className= "col">
                      {this.renderFields()}   
@@ -61,11 +85,23 @@ class SubcategoriesCreate extends React.Component {
 function validate(values) {
 
     const errors = {};
-
+    if(!values.categoryName) {
+       errors.categoryName= "Please select a category";
+    }
     if (!values.subcategories) {
-        values.errors = "Please enter a subcategory";
+        errors.subcategories = "Please enter a subcategory";
     }
 }
 
-export default reduxForm({ form: "subCategoriesCreate",
-                           validate })(SubcategoriesCreate);
+const mapStateToProps = (state) => {
+  console.log("state from map state subcategories form:",state);
+  return ( { categoryName: Object.values(state.util)}          
+  );
+}
+
+const formWrapped = reduxForm( {
+    form: "subcategoriesForm",
+    validate: validate 
+})(SubcategoriesForm);
+
+export default connect(mapStateToProps, {fetchCategoriesName})(formWrapped);

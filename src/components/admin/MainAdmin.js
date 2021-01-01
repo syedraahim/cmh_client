@@ -8,7 +8,7 @@ const MainAdmin = () =>
           <Link to= "/admin/categories/categoriesList">Categories</Link>
        </div>
       <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
-          <Link to= "/admin/subcategories/subcategoriescreate">Subcategories</Link>
+          <Link to= "/admin/subcategories/subcategorieslist">Subcategories</Link>
         </div>
         <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
           <Link to= "/admin/questions/questionscreate">Questions</Link>
