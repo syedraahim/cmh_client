@@ -79,13 +79,26 @@ export const deleteCategory =(id) => {
    console.log("Values from action creator",values);
    const res = await axios.post("http://localhost:5000/api/subcategory",values);
    dispatch({type: CREATE_SUBCATEGORY, payload: res.data});
-   //history.push("/admin/subcategores/subcategorieslist");s
+   history.push("/admin/subcategores/subcategorieslist");
  }
 
  export const fetchSubcategories = () => async (dispatch) => {
     const res = await axios.get("http://localhost:5000/api/subcategory");
     dispatch({ type: FETCH_SUBCATEGORIES, payload:res.data });
  }
+
+ export const fetchSubcategory = (id) => async (dispatch) => {
+    const res = await axios.delete(`http://localhost:5000/api/subcategory/${id}`);
+    dispatch({ type: FETCH_SUBCATEGORY, payload: res.data});
+ }
+
+export const deleteSubcategory = (id) => {
+    return( async (dispatch) => {
+    await axios.delete(`http://localhost:5000/api/subcategory/${id}`);
+    dispatch({type: DELETE_SUBCATEGORY, payload: id });
+    history.push("/admin/subcategories/subcategorieslist");
+  })
+}
 
  //action creator for Questions Master
  export const addQuestion = (values) => {

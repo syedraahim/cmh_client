@@ -40,7 +40,6 @@ class CategoriesDelete extends Component
    <div>
        <AdminMenu  
         addRoute= {this.addRoute()}
-
         />         
         <Modal 
             title= "Delete a Category"
@@ -55,8 +54,8 @@ class CategoriesDelete extends Component
 
 
 function mapStateToProps(state, ownProps) {
-   console.log("In state:",state.form);
-   return { category: state.categories[ownProps.match.params.id]};
+   console.log("State from mapState categories",ownProps);
+    return { category: state.categories[ownProps.match.params.id]};
 }
 
 const formWrapped = 

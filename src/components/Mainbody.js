@@ -1,39 +1,109 @@
 import React from "react";
+import {connect} from "react-redux";
+import {fetchCategories, fetchSubcategories} from "../actions";
+import {Field} from "redux-form";
+import VendorField from "./vendor/VendorField";
 
-function Mainbody()
-{
- return(
-<div>
-<section className="feature-class" id="features">
+class MainBody extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchCategories();
+    this.props.fetchSubcategories();
+  }
+
+  renderFields() {
+    return(
+    
+      this.props.category && this.props.category.map( categoryval => {       
+           return(            
+              <div className= "col col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
+                 {console.log("In return", categoryval.imgURL)}
+                <p>  {categoryval.name } </p> 
+                <img src= {categoryval.imgURL}></img>
+               {/* { this.props.subcategory && this.props.subcategory.map( subcategoryval => {
+                 if (categoryval.name === subcategoryval.category.name)
+                 {
+                return(
+                 <div className= "col col-lg-4 main-class" key= {subcategoryval._id}>
+                  <p> {subcategoryval.name}</p>
+                </div>
+                 )
+                 }
+               } )
+               } */}
+
+              </div>                                      
+           ) 
+        }) 
+    ) } 
+    
+   renderSucategories() {
+      console.log("From render subcategories",this.props);
+       return(
+         this.props.subcategory && this.props.subcategory.map( subcategoryval => {
+         return(
+              <div className= "col col-lg-4 main-class" key= {subcategoryval._id}>
+               <p> {subcategoryval.name}</p>
+            </div>
+           )
+         } )
+       )
+   }
+   
+ render()
+ {
+  return (
+  <div>
+ <section className="feature-class" id="features">
   <div className="container-fluid">
     <div className="row">
       <div className="features col-lg-4 col-md-3">
-        <h3> <i className="fab fa-hire-a-helper icon-class"></i></h3>
-        <h3 className="feature-header"> Get the best help</h3>
+       <h3> <i className="fab fa-hire-a-helper icon-class"></i></h3>
+         <h3 className="feature-header"> Get the best help</h3>
         <p className="feature-text">We will find the best helper for your needs</p>
-      </div>
-      <div className="col-lg-4 col-md-6">
-        <h3><i className="fas fa-money-bill-wave icon-class"></i></h3>
-        <h3 className="feature-header"> Find the best price</h3>
-        <p className="feature-text">Compare the price to find the most affordable helper</p>
-      </div>
-      <div className="col-lg-4 col-md-6">
-        <h3><i className="fab fa-gratipay icon-class"></i></h3>
-        <h3 className="feature-header"> Easy to use</h3>
+       </div>
+       <div className="col-lg-4 col-md-6">
+         <h3><i className="fas fa-money-bill-wave icon-class"></i></h3>
+         <h3 className="feature-header"> Find the best price</h3>
+         <p className="feature-text">Compare the price to find the most affordable helper</p>
+       </div>
+       <div className="col-lg-4 col-md-6">
+         <h3><i className="fab fa-gratipay icon-class"></i></h3>
+         <h3 className="feature-header"> Easy to use</h3>
         <p className ="feature-text">So easy to use that you will have your help sorted in minutes</p>
       </div>
     </div>
-    </div>
+     </div>   
   </section>
-  <section className ="testimonial-section">
-  <div className="row">
-    <div className="col">
-      <h1> We are here to provide the best help to you at the best price</h1>
-    </div>
-  </div>
-  </section>
+  
+  <section className= "content-section" >
+   <div className= "container-fluid">
+   <div className= "row content-header">
+       {this.renderFields()} 
+       {/* {this.renderSucategories()} */}
+   </div>   
+   </div>        
+  </section> 
+  
 
-</div>
+   <section className ="testimonial-section">
+   <div className="row">
+    <div className="col">
+       <h1> We are here to provide the best help to you at the best price</h1>
+     </div>
+   </div>
+   </section>
+   </div>
   )
 }
-export default Mainbody;
+
+}
+
+const mapStateToProps = (state) => {
+  console.log("State from Mainbody", state);
+  return ( { category: Object.values(state.categories)}
+            // ,{ subcategory: Object.values(state.subcategories)}     
+  );
+}
+
+export default connect(mapStateToProps, {fetchCategories, fetchSubcategories})(MainBody);

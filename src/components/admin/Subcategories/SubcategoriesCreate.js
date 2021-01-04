@@ -24,7 +24,7 @@ class SubcategoriesCreate extends React.Component {
              <AdminMenu 
                addRoute = {this.addRoute()}
              />
-             <h1 className= "font-weight-bold card-header "> Add New Subcategory</h1>             
+             <h1 className= "font-weight-bold card-header "> Add New Sub Category</h1>             
              <SubcategoriesForm
                onSubmit = {this.onSubmit}
               /> 

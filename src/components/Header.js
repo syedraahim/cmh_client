@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import logo from "../common/cmh_new.png";
+import logo from "./common/cmh_new.png";
 // import 'materialize-css/dist/css/materialize.min.css';
 
 class Header extends Component {
