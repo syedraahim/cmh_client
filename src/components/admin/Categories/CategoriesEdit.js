@@ -29,8 +29,9 @@ class CategoriesEdit extends Component
    <div>
      <AdminMenu addRoute= {this.addRoute()} />
      <h1 className="category-head font-weight-bold card-header" > Edit Categories </h1>
+    
      <CategoriesForm  
-        initialValues =  {_.pick(this.props.categories, "name", "imgURL")}
+        initialValues =  { _.pick(this.props.categories, "name", "imgURL")}
         onSubmit= {this.onSubmit} />
           
     </div>   

@@ -79,7 +79,7 @@ export const deleteCategory =(id) => {
    console.log("Values from action creator",values);
    const res = await axios.post("http://localhost:5000/api/subcategory",values);
    dispatch({type: CREATE_SUBCATEGORY, payload: res.data});
-   history.push("/admin/subcategores/subcategorieslist");
+   history.push("/admin/subcategories/subcategorieslist");
  }
 
  export const fetchSubcategories = () => async (dispatch) => {
@@ -88,8 +88,15 @@ export const deleteCategory =(id) => {
  }
 
  export const fetchSubcategory = (id) => async (dispatch) => {
-    const res = await axios.delete(`http://localhost:5000/api/subcategory/${id}`);
+    const res = await axios.get(`http://localhost:5000/api/subcategory/${id}`);
     dispatch({ type: FETCH_SUBCATEGORY, payload: res.data});
+ }
+
+ export const editSubcategory = (id, formValues) => async (dispatch) => {
+   console.log("Formvalues from edit subcategory",formValues);
+    const res = await axios.patch(`http://localhost:5000/api/subcategory/${id}`,formValues);
+    dispatch( { type: EDIT_SUBCATEGORY, payload: res.data});
+    history.push("/admin/subcategories/subcategorieslist");
  }
 
 export const deleteSubcategory = (id) => {

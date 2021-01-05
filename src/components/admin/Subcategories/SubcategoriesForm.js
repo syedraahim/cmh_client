@@ -45,9 +45,10 @@ class SubcategoriesForm extends React.Component {
           <Field
           label= "Subcategory"
           type= "text"
-          name= "subcategory"
+          name= "name"
           placeholder= "Enter a subcategory"
-          component= {VendorField} />            
+          component= {VendorField} >
+          </Field>            
       </div>
       );
    }
@@ -70,7 +71,7 @@ class SubcategoriesForm extends React.Component {
                   </div>
                 </div>
                 <div className= "d-flex justify-content-center mt-2 ">
-                  <button type="submit" className= "btn btn-primary font-weight-bold primary-button">Add</button>
+                  <button type="submit" className= "btn btn-primary font-weight-bold primary-button">Submit</button>
                 </div>
               </form>
               </div>
@@ -85,11 +86,11 @@ class SubcategoriesForm extends React.Component {
 function validate(values) {
 
     const errors = {};
-    if(!values.categoryName) {
-       errors.categoryName= "Please select a category";
+    if(!values.category) {
+       errors.category= "Please select a category";
     }
-    if (!values.subcategories) {
-        errors.subcategories = "Please enter a subcategory";
+    if (!values.subcategory) {
+        errors.subcategory = "Please enter a subcategory";
     }
 }
 

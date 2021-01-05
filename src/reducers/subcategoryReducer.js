@@ -15,8 +15,8 @@ export default (state = {}, action) => {
              return {...state, [action.payload.id] : action.payload}
          case FETCH_SUBCATEGORIES:
              return {...state, ..._.mapKeys(action.payload, '_id')}
-        //  case FETCH_SUBCATEGORY:
-        //      return {...state, [action.payload.id] : action.payload}
+         case FETCH_SUBCATEGORY:
+             return {...state, [action.payload.id] : action.payload}
          case DELETE_SUBCATEGORY:
              return _.omit( state, action.payload);
          default:

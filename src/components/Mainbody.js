@@ -1,54 +1,33 @@
 import React from "react";
 import {connect} from "react-redux";
 import {fetchCategories, fetchSubcategories} from "../actions";
-import {Field} from "redux-form";
+import ListSubcategories from "./utils/ListSubcategories";
 import VendorField from "./vendor/VendorField";
 
 class MainBody extends React.Component {
 
   componentDidMount() {
-    this.props.fetchCategories();
-    this.props.fetchSubcategories();
+    this.props.fetchCategories();   
   }
 
-  renderFields() {
-    return(
-    
+   renderFields() {
+     return(
+     
       this.props.category && this.props.category.map( categoryval => {       
            return(            
               <div className= "col col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
-                 {console.log("In return", categoryval.imgURL)}
-                <p>  {categoryval.name } </p> 
-                <img src= {categoryval.imgURL}></img>
-               {/* { this.props.subcategory && this.props.subcategory.map( subcategoryval => {
-                 if (categoryval.name === subcategoryval.category.name)
-                 {
-                return(
-                 <div className= "col col-lg-4 main-class" key= {subcategoryval._id}>
-                  <p> {subcategoryval.name}</p>
-                </div>
-                 )
-                 }
-               } )
-               } */}
-
+                  <p>  {categoryval.name } </p> 
+                 <img src= {categoryval.imgURL}></img> 
+                 
+                 <ListSubcategories 
+                   categoryValue = {categoryval.name} />                
+               
               </div>                                      
            ) 
         }) 
     ) } 
     
-   renderSucategories() {
-      console.log("From render subcategories",this.props);
-       return(
-         this.props.subcategory && this.props.subcategory.map( subcategoryval => {
-         return(
-              <div className= "col col-lg-4 main-class" key= {subcategoryval._id}>
-               <p> {subcategoryval.name}</p>
-            </div>
-           )
-         } )
-       )
-   }
+   
    
  render()
  {
@@ -80,7 +59,7 @@ class MainBody extends React.Component {
    <div className= "container-fluid">
    <div className= "row content-header">
        {this.renderFields()} 
-       {/* {this.renderSucategories()} */}
+    
    </div>   
    </div>        
   </section> 
@@ -100,9 +79,7 @@ class MainBody extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("State from Mainbody", state);
-  return ( { category: Object.values(state.categories)}
-            // ,{ subcategory: Object.values(state.subcategories)}     
+   return ( { category: Object.values(state.categories)}        
   );
 }
 

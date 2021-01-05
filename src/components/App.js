@@ -20,7 +20,6 @@ import Vendor from "./admin/Vendor";
 import VendorNew from "./vendor/VendorNew";
 import VendorCategories from "./admin/VendorCategories";
 import Vendorsign from "./vendor/Vendorsign";
-import SearchBar from "../utils/searchBar";
 import Header from "./Header";
 import Footer from "./Footer";
 import Login from "./login/Login";
@@ -44,11 +43,11 @@ class App extends Component {
        <Route path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
        <Route path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
        <Route path= "/admin/categories/categoriesedit/:id" exact component= {CategoriesEdit} />
-       <Route path= "/admin/categories/categoriesdelete/:id" exact component= {CategoriesDelete} />
+       <Route path= "/admin/categories/categoriesdelete/:id" component= {CategoriesDelete} />
        <Route path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
        <Route path= "/admin/subcategories/subcategorieslist" exact component= {SubcategoriesList} />
-       <Route path= "/admin/subcategories/subcategoriesdelete"  exact component= {SubcategoriesDelete} />
-       <Route path= "/admin/subcategories/subcategoriesedit" exact component= {SubcategoriesEdit} />
+       <Route path= "/admin/subcategories/subcategoriesdelete/:id"   component= {SubcategoriesDelete} />
+       <Route path= "/admin/subcategories/subcategoriesedit/:id"  component= {SubcategoriesEdit} />
        <Route path= "/admin/questions/questionscreate" exact component= {QuestionsCreate} />
        <Route path= "/admin/categoryquestions" exact component= {SubcategoryQuestions} />
        <Route path= "/admin/vendor" exact component= {Vendor} />

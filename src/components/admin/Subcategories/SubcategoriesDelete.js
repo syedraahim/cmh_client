@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -7,9 +7,10 @@ import { fetchSubcategory, deleteSubcategory} from "../../../actions";
 import Modal from "../../Modal";
 import history from "../../../history";
 
-class SubcategoriesDelete extends React.Component {
+class SubcategoriesDelete extends Component {
    
       componentDidMount() {
+         console.log("Props from CDM:", this.props);
          this.props.fetchSubcategory(this.props.match.params.id);
       }
 
@@ -29,7 +30,7 @@ class SubcategoriesDelete extends React.Component {
      renderActions() {
         return (
              <React.Fragment>
-             <button onClick= { () => this.props.deleteSubcategory(this.props.match.params.id)} type="submit" className=" btn btn-danger primary-button mr-3">Yes</button>
+              <button onClick= { () => this.props.deleteSubcategory(this.props.match.params.id)} type="submit" className=" btn btn-danger primary-button mr-3">Yes</button> 
              <Link to= "/admin/subcategories/subcategoriesList" type="button" className= "btn btn-secondary primary-button">No</Link>
              </React.Fragment>
             );
@@ -50,7 +51,7 @@ class SubcategoriesDelete extends React.Component {
             title= "Delete a SubCategory"
             content= {this.renderContent()}
             actions= {this.renderActions()}
-            onDismiss = {() => history.push("/admin/categories/categorieslist") }
+            onDismiss = {() => history.push("/admin/subcategories/subcategorieslist") }
          /> 
          </div>
         )

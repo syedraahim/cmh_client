@@ -20,7 +20,7 @@ class SubcategoriesList extends React.Component {
     return (
         this.props.subcategories.map( subcategory => {
 
-        if (subcategory.name)  {
+        { if (subcategory.name)  
             return (
 
                 <div className= "row" key= {subcategory._id}>
@@ -34,8 +34,7 @@ class SubcategoriesList extends React.Component {
                
                   <div className= "col-md-4 mb-1">
                       <Link to= {`/admin/subcategories/subcategoriesedit/${subcategory._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
-                       {/* <Link to= "/admin/subcategories/subcategoriesdelete"  className= "btn btn-danger mr-1 primary-button"> Delete </Link>  */}
-                        <Link to= {`/admin/subcategories/subcategoriesdelete/${subcategory._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>   
+                      <Link to= { `/admin/subcategories/subcategoriesdelete/${subcategory._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
                    </div>
                  </div>
                  )
@@ -74,7 +73,7 @@ render() {
 }
 
 const mapStateToProps = (state) => {
-   console.log("From mapstate in subcategory",state);
+   console.log("From mapstate in subcategory list",state);
    return {subcategories: Object.values(state.subcategories)  }
 }
 
