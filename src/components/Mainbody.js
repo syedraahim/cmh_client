@@ -4,6 +4,7 @@ import {fetchCategories, fetchSubcategories} from "../actions";
 import ListSubcategories from "./utils/ListSubcategories";
 import VendorField from "./vendor/VendorField";
 
+
 class MainBody extends React.Component {
 
   componentDidMount() {
@@ -15,10 +16,9 @@ class MainBody extends React.Component {
      
       this.props.category && this.props.category.map( categoryval => {       
            return(            
-              <div className= "col col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
-                  <p>  {categoryval.name } </p> 
-                 <img src= {categoryval.imgURL}></img> 
-                 
+              <div className= "col col-eq-height col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
+                  <p className = "text-dark">  {categoryval.name } </p> 
+                 <img src= {categoryval.imgURL}></img>                  
                  <ListSubcategories 
                    categoryValue = {categoryval.name} />                
                
@@ -57,7 +57,7 @@ class MainBody extends React.Component {
   
   <section className= "content-section" >
    <div className= "container-fluid">
-   <div className= "row content-header">
+   <div className= "row row-eq-height content-header">
        {this.renderFields()} 
     
    </div>   

@@ -16,11 +16,12 @@ class SubcategoriesList extends React.Component {
  }
 
  renderList() {
-
+    console.log("From this.props.renderlist", this.props.subcategories); 
     return (
+      
         this.props.subcategories.map( subcategory => {
 
-        { if (subcategory.name)  
+        { if (subcategory._id)  
             return (
 
                 <div className= "row" key= {subcategory._id}>

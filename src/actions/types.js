@@ -17,7 +17,11 @@ export const EDIT_SUBCATEGORY = "EDIT_SUBCATEGORY";
 export const DELETE_SUBCATEGORY = "DELETE_SUBCATEGORY";
 
 //create types for questions master
-export const CREATE_QUESTION = "CREATE-QUESTION";
+export const CREATE_QUESTION = "CREATE_QUESTION";
+export const FETCH_QUESTIONS = "FETCH_QUESTIONS";
+export const FETCH_QUESTION =  "FETCH_QUESTION";
+export const EDIT_QUESTION = "EDIT_QUESTION";
+export const DELETE_QUESTION = "DELETE_QUESTION";
 
 //create types for utils
 export const FETCH_CATEGORIES_NAME= "FETCH_CATEGORIES_NAME";

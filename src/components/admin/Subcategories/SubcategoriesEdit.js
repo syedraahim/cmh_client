@@ -25,8 +25,7 @@ class SubcategoriesEdit extends Component
      }
      
     render() {
-        console.log("In subcategories edit");
-        
+                
         return (
             <div>
              
@@ -34,7 +33,7 @@ class SubcategoriesEdit extends Component
                 addRoute = {this.addRoute()}
               />
               <h1 className="category-head font-weight-bold card-header" > Edit Sub Categories </h1>
-              {console.log("state", this.props)}
+              {console.log("state", this.props.category)}
               <SubcategoriesForm
                 initialValues = { this.props.category, this.props.subcategory}
                 onSubmit= {this.onSubmit }

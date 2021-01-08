@@ -12,5 +12,5 @@ export default combineReducers(
                 categories: categoryReducer,
                 subcategories: subcategoryReducer,
                 util: utilReducer,
-                question: questionReducer
+                questions: questionReducer
                });

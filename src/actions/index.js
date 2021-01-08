@@ -17,7 +17,8 @@ import {FETCH_USER,
         FETCH_SUBCATEGORY,
         EDIT_SUBCATEGORY,
         DELETE_SUBCATEGORY,
-        CREATE_QUESTION  
+        CREATE_QUESTION,  
+        FETCH_QUESTIONS
       } from "./types";
 
 export const fetchDistance = () =>
@@ -112,10 +113,19 @@ export const deleteSubcategory = (id) => {
    return( async (dispatch) => {
       console.log("In questions action creator", values);
        const res = await axios.post("http://localhost:5000/api/questions", values);
-       console.log("Response from action creator:",res.data);
+       console.log("Response from questions action creator:",res.data);
        dispatch({type: CREATE_QUESTION, payload: res.data});
+       history.push("/admin/questions/questionslist");
    })
  }
+
+ export const fetchQuestions = () => {
+   return (async (dispatch) => {
+     const res = await axios.get("http://localhost:5000/api/questions");
+     dispatch({ type: FETCH_QUESTIONS, payload: res.data})
+   })
+ }
+ 
 
 //action creator for Vendors
 export const submitVendor = (values, history) => {

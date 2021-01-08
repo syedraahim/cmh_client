@@ -5,6 +5,7 @@ import { Field, reduxForm } from "redux-form";
 import VendorField from "../../vendor/VendorField";
 import {connect} from "react-redux";
 import { fetchCategoriesName } from "../../../actions";
+import RenderSelect from "../../utils/RenderSelect";
 
 class SubcategoriesForm extends React.Component {
 
@@ -21,6 +22,23 @@ class SubcategoriesForm extends React.Component {
         )}   
     }
 
+    renderSelection( {input, meta },categoryName) {
+      return(
+      <div className= "form-group">
+        <label htmlFor="category" className= "font-weight-bold">Select a Category</label>          
+               
+         <select className= "form-control"  {...input}>
+          <option value= "">Select a category</option>   
+          console.log("Props from subcategoryForm",categoryName);
+          {categoryName.length && categoryName[0].map(categoryval =>
+          {
+          <option key= {categoryval.name} value= {categoryval.name}> { categoryval.name} </option> 
+          })}
+         </select>
+          {meta.touched && meta.error && <span>{meta.error}</span>}
+       </div> 
+      )
+     }
     renderFields() {
       
       return(
@@ -41,7 +59,7 @@ class SubcategoriesForm extends React.Component {
           }                           
          </Field>
          </div> 
-
+       
           <Field
           label= "Subcategory"
           type= "text"
@@ -50,6 +68,7 @@ class SubcategoriesForm extends React.Component {
           component= {VendorField} >
           </Field>            
       </div>
+      
       );
    }
    
@@ -89,9 +108,11 @@ function validate(values) {
     if(!values.category) {
        errors.category= "Please select a category";
     }
-    if (!values.subcategory) {
-        errors.subcategory = "Please enter a subcategory";
+    if (!values.name) {
+        errors.name = "Please enter a subcategory";
     }
+
+    return errors;
 }
 
 const mapStateToProps = (state) => {
@@ -102,7 +123,7 @@ const mapStateToProps = (state) => {
 
 const formWrapped = reduxForm( {
     form: "subcategoriesForm",
-    validate: validate 
+    validate
 })(SubcategoriesForm);
 
 export default connect(mapStateToProps, {fetchCategoriesName})(formWrapped);

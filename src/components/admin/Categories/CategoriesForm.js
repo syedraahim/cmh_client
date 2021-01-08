@@ -34,7 +34,7 @@ renderError({touched, error}) {
      </div>
     ) }
     
-    onSubmit = (formValues) => {
+    onSubmit = (formValues) => {       
         this.props.onSubmit(formValues);
     }
     
@@ -62,18 +62,18 @@ renderError({touched, error}) {
 }
 }
 
-function validate(values) 
-{
-   console.log("values error not showing:",values);
+const validate = (formValues) =>
+{    
+   console.log("values error not showing:",formValues);
    const errors = {};
 
-   if (!values.name) {
+   if (!formValues.name) {
       errors.name = "Please enter the category";
    }
-   if (!values.imgURL) {
+   if (!formValues.imgURL) {
       errors.imgURL = "Please enter the image link";
    }
-  
+   return errors;
 }
 
 export default  reduxForm({

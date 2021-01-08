@@ -11,11 +11,8 @@ class ListSubcategories extends Component {
       }
 
       renderSubcategories() {
-        console.log("From render subcategories",this.props);
          return(
            this.props.subcategory && this.props.subcategory.map( subcategoryval => {
-             console.log("In subcat val", subcategoryval.category.name);
-             console.log("In subcat category val", this.props);
              if (subcategoryval.category.name === this.props.categoryValue) {
              return(
                 <div className= "col col-lg-6 " key= {subcategoryval._id}>
@@ -35,9 +32,7 @@ class ListSubcategories extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("State from list subcategories", state);
-    console.log("Object value from listSubcategories:", Object.values(state.subcategories));
-    return { subcategory: Object.values(state.subcategories)}  
+   return { subcategory: Object.values(state.subcategories)}  
   }
 
 export default connect(mapStateToProps, {fetchSubcategories})(ListSubcategories);

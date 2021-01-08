@@ -3,7 +3,7 @@ import React from "react";
 
 const VendorField =  ({input, label,meta}) =>
 {
-
+ console.log("meta", meta);
 return (
     <div>
        <div className="form-group mb-0 first-class">

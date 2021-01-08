@@ -11,9 +11,7 @@ addRoute() {
     return("/admin/questions/questionscreate");
 }
 
-
 onSubmit = (formValues) => {
-        console.log("in submit form for questions",formValues);
         this.props.addQuestion(formValues);
     }
 
@@ -23,8 +21,7 @@ onSubmit = (formValues) => {
         <AdminMenu
           addRoute= {this.addRoute}
          />         
-         <h1 className= "category-head font-weight-bold card-header">Questions Master</h1>  
-         <QuestionsForm
+          <QuestionsForm
              onSubmit = {this.onSubmit}
            />        
         </div>
@@ -33,7 +30,6 @@ onSubmit = (formValues) => {
 }  
 
 function mapStateToProps(state) {
-    console.log("value of state from mapstate in question create", state.form.questionsForm);
     return { formValues: state.form.questionsForm}
 }
 
