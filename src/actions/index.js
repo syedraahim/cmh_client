@@ -18,7 +18,10 @@ import {FETCH_USER,
         EDIT_SUBCATEGORY,
         DELETE_SUBCATEGORY,
         CREATE_QUESTION,  
-        FETCH_QUESTIONS
+        FETCH_QUESTIONS,
+        FETCH_QUESTION,
+        DELETE_QUESTION,
+        EDIT_QUESTION
       } from "./types";
 
 export const fetchDistance = () =>
@@ -69,7 +72,7 @@ export const fetchCategory = (id) => {
 
 export const deleteCategory =(id) => {
   return( async (dispatch) => {
-  await axios.delete(`http://localhost:5000/api/category/${id}`);  
+  await axios.delete(`http://localhost:5000/api/category/${id}`); 
   dispatch({type: DELETE_CATEGORY, payload: id});
   history.push("/admin/categories/categorieslist");
   });
@@ -123,6 +126,30 @@ export const deleteSubcategory = (id) => {
    return (async (dispatch) => {
      const res = await axios.get("http://localhost:5000/api/questions");
      dispatch({ type: FETCH_QUESTIONS, payload: res.data})
+   })
+ }
+
+ export const fetchQuestion = (id) => {
+   return( async (disptach) => {
+     const res= await axios.get(`http://localhost:5000/api/questions/${id}`) ;
+     disptach({ type: FETCH_QUESTION, payload: res.data})
+   })
+ }
+
+ export const editQuestion = (id,formValues) => {
+   return( async (dispatch) => {
+     const res= await axios.patch(`http://localhost:5000/api/questions/${id}`,formValues);
+     dispatch({ type: EDIT_QUESTION, payload: res.data});
+     history.push("/admin/questions/questionslist");
+   })
+ }
+
+ export const deleteQuestion = (id) => {
+   return( async (dispatch) => {
+     const res= await axios.delete(`http://localhost:5000/api/questions/${id}`);
+     console.log("Response from delete question:",res.data);
+     dispatch({ type: DELETE_QUESTION, payload: res.data});
+     history.push("/admin/questions/questionslist");
    })
  }
  

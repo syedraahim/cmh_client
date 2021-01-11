@@ -12,11 +12,13 @@ export default (state = {}, action) => {
      switch (action.type) {
          case CREATE_SUBCATEGORY:
              console.log("Action values from reducer 2:",state);
-             return {...state, [action.payload.id] : action.payload}
+             return {...state, [action.payload.id] : action.payload};
          case FETCH_SUBCATEGORIES:
-             return {...state, ..._.mapKeys(action.payload, '_id')}
+             return {...state, ..._.mapKeys(action.payload, '_id')};
          case FETCH_SUBCATEGORY:
-             return {...state, [action.payload.id] : action.payload}
+             return {...state, [action.payload.id] : action.payload};
+        case EDIT_SUBCATEGORY :          
+            return {...state, [action.payload.id] : action.payload};
          case DELETE_SUBCATEGORY:
              return _.omit( state, action.payload);
          default:

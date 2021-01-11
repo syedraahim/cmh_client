@@ -20,8 +20,7 @@ class CategoriesEdit extends Component
   }
     
   render() { 
-   console.log("From edit component",this.props);
-   if (!this.props.categories)  {
+     if (!this.props.categories)  {
       return (
          <div>Loading....</div>
     )} ;

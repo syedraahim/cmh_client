@@ -50,7 +50,7 @@ class SubcategoriesForm extends React.Component {
           className= "form-control"
           component= "select" 
          >
-          <option value= "">Select a category</option>   
+          <option value= "">Select a Category</option>   
           console.log("Props from subcategoryForm",this.props);
           {this.props.categoryName.length && this.props.categoryName[0].map(categoryval => {
           

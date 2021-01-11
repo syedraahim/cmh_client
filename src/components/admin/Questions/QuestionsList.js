@@ -18,17 +18,17 @@ class QuestionsList extends Component
 
     renderList() {
         return (
-           this.props.questions.map( questionVal => {
+           this.props.questions && this.props.questions.map( questionVal => {
         return( 
            <div className= "card-body question"  key= {questionVal._id}>            
             <div className= "text-left question" >
                {questionVal.question}
             </div>
             <div className= "text-right question mr-2" > 
-             {questionVal.options.map( optionVal => 
+             {questionVal.options && questionVal.options.map( optionVal => 
              {
               return(                             
-                 <p>{optionVal}</p>             
+                 <p key= {optionVal} >{optionVal}</p>             
               )
              })
             }

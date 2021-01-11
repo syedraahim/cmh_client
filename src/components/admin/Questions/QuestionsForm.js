@@ -21,16 +21,15 @@ renderOptions = ({fields}) => (
       <li>
            <button className= " btn btn-primary mt-3 mb-2" type="button" onClick= {() => fields.push()}>
              Add Option 
-           </button>
-         
-       </li>
+           </button>         
+      </li>
         { fields.map( (option, index) => (     
         <li key= {index}>                                 
          
-         <button className="btn btn-danger btn-lg float-right delete-button mt-2 ml-0" type="button"
+         <button className="btn btn-danger float-right fa fa-trash-o  delete-button" type="button"
                       title= "Remove option"
-                      onClick = {() => fields.remove(index)} > X
-                </button> 
+                      onClick = {() => fields.remove(index)} > 
+          </button> 
          <div className= "row form-group"> 
            <div className= "col col-md-12 mt-0">
                  <Field

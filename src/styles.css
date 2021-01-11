@@ -37,7 +37,7 @@ h1,h2,h3,h4,h5,h6 {
     max-width:100%;
   }
   .main-class {
-    background-color: #d9faff;
+    background-color:#EAD6CD;
     min-height: 100px;
     border:30px solid; 
     color:#e8e8e8;
@@ -164,6 +164,12 @@ h1,h2,h3,h4,h5,h6 {
   width:600px;
 }
 
+.question-center {
+  margin: 0 auto; 
+  background-color: #dddddd;
+  width: 900px;
+}
+
 .vendor {
   list-style-type: none;
 }
@@ -201,6 +207,8 @@ h1,h2,h3,h4,h5,h6 {
    background-color: #f8f1f1;
    margin: 20px 20px;
 }
+
+
 
 .category {
   font-size: 20px;
@@ -261,6 +269,11 @@ h1,h2,h3,h4,h5,h6 {
   height: 37px;  
 }
 
+.question-button {
+  width: 150px;
+  height:37px;
+}
+
 .list-items {
   list-style-type: none;
   padding:0;
@@ -268,8 +281,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 .delete-button {
   font-size:20px;
-  display: inline-block;
-  font-weight: bold;
-  content: '\F1F8';
-  margin-left: -2%;
+  margin-top: 30px !important;
+  margin-left: -15px;
 }
+
+
