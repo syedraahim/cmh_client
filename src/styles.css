@@ -2,12 +2,20 @@
 html,
 body {
   font-family:Montserrat;
+  font-size: 16px;
   text-align: center;
   height: 100%;
   }
 h1,h2,h3,h4,h5,h6 {
   font-family:Montserrat;
   text-align: center;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 }
 /* Header section */
 .header-section {
@@ -42,6 +50,7 @@ h1,h2,h3,h4,h5,h6 {
     border:30px solid; 
     color:#e8e8e8;
     font-size: large;
+    padding-bottom: 10px;
    }
 
   .footer-area {
@@ -81,8 +90,8 @@ h1,h2,h3,h4,h5,h6 {
     bottom: 0;
     }
   .category-img {
-    height:100px;
-    width:100px;
+    height:100px !important;
+    width:100px !important;
   }
   /* testimonial-section */
   .testimonial-section{
@@ -283,6 +292,18 @@ h1,h2,h3,h4,h5,h6 {
   font-size:20px;
   margin-top: 30px !important;
   margin-left: -15px;
+}
+
+.question-delete {
+  
+   margin-left: -15px;
+}
+
+#modal {
+  position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
 }
 
 

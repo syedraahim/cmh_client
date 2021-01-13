@@ -12,6 +12,8 @@ import {FETCH_USER,
         EDIT_CATEGORY,
         DELETE_CATEGORY,
         FETCH_CATEGORIES_NAME,
+        FETCH_SUBCATEGORIES_NAME,
+        FETCH_QUESTIONS_NAME,
         CREATE_SUBCATEGORY,
         FETCH_SUBCATEGORIES,
         FETCH_SUBCATEGORY,
@@ -21,7 +23,12 @@ import {FETCH_USER,
         FETCH_QUESTIONS,
         FETCH_QUESTION,
         DELETE_QUESTION,
-        EDIT_QUESTION
+        EDIT_QUESTION,
+        CREATE_SUBCAT_QUESTION,
+        FETCH_SUBCAT_QUESTIONS,
+        FETCH_SUBCAT_QUESTION,
+        EDIT_SUBCAT_QUESTION,
+        DELETE_SUBCAT_QUESTION
       } from "./types";
 
 export const fetchDistance = () =>
@@ -80,7 +87,6 @@ export const deleteCategory =(id) => {
 
  //action creator for Subcategory Master
  export const addSubcategory = (values) => async (dispatch) => {
-   console.log("Values from action creator",values);
    const res = await axios.post("http://localhost:5000/api/subcategory",values);
    dispatch({type: CREATE_SUBCATEGORY, payload: res.data});
    history.push("/admin/subcategories/subcategorieslist");
@@ -116,7 +122,6 @@ export const deleteSubcategory = (id) => {
    return( async (dispatch) => {
       console.log("In questions action creator", values);
        const res = await axios.post("http://localhost:5000/api/questions", values);
-       console.log("Response from questions action creator:",res.data);
        dispatch({type: CREATE_QUESTION, payload: res.data});
        history.push("/admin/questions/questionslist");
    })
@@ -152,6 +157,42 @@ export const deleteSubcategory = (id) => {
      history.push("/admin/questions/questionslist");
    })
  }
+
+ //action creator for subcategory questions
+ export const addSubcatQuestion = (values) => {
+     return( async (dispatch) => {
+     const res= await axios.post("http://localhost:5000/api/subcatquestion",values);
+     dispatch({type: CREATE_SUBCAT_QUESTION, payload: res.data })
+   })
+ }
+
+ export const fetchSubcatQuestions = () => {
+   return( async (dispatch) => {
+   const res= await axios.get("http://localhost:5000/api/subcatquestion");
+   dispatch({ type: FETCH_SUBCAT_QUESTIONS, payload: res.data})
+   });
+ }
+
+ export const fetchSubcatQuestion = (id) => {
+   return( async (dispatch) => {
+   const res= await axios.get(`http://localhost:5000/api/subcatquestion/${id}`);
+   dispatch({ type: FETCH_SUBCAT_QUESTION, payload: res.data})
+   });
+ }
+
+ export const editSubcatQuestion = (id,formValues) => {
+   return( async (dispatch) => {
+   const res = await axios.patch(`http://localhost:5000/api/subcatquestion/${id}`,formValues) ;
+   dispatch({ type: EDIT_SUBCAT_QUESTION, payload: res.data}) 
+   })
+ }
+
+ export const deleteSubcatQuestion = (id) => {
+   return (async (dispatch) => {
+   const res = await axios.delete(`http://localhost:5000/api/subcatquestion/${id}`);
+   dispatch( { type: DELETE_SUBCAT_QUESTION, payload: res.data })  
+   });
+ }
  
 
 //action creator for Vendors
@@ -173,13 +214,23 @@ export const submitVendorCategories = (values,history) => {
    })
 }
 
-//util for fetching the category name
+//util for fetching the list of category names
 export const fetchCategoriesName = () => async (dispatch) => {
-  const res= await axios.get("http://localhost:5000/api/categoryname");
-  console.log("Response from fetch categories name:", res.data);
+  const res= await axios.get("http://localhost:5000/api/categoryname");  
   dispatch({type: FETCH_CATEGORIES_NAME, payload: res.data});    
  };
 
+//util for fetching the list of subcategory names
+ export const fetchSubcategoriesName = () => async (dispatch) => {  
+   const res= await axios.get("http://localhost:5000/api/subcategoryname");
+   console.log("Response from fetch subcategories name:", res.data);
+   dispatch( {type: FETCH_SUBCATEGORIES_NAME, payload: res.data});
+ }
 
+ //util for fetching the list of questions
+ export const fetchQuestionsName = () => async (dispatch) => {
+   const res= await axios.get("http://localhost:5000/api/questionname");
+   dispatch( {type: FETCH_QUESTIONS_NAME, payload: res.data});
+ }
 
 

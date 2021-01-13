@@ -18,7 +18,7 @@ import QuestionsCreate from "./admin/Questions/QuestionsCreate";
 import QuestionsList from "./admin/Questions/QuestionsList";
 import QuestionsEdit from "./admin/Questions/QuestionsEdit";
 import QuestionsDelete from "./admin/Questions/QuestionsDelete";
-import SubcategoryQuestionsCreate from "./admin/SubcategoryQuestions/SubcategoryQuestionsCreate";
+import SubcategoryQuestionsCreate from "./admin/SubcategoryQuestions/SubcategoryQuestionsForm";
 import Vendor from "./admin/Vendor";
 import VendorNew from "./vendor/VendorNew";
 import VendorCategories from "./admin/VendorCategories";

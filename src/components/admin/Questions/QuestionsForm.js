@@ -67,7 +67,7 @@ renderOptions = ({fields}) => (
        return (             
         <div>        
          <section className= "vendor-center mb-2">
-         <h1 className= "card-header">Questions Master</h1>  
+       
          <div className= "card">
          <div className= "card-body">               
            <form onSubmit=  {this.props.handleSubmit(this.onSubmit)}>

@@ -8,6 +8,7 @@ import QuestionsForm from "./QuestionsForm";
 class QuestionsEdit extends Component {
 
     componentDidMount() {
+        console.log("props in edit subcate", this.props);
         this.props.fetchQuestion(this.props.match.params.id);
     }
 
@@ -16,10 +17,12 @@ class QuestionsEdit extends Component {
        } 
 
     onSubmit = (formValues) => {
+        console.log("Form values from question edit",formValues);
         this.props.editQuestion(this.props.match.params.id,formValues);
     }
 
     render() {
+        
         if (!this.props.questions)  {
             return (
                <div>Loading....</div>
@@ -29,7 +32,7 @@ class QuestionsEdit extends Component {
            <AdminMenu 
              addRoute= {this.addRoute()}
            />
-           <h1>Edit Question</h1>
+           <h1 className="category-head font-weight-bold card-header">Edit Question</h1>
 
        <QuestionsForm  
         initialValues =  { _.pick(this.props.questions, "question", "options")}

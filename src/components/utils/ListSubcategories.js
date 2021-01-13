@@ -15,7 +15,7 @@ class ListSubcategories extends Component {
            this.props.subcategory && this.props.subcategory.map( subcategoryval => {
              if (subcategoryval.category.name === this.props.categoryValue) {
              return(
-                <div className= "col col-lg-6 " key= {subcategoryval._id}>
+                <div  key= {subcategoryval._id}>
                  <Link to= {subcategoryval.name} >{subcategoryval.name} </Link>
               </div>
              ) }

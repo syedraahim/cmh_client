@@ -17,11 +17,17 @@ class MainBody extends React.Component {
       this.props.category && this.props.category.map( categoryval => {       
            return(            
               <div className= "col col-eq-height col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
-                  <p className = "text-dark">  {categoryval.name } </p> 
-                 <img src= {categoryval.imgURL}></img>                  
-                 <ListSubcategories 
+                
+                  <p className = "float-bottom text-dark ">  {categoryval.name } </p> 
+                  <div className= "float-right mr-2">              
+                  <ListSubcategories 
                    categoryValue = {categoryval.name} />                
-               
+                 </div>
+                
+                 <div className= "float-left">
+                 <img className= "category-img" href={categoryval.imgURL} src= {categoryval.imgURL}></img> 
+                 </div>   
+                  
               </div>                                      
            ) 
         }) 

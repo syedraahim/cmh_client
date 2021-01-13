@@ -28,12 +28,13 @@ class SubcategoriesForm extends React.Component {
         <label htmlFor="category" className= "font-weight-bold">Select a Category</label>          
                
          <select className= "form-control"  {...input}>
-          <option value= "">Select a category</option>   
-          console.log("Props from subcategoryForm",categoryName);
+          <option value= "">Select a Category</option>   
+         
           {categoryName.length && categoryName[0].map(categoryval =>
           {
           <option key= {categoryval.name} value= {categoryval.name}> { categoryval.name} </option> 
-          })}
+          }
+          )}
          </select>
           {meta.touched && meta.error && <span>{meta.error}</span>}
        </div> 
@@ -49,13 +50,15 @@ class SubcategoriesForm extends React.Component {
           name= "category"          
           className= "form-control"
           component= "select" 
+          defaultValue={this.props.initialValues ? this.props.initialValues.category.name : ''}
          >
-          <option value= "">Select a Category</option>   
-          console.log("Props from subcategoryForm",this.props);
-          {this.props.categoryName.length && this.props.categoryName[0].map(categoryval => {
+          {/* { console.log("Edit subcate initialValues", this.props.initialValues.category.name) }  */}
+         <option value= "">{this.props.initialValues.category.name && this.props.initialValues.category.name ? this.props.initialValues.category.name :'Select a Category'}</option>      
           
-           return <option key= {categoryval.name} value= {categoryval.name}> { categoryval.name} </option> 
-          }) 
+          {this.props.categoryName[0].length && this.props.categoryName[0].map(categoryval => {
+            if (this.props.initialValues && this.props.initialValues.category.name != categoryval.name)
+               return <option key={categoryval.name} value={categoryval.name}> {categoryval.name} </option>
+           }) 
           }                           
          </Field>
          </div> 
@@ -90,7 +93,7 @@ class SubcategoriesForm extends React.Component {
                   </div>
                 </div>
                 <div className= "d-flex justify-content-center mt-2 ">
-                  <button type="submit" className= "btn btn-primary font-weight-bold primary-button">Submit</button>
+                  <button type="submit" className= "btn btn-primary font-weight-bold ">Submit</button>
                 </div>
               </form>
               </div>
@@ -116,7 +119,7 @@ function validate(values) {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state from map state subcategories form:",state);
+  // console.log("state from map state subcategories form:",state);
   return ( { categoryName: Object.values(state.util)}          
   );
 }

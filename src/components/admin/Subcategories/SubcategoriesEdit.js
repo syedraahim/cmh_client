@@ -11,8 +11,7 @@ class SubcategoriesEdit extends Component
 
     componentDidMount() {
         console.log("From Subcategories edit  cdm initial values", this.props.subcategory.category.name);
-        this.props.fetchSubcategory(this.props.match.params.id);
-        
+        this.props.fetchSubcategory(this.props.match.params.id);        
     }
 
     addRoute() {
@@ -25,10 +24,13 @@ class SubcategoriesEdit extends Component
      }
      
     render() {
-       if (!this.props.subcategories)  {
+      {console.log("props from subcat edit", this.props)}
+       if (!this.props.subcategory)  {
+        
         return (
            <div>Loading....</div>
-        )} ;        
+        )} ; 
+
         return (
             <div>
              

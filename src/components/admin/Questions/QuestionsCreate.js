@@ -20,7 +20,8 @@ onSubmit = (formValues) => {
         <div>
         <AdminMenu
           addRoute= {this.addRoute}
-         />         
+         /> 
+           <h1 className="category-head font-weight-bold card-header">Add Questions </h1>          
           <QuestionsForm
              onSubmit = {this.onSubmit}
            />        
