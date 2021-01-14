@@ -22,13 +22,13 @@ class QuestionsList extends Component
         return( 
            <div className= "card-body question"  key= {questionVal._id}>            
             <div className= "text-left question" >
-               {questionVal.question}
+             <p key= {questionVal._id}>  {questionVal.question}</p>  
             </div>
             <div className= "text-right question mr-2" > 
              {questionVal.options && questionVal.options.map( optionVal => 
              {
               return(                             
-                 <p key= {optionVal} >{optionVal}</p>             
+                 <p key= {questionVal._id} >{optionVal}</p>             
               )
              })
             }

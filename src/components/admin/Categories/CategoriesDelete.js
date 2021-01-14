@@ -54,7 +54,6 @@ class CategoriesDelete extends Component
 
 
 function mapStateToProps(state, ownProps) {
-   console.log("State from mapState categories",ownProps);
     return { category: state.categories[ownProps.match.params.id]};
 }
 

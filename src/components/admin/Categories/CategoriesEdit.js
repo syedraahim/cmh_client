@@ -27,7 +27,7 @@ class CategoriesEdit extends Component
    return(
    <div>
      <AdminMenu addRoute= {this.addRoute()} />
-     <h1 className="category-head font-weight-bold card-header" > Edit Categories </h1>
+     <h1 className="card-header font-weight-bold" > Edit Categories </h1>
     
      <CategoriesForm  
         initialValues =  { _.pick(this.props.categories, "name", "imgURL")}

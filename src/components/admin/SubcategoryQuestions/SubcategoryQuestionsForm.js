@@ -33,17 +33,31 @@ class SubcategoryQuestionsForm extends Component {
            name= "category"
            className= "form-control"
            component= "select"   
-           defaultValues= ""
-           onChange= {this.renderSubcategory} 
+          //  onChange= {(state,val, prevVal) => console.log(state,val, prevVal)} 
            >   
           <option value="">Select a Category</option>
           
-          {  console.log("State from subcat question", this.state) }
-          { (this.props.catValues) && this.props.catValues.map( categoryVal => {
-               return( <option value= {categoryVal.name}>{categoryVal.name}</option>) }
+          {  console.log("UtilValues from subcat question", this.props) }
+          { this.props.catValues[0] && this.props.catValues[0].map( categoryVal => {
+               return( <option key={categoryVal.name} value= {categoryVal.name}>{categoryVal.name}</option>) }
           )}  
 
-          </Field>          
+          </Field> 
+          <div>
+            <label className= "font-weight-bold mt-2"> Select a Sub Category</label>
+          <Field 
+           name= "subcategory"
+           className= "form-control"
+           component= "select"
+          >
+          <option value="">Select a Sub Category</option>
+           
+            { this.props.utilValues[1] && this.props.utilValues[1].map( subcatVal => {
+             return( <option key={subcatVal.name} value= {subcatVal.name}>{subcatVal.name}</option>)
+             }) 
+            }            
+          </Field>
+          </div>         
         </div>
         </div>
       )
@@ -57,12 +71,11 @@ class SubcategoryQuestionsForm extends Component {
            name= "subcategory"
            className= "form-control"
            component= "select"
-           defaultValue= ""
           >
           <option value="">Select a Sub Category</option>
            
-            { this.props.subcatValues && this.props.subcatValues.map( subcatVal => {
-             return( <option value= {subcatVal.name}>{subcatVal.name}</option>)
+            { this.props.utilValues[1].length && this.props.utilValues[1].map( subcatVal => {
+             return( <option key={subcatVal.name} value= {subcatVal.name}>{subcatVal.name}</option>)
              }) 
             }            
           </Field>
@@ -92,12 +105,11 @@ class SubcategoryQuestionsForm extends Component {
           type="text"
           component="select"
           className="form-control"
-          defaultValue= ""
           label={`question #${index + 1}`}
         >
          <option value="">Select a Question</option>
-          {this.props.questionValues.length && this.props.questionValues.map( questionVal => {
-           return( <option value= {questionVal.question}>{questionVal.question}</option>)
+          {this.props.utilValues[2].length && this.props.utilValues[2].map( questionVal => {
+           return( <option key={questionVal.question} value= {questionVal.question}>{questionVal.question}</option>)
          })
          } 
          
@@ -161,15 +173,15 @@ const validate = (formValues) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state from mapstate in subcat ques",state.util.categoryName);
-  return  { catValues: Object.values(state.util.categoryName),
-            subcatValues: Object.values(state.util.subcategoryName),
-            questionValues: Object.values(state.util.questionName)
+  console.log("state from mapstate in subcat ques",state);
+  return  { utilValues: Object.values(state.util)
+            // ,subcatValues: Object.values(state.util.subcategoryName)
+            // ,questionValues: Object.values(state.util.questionName)
           } 
          }
 
 const formWrapped = reduxForm(
-                     {form: "SubcatQuestionForm",
+                     {form: "subcatQuestionForm",
                       validate })
                      (SubcategoryQuestionsForm);
 

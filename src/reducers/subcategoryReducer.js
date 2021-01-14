@@ -2,7 +2,6 @@ import _ from "lodash";
 import {
     CREATE_SUBCATEGORY,
     FETCH_SUBCATEGORIES,
-    FETCH_SUBCATEGORY,
     EDIT_SUBCATEGORY,
     DELETE_SUBCATEGORY
 } from "../actions/types";
@@ -15,9 +14,7 @@ export default (state = {}, action) => {
              return {...state, [action.payload.id] : action.payload};
          case FETCH_SUBCATEGORIES:
              return {...state, ..._.mapKeys(action.payload, '_id')};
-         case FETCH_SUBCATEGORY:
-             return {...state, [action.payload.id] : action.payload};
-        case EDIT_SUBCATEGORY :          
+         case EDIT_SUBCATEGORY :          
             return {...state, [action.payload.id] : action.payload};
          case DELETE_SUBCATEGORY:
              return _.omit( state, action.payload);

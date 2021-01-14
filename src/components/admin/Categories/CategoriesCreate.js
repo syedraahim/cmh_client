@@ -21,7 +21,7 @@ class CategoriesCreate extends Component
    <div>
     <AdminMenu 
      addRoute= {this.addRoute()} />     
-    <h1 className="category-head font-weight-bold card-header" > Add New Categories </h1>   
+    <h1 className="card-header font-weight-bold" > Add New Categories </h1>   
     <CategoriesForm onSubmit= {this.onSubmit} />
    </div>   
   );

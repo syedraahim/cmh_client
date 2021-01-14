@@ -25,8 +25,7 @@ class SubcategoriesEdit extends Component
      
     render() {
       {console.log("props from subcat edit", this.props)}
-       if (!this.props.subcategory)  {
-        
+       if (!this.props.subcategory)  {        
         return (
            <div>Loading....</div>
         )} ; 

@@ -48,7 +48,7 @@ render() {
        <AdminMenu
          addRoute= {this.addRoute()}
        />
-        <h2>Categories</h2>
+        <h2 className= "card-header font-weight-bold">Categories</h2>
        <div className= "container category-center"> 
         <div className= "row mt-2">
         <div className = "col col-md-4 mb-3 mt-2 category">
