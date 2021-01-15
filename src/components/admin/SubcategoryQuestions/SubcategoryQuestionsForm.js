@@ -33,8 +33,8 @@ class SubcategoryQuestionsForm extends Component {
     renderFields() {
       if (!this.props.utilValues[0] || !this.props.utilValues[1])  {        
         return (
-           <div>Loading Categories and Subcategoires....</div>
-        )} 
+           <div>Loading Categories and Subcategories....</div>
+      )} 
        
       return(
         <div>
@@ -48,7 +48,7 @@ class SubcategoryQuestionsForm extends Component {
            >   
           <option value="">Select a Category</option>
           
-          {  console.log("UtilValues from subcat question", this.props) }
+          {  console.log("UtilValues from subcat question XXX", this.props) }
           { this.props.utilValues[0] && this.props.utilValues[0].map( categoryVal => {
                return( <option key={categoryVal.name} value= {categoryVal.name}>{categoryVal.name}</option>) }
           )}  
@@ -184,10 +184,11 @@ const validate = (formValues) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state from mapstate in subcat ques",state);
-  return  { utilValues: Object.values(state.util)
-            // ,subcatValues: Object.values(state.util.subcategoryName)
-            // ,questionValues: Object.values(state.util.questionName)
+  console.log("state from mapstate in subcat ques YYY",state);
+  return  { 
+            utilValues: Object.values(state.util.categoryName)
+           ,subcatValues: Object.values(state.util.subcategoryName)
+           ,questionValues: Object.values(state.util.questionName)
           } 
          }
 

@@ -8,7 +8,7 @@ import { addSubcatQuestion } from "../../../actions";
 class SubcategoryQuestionsCreate extends React.Component {
 
     addRoute() {
-        return("/admin/subcategories/subcategoriescreate");
+        return("/admin/subcatquestions/subcatquestionscreate");
       }
 
       onSubmit = (formValues) => {

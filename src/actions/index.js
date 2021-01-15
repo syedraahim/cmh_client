@@ -141,7 +141,8 @@ export const deleteSubcategory = (id) => async dispatch => {
    };
 
  export const fetchSubcatQuestions = () => async dispatch => {
-   const res= await axios.get("http://localhost:5000/api/subcatquestion");
+   const res= await axios.get("http://localhost:5000/api/subcatquestions");
+   console.log("Output from fetch subcat QUES",res);
    dispatch({ type: FETCH_SUBCAT_QUESTIONS, payload: res.data })
    }; 
 

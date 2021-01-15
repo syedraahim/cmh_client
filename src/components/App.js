@@ -19,6 +19,7 @@ import QuestionsList from "./admin/Questions/QuestionsList";
 import QuestionsEdit from "./admin/Questions/QuestionsEdit";
 import QuestionsDelete from "./admin/Questions/QuestionsDelete";
 import SubcategoryQuestionsCreate from "./admin/SubcategoryQuestions/SubcategoryQuestionsCreate";
+import SubcategoryQuestionsList from "./admin/SubcategoryQuestions/SubcategoryQuestionsList";
 import Vendor from "./admin/Vendor";
 import VendorNew from "./vendor/VendorNew";
 import VendorCategories from "./admin/VendorCategories";
@@ -56,6 +57,7 @@ class App extends Component {
        <Route path= "/admin/questions/questionsedit/:id"  component= {QuestionsEdit} />
        <Route path= "/admin/questions/questionsdelete/:id" component= {QuestionsDelete} /> 
        <Route path= "/admin/subcatquestions/subcatquestionscreate" exact component= {SubcategoryQuestionsCreate} />
+       <Route path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
        <Route path= "/admin/vendor" exact component= {Vendor} />
        <Route path= "/vendor/vendorlogin" exact component= {VendorNew} />
        <Route path= "/admin/vendorcategories" exact component= {VendorCategories} />

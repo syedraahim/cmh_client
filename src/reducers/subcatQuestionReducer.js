@@ -9,10 +9,10 @@ import {
 export default (state = {}, action) => {
     console.log("Action values from reducer 1:",action.type);
      switch (action.type) {
-         case CREATE_SUBCAT_QUESTION:
-             console.log("Action values from reducer 2:",state);
+         case CREATE_SUBCAT_QUESTION:           
              return {...state, [action.payload.id] : action.payload};
          case FETCH_SUBCAT_QUESTIONS:
+            console.log("Action values from reducer 3:",state);
              return {...state, ..._.mapKeys(action.payload, '_id')};
          case EDIT_SUBCAT_QUESTION :          
             return {...state, [action.payload.id] : action.payload};

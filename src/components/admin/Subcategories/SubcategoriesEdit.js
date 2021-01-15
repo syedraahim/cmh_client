@@ -17,11 +17,22 @@ class SubcategoriesEdit extends Component
     addRoute() {
         return("/admin/subcategories/subcategoriescreate");
      } 
-
+     
      onSubmit = (formValues) => {
-        console.log("Formvalues for subcat edit form", formValues);
-        this.props.editSubcategory(this.props.match.params.id,formValues);
-     }
+      console.log("Form values from subcategory edit",formValues);
+      if (formValues.category._id) {
+        let updatedData = {
+          _id: formValues._id,
+          category: formValues.category.name,
+          name: formValues.name
+        }
+        this.props.editSubcategory(this.props.match.params.id,updatedData);
+      } else {
+      this.props.editSubcategory(this.props.match.params.id,formValues);
+      }
+  }
+
+
      
     render() {
       {console.log("props from subcat edit", this.props)}
