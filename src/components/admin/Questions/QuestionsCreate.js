@@ -1,11 +1,11 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
 import { addQuestion } from "../../../actions";
 
 
-class QuestionsCreate extends Component {
+class QuestionsCreate extends React.Component {
 
 addRoute() {
     return("/admin/questions/questionscreate");

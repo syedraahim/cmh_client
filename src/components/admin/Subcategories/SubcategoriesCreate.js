@@ -13,6 +13,7 @@ class SubcategoriesCreate extends React.Component {
    }
 
    onSubmit = (formValues) => {
+     console.log("Props from subcat XXX",this.props);
        this.props.addSubcategory(formValues);
    }
 

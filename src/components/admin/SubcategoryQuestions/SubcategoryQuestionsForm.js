@@ -24,7 +24,18 @@ class SubcategoryQuestionsForm extends Component {
       )}   
   }
 
+  onSubmit = (formValues) => {
+    console.log("Props from on Submit SCQ FORM", this.props);
+    this.props.onSubmit(formValues);
+ }
+
+
     renderFields() {
+      if (!this.props.utilValues[0] || !this.props.utilValues[1])  {        
+        return (
+           <div>Loading Categories and Subcategoires....</div>
+        )} 
+       
       return(
         <div>
           <div className= "form-group" >
@@ -38,7 +49,7 @@ class SubcategoryQuestionsForm extends Component {
           <option value="">Select a Category</option>
           
           {  console.log("UtilValues from subcat question", this.props) }
-          { this.props.catValues[0] && this.props.catValues[0].map( categoryVal => {
+          { this.props.utilValues[0] && this.props.utilValues[0].map( categoryVal => {
                return( <option key={categoryVal.name} value= {categoryVal.name}>{categoryVal.name}</option>) }
           )}  
 
@@ -52,10 +63,10 @@ class SubcategoryQuestionsForm extends Component {
           >
           <option value="">Select a Sub Category</option>
            
-            { this.props.utilValues[1] && this.props.utilValues[1].map( subcatVal => {
+            { this.props.utilValues && this.props.utilValues[1].map( subcatVal => {
              return( <option key={subcatVal.name} value= {subcatVal.name}>{subcatVal.name}</option>)
              }) 
-            }            
+            }             
           </Field>
           </div>         
         </div>
@@ -64,6 +75,10 @@ class SubcategoryQuestionsForm extends Component {
     }
      
      renderSubcategory = () => {
+      if (!this.props.utilValues[1])  {        
+        return (
+           <div>Loading Sub Categories....</div>
+        )} ; 
        return(
          <div>
             <label className= "font-weight-bold mt-2"> Select a Sub Category</label>
@@ -122,16 +137,12 @@ class SubcategoryQuestionsForm extends Component {
           
        )       
        
-      onSubmit = (formValues) => {
-        this.props.onSubmit(formValues);
-     }
-  
+      
 
     render() {
         
         return(
             <div>
-                <h1 className= "card-header mb-2 font-weight-bold">Add Subcategory Questions</h1>
                 <section className= "question-center mb-2">
                     <div className= "card" >
                     <div className= "card-body">
@@ -181,7 +192,7 @@ const mapStateToProps = (state) => {
          }
 
 const formWrapped = reduxForm(
-                     {form: "subcatQuestionForm",
+                     {form: "subcatQuestionsForm",
                       validate })
                      (SubcategoryQuestionsForm);
 

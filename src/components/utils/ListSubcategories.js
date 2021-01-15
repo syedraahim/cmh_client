@@ -11,6 +11,7 @@ class ListSubcategories extends Component {
       }
 
       renderSubcategories() {
+        console.log("props from list subcategories",this.props);
          return(
            this.props.subcategory && this.props.subcategory.map( subcategoryval => {
              if (subcategoryval.category.name === this.props.categoryValue) {
