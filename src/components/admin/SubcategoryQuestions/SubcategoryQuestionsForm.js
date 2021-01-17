@@ -184,13 +184,16 @@ const validate = (formValues) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state from mapstate in subcat ques YYY",state);
+  console.log("state from mapstate in subcat ques YYY",state.util);
+  if (state.util === null) {
+    return (null);
+  } else {
   return  { 
             utilValues: Object.values(state.util.categoryName)
            ,subcatValues: Object.values(state.util.subcategoryName)
            ,questionValues: Object.values(state.util.questionName)
           } 
-         }
+         }  }
 
 const formWrapped = reduxForm(
                      {form: "subcatQuestionsForm",

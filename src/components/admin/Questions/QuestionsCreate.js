@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+// import { toast} from "react-toastify";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
 import { addQuestion } from "../../../actions";
@@ -13,7 +14,15 @@ addRoute() {
 
 onSubmit = (formValues) => {
         this.props.addQuestion(formValues);
-    }
+        //   .then( (res) => 
+        //   {
+        //     toast.success("Category is created successfully!!!!");
+        //   })
+        //   .catch(err => {
+        //     toast.error("Category creation failed !!!!!");
+        //   }            
+        //  )
+       }
 
   render ()  {      
       return (             

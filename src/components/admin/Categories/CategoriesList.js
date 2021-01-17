@@ -42,6 +42,10 @@ renderList() {
       )
 }
 render() {
+  if (!this.props.categories)  {
+    return (
+       <div>Loading....</div>
+  )} ;
    
  return (
      <div >

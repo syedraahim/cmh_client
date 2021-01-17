@@ -7,7 +7,8 @@ const utilReducer = (state = {}, action ) => {
     switch (action.type)
    {
      case FETCH_CATEGORIES_NAME :
-        console.log("State value from reducer:",action.payload);
+        console.log("State value from util reducer:",action.payload);
+        // return { ...state, [action.payload.category] : action.payload};
         return {...state, categoryName:action.payload};   
      case FETCH_SUBCATEGORIES_NAME: 
        return {...state, subcategoryName:action.payload} ;

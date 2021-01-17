@@ -55,7 +55,7 @@ export const fetchCategories = () => async dispatch => {
   };
 
   export const editCategory = (id, formValues) => async dispatch => {
-      const res= await axios.patch(`http://localhost:5000/api/category/${id}`,formValues);
+      const res= await axios.put(`http://localhost:5000/api/category/${id}`,formValues);
       dispatch({type:EDIT_CATEGORY, payload: res.data });
       history.push("/admin/categories/categorieslist"); 
    };  

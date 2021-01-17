@@ -18,16 +18,39 @@ class SubcategoryQuestionList extends Component {
         return (
             this.props.subcatquestions && this.props.subcatquestions.map( subcatquestionval => {
             return (
-                <div className= "card-body" key= {subcatquestionval._id} >
-                  <div className= "text-left">
-                    <p> {subcatquestionval.category}</p>
-                    <p> {subcatquestionval.subcategory}</p>
-                    {/* <p> {subcatquestionval.question}</p> */}
+                <div className= "row" key= {subcatquestionval._id} >
+                  <div className= "col col-md-2 category text-left" >
+                    <p> {subcatquestionval.category.name}</p>
                   </div>
+                  <div className= "col col-md-2 category text-left">                   
+                     <p> {subcatquestionval.subcategory.name}</p> 
+                  </div>
+                  <div className= "col"  >
+                  {subcatquestionval.questions.map(questionval => {
+                    return (
+                    <div key= {questionval._id}>
+                    <div className= "col col-md-6 text-left">
+                      <p> {questionval.question}</p>
+                    </div>
+                    
+                     {questionval.options.map(optionval => {
+                     return(
+                       <div className= " col col-md-9 text-right question" key= {optionval.options}>
+                        <p> {optionval}</p>
+                       </div>                   
+                     )
+                    })}
+                  </div>                                                 
+                   )}
+                  )}        
+                </div>  
 
-                </div>
-            )
-            })            
+                <button  className= "btn btn-primary">Edit</button>  
+                <button className= "btn btn-danger">Delete</button>                          
+                </div> 
+                ) 
+                              
+            })           
         )}
 
 
@@ -37,36 +60,35 @@ class SubcategoryQuestionList extends Component {
                <AdminMenu 
                    addRoute= {this.addRoute}
                />             
-               <h1 className="category-head font-weight-bold card-header"> List Subcategory Questions </h1>
+               <h1 className="category-head font-weight-bold "> List Subcategory Questions </h1>
                <div className= "container" > 
               <div className = "row p-3 bg-light ">
-               <div className= "col col-md-3 ">
-                 <h5 className= "font-weight-bold text-left ml-2"> Category</h5>           
+               <div className= "col col-md-2 ">
+                 <h5 className= "font-weight-bold text-left"> Category</h5>           
                </div>
-               <div className= "col col-md-3">
-                <h5 className= "font-weight-bold text-right mr-2"> Sub Category</h5>             
+               <div className= "col col-md-2">
+                <h5 className= "font-weight-bold text-left mr-2"> Sub Category</h5>             
                </div>
-               <div className= "col col-md-3">
-                <h5 className= "font-weight-bold text-right mr-2"> Questions</h5>             
+               <div className= "col col-md-4">
+                <h5 className= "font-weight-bold text-left mr-2"> Questions</h5>             
                </div>
-               <div className= "col col-md-3">
-                <h5 className= "font-weight-bold text-right mr-2"> Options</h5>             
+               <div className= "col col-md-4">
+                <h5 className= "font-weight-bold  ml-2"> Options</h5>             
                </div>
          </div>
-        <div className= "card ">        
+               
           <form>
-             {this.renderList()} 
-           
+             {this.renderList()}            
           </form>          
        </div> 
-       </div>
+      
      </div>
   ) }
 }
 
 const mapStateToProps = (state) => {  
     console.log("state from mapstate in subcat questions",state); 
-    // return { subcatquestions: Object.values(state.subcatquestions)};   
+     return { subcatquestions: Object.values(state.subquestion)};   
 }
 
 
