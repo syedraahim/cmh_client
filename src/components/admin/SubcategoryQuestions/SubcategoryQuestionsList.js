@@ -15,38 +15,40 @@ class SubcategoryQuestionList extends Component {
        }
 
     renderList() {
+      
         return (
             this.props.subcatquestions && this.props.subcatquestions.map( subcatquestionval => {
             return (
                 <div className= "row" key= {subcatquestionval._id} >
-                  <div className= "col col-md-2 category text-left" >
-                    <p> {subcatquestionval.category.name}</p>
+                  {/* <div className= "col col-md-2 category text-left" >
+                    <p> {subcatquestionval.category._id}</p>
                   </div>
                   <div className= "col col-md-2 category text-left">                   
-                     <p> {subcatquestionval.subcategory.name}</p> 
-                  </div>
+                     <p> {subcatquestionval.subcategory._id}</p> 
+                  </div> */}
                   <div className= "col"  >
                   {subcatquestionval.questions.map(questionval => {
                     return (
                     <div key= {questionval._id}>
                     <div className= "col col-md-6 text-left">
-                      <p> {questionval.question}</p>
-                    </div>
-                    
+                      <p> {questionval.question}</p>                    
+                    </div>                    
+                    <div className="col col-md-6 " >                   
                      {questionval.options.map(optionval => {
                      return(
-                       <div className= " col col-md-9 text-right question" key= {optionval.options}>
-                        <p> {optionval}</p>
+                       <div  key= {optionval.options}>
+                          <p className= "text-right options">  {optionval}</p>
                        </div>                   
                      )
                     })}
+                    </div>
                   </div>                                                 
                    )}
                   )}        
                 </div>  
-
-                <button  className= "btn btn-primary">Edit</button>  
-                <button className= "btn btn-danger">Delete</button>                          
+                    {/* <button  className= "btn btn-primary">Edit</button>  
+                   <button className= "btn btn-danger">Delete</button>    */}
+                                       
                 </div> 
                 ) 
                               

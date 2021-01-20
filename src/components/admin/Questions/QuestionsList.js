@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import AdminMenu from "../AdminMenu";
 import {connect} from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,29 +17,36 @@ class QuestionsList extends Component
        }
 
     renderList() {
-        return (
-           this.props.questions && this.props.questions.map( questionVal => {
-        return( 
-           <div className= "card-body question"  key= {questionVal._id}>            
-            <div className= "text-left question" >
+        return (         
+         this.props.questions && this.props.questions.map( questionVal => {
+        
+        return(            
+           <Fragment> 
+            <div className= "row">                    
+            <div className= "col col-md-6" >
              <p key= {questionVal._id}>  {questionVal.question}</p>  
             </div>
-            <div className= "text-right question mr-2" > 
-             {questionVal.options && questionVal.options.map( optionVal => 
-             {
-              return(                             
-                 <p key= {questionVal._id} >{optionVal}</p>             
-              )
-             })
-            }
-             </div> 
-             <div className= "mb-1">
+            <div className= "col col-md-3 " > 
+              {questionVal.options && questionVal.options.map( optionVal => {
+                 return(                              
+                  <p key= {optionVal} >{optionVal}</p>             
+                 )
+             }) 
+             } 
+                {/* <p key= {questionVal.options}> {questionVal.options}</p> */}
+                {/* <div className= "mb-1">
                       <Link to= {`/admin/questions/questionsedit/${questionVal._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
                       <Link to= { `/admin/questions/questionsdelete/${questionVal._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
-             </div>                         
-          </div>
-        )
-        })          
+                </div>    */}
+             </div>   
+             <div className= " col col-md-3 float-right mb-1">
+                      <Link to= {`/admin/questions/questionsedit/${questionVal._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
+                      <Link to= { `/admin/questions/questionsdelete/${questionVal._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
+             </div> 
+                </div>         
+          </Fragment>            
+        )         
+        })        
        ) 
     }
     
@@ -54,10 +61,10 @@ class QuestionsList extends Component
        <div className= "container" > 
        <div className = "row p-3 bg-light ">
           <div className= "col col-md-6 ">
-            <h5 className= "font-weight-bold text-left ml-2"> Question</h5>           
+            <h5 className= "font-weight-bold text-left"> Question</h5>           
           </div>
-           <div className= "col col-md-6">
-            <h5 className= "font-weight-bold text-right mr-2"> Options</h5>             
+           <div className= "col col-md-3">
+            <h5 className= "font-weight-bold text-left"> Options</h5>             
             </div>
          </div>
         <div className= "card ">        

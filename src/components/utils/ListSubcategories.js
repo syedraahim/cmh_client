@@ -14,7 +14,7 @@ class ListSubcategories extends Component {
         console.log("props from list subcategories",this.props);
          return(
            this.props.subcategory && this.props.subcategory.map( subcategoryval => {
-             if (subcategoryval.category.name === this.props.categoryValue) {
+             if (subcategoryval.category._id === this.props.categoryValue) {
              return(
                 <div  key= {subcategoryval._id}>
                  <Link to= {subcategoryval.name} >{subcategoryval.name} </Link>

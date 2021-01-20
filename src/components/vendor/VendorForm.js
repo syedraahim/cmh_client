@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {reduxForm, Field} from "redux-form";
 import {Link} from "react-router-dom";
 import VendorField from "./VendorField";
-// import validateEmail from "../utils/ValidateEmail";
+import validateEmail from "../utils/ValidateEmail";
 
 
 class VendorForm extends Component {
@@ -103,10 +103,10 @@ function validate(values)
 if (!values.email) {
     errors.email = "Please enter the email address";
 } 
-// else  {
-//    const emailOutput = validateEmail(values.email);
-//    errors.email = (emailOutput ? "" : "Please enter a valid email") ;
-//  }
+ else  {
+   const emailOutput = validateEmail(values.email);
+       errors.email = (emailOutput ? "" : "Please enter a valid email") ;
+  }
 
 if (!values.postcode) {
     errors.postcode = "Please enter the Postcode";

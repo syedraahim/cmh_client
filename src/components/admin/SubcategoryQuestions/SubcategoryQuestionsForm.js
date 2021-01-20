@@ -63,7 +63,7 @@ class SubcategoryQuestionsForm extends Component {
           >
           <option value="">Select a Sub Category</option>
            
-            { this.props.utilValues && this.props.utilValues[1].map( subcatVal => {
+            { this.props.utilValues[1] && this.props.utilValues[1].map( subcatVal => {
              return( <option key={subcatVal.name} value= {subcatVal.name}>{subcatVal.name}</option>)
              }) 
             }             
@@ -189,9 +189,9 @@ const mapStateToProps = (state) => {
     return (null);
   } else {
   return  { 
-            utilValues: Object.values(state.util.categoryName)
-           ,subcatValues: Object.values(state.util.subcategoryName)
-           ,questionValues: Object.values(state.util.questionName)
+            utilValues: Object.values(state.util)
+          //  ,subcatValues: Object.values(state.util.subcategoryName)
+          //  ,questionValues: Object.values(state.util.questionName)
           } 
          }  }
 

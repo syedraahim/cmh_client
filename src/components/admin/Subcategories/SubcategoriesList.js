@@ -1,14 +1,14 @@
 import React from "react";
 import {connect } from "react-redux";
 import { Link} from "react-router-dom";
-import {fetchSubcategories} from "../../../actions";
+import {fetchCategoriesName,fetchSubcategories} from "../../../actions";
 import AdminMenu from "../AdminMenu";
 
 
 class SubcategoriesList extends React.Component {
 
  componentDidMount() {
-     this.props.fetchSubcategories();
+     this.props.fetchSubcategories();     
  }   
 
  addRoute() {
@@ -16,10 +16,14 @@ class SubcategoriesList extends React.Component {
  }
 
  renderList() {
-    console.log("From this.props.renderlist", this.props.subcategories); 
+
+    if (!this.props.subcategories) {
+      <p>Loading....</p>
+    }
+    console.log("From this.props.renderlist", this.props); 
     return (
       
-        this.props.subcategories.map( subcategory => {
+       this.props.subcategories &&  this.props.subcategories.map( subcategory => {
 
         { if (subcategory._id)  
             return (
@@ -75,7 +79,8 @@ render() {
 
 const mapStateToProps = (state) => {
    console.log("From mapstate in subcategory list",state);
-   return {subcategories: Object.values(state.subcategories)  }
+   return  {subcategories: Object.values(state.subcategories) }
+   
 }
 
-export default connect(mapStateToProps, {fetchSubcategories})(SubcategoriesList);
+export default connect(mapStateToProps, {fetchCategoriesName,fetchSubcategories})(SubcategoriesList);

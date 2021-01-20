@@ -6,9 +6,11 @@ import subcategoryReducer from "./subcategoryReducer";
 import utilReducer from "./utilReducer";
 import questionReducer from "./questionReducer";
 import subcatQuestionReducer from "./subcatQuestionReducer";
+import alertReducer from "./alertReducer";
 
 export default combineReducers(
-               {auth: authReducer,               
+               { alert: alertReducer,
+                auth: authReducer,               
                 form: formReducer,
                 categories: categoryReducer,
                 subcategories: subcategoryReducer,

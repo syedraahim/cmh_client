@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 import styles from "./styles.css"
 import App from "./components/App";
 import reducers from './reducers';
+// import store from './store';
 <link rel="stylesheet" href= "./styles.css" />
 
 

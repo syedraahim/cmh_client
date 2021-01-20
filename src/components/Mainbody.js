@@ -21,7 +21,7 @@ class MainBody extends React.Component {
                   <p className = "float-bottom text-dark ">  {categoryval.name } </p> 
                   <div className= "float-right mr-2">              
                   <ListSubcategories 
-                   categoryValue = {categoryval.name} />                
+                     categoryValue = {categoryval._id} />                
                  </div>
                 
                  <div className= "float-left">

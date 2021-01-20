@@ -30,7 +30,7 @@ class SubcategoriesForm extends React.Component {
 
         <select className="form-control"  {...input}>
           <option value="">Select a category</option>
-          console.log("Props from subcategoryForm",categoryName);
+         
           {categoryName.length && categoryName[0].map(categoryval => {
             <option key={categoryval.name} value={categoryval.name}> {categoryval.name} </option>
           })}
@@ -51,7 +51,7 @@ class SubcategoriesForm extends React.Component {
           >
             {/* {console.log(this.props.initialValues.category.name,'initialValaues')} */}
             <option value="">{this.props.initialValues ? this.props.initialValues.category.name : 'Select a category'}</option>
-            {console.log("Props from subcategoryForm", this.props.initialValues)}
+            {console.log("Props from subcategoryForm", this.props)}
             {this.props.categoryName[0] && this.props.categoryName[0].map(categoryval => {
 
               {
