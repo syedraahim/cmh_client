@@ -7,7 +7,7 @@ import {
 } from "../actions/types";
 
 export default (state = [], action) => {
-    console.log("Action values from reducer 1:",action.payload);
+    console.log("Action values from reducer 1:",action);
      switch (action.type) {
          case CREATE_SUBCAT_QUESTION:           
              return {...state, [action.payload.id] : action.payload};

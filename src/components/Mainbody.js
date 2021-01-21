@@ -18,10 +18,10 @@ class MainBody extends React.Component {
            return(            
               <div className= "col col-eq-height col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
                 
-                  <p className = "float-bottom text-dark ">  {categoryval.name } </p> 
+                  <p className = "float-bottom text-dark " > {categoryval.name } </p> 
                   <div className= "float-right mr-2">              
-                  <ListSubcategories 
-                     categoryValue = {categoryval._id} />                
+                   <ListSubcategories 
+                     categoryValue = {categoryval._id} />                 
                  </div>
                 
                  <div className= "float-left">

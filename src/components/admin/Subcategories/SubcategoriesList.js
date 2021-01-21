@@ -8,7 +8,8 @@ import AdminMenu from "../AdminMenu";
 class SubcategoriesList extends React.Component {
 
  componentDidMount() {
-     this.props.fetchSubcategories();     
+     this.props.fetchSubcategories(); 
+     this.props.fetchCategoriesName();    
  }   
 
  addRoute() {
@@ -79,7 +80,8 @@ render() {
 
 const mapStateToProps = (state) => {
    console.log("From mapstate in subcategory list",state);
-   return  {subcategories: Object.values(state.subcategories) }
+   return  {subcategories: Object.values(state.subcategories),
+            categoryName: Object.values(state.categories) }
    
 }
 

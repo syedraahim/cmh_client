@@ -13,6 +13,7 @@ import {FETCH_USER,
         DELETE_CATEGORY,
         FETCH_CATEGORIES_NAME,
         FETCH_SUBCATEGORIES_NAME,
+        FETCH_SUBCATEGORIES_CATEGORIES,
         FETCH_QUESTIONS_NAME,
         CREATE_SUBCATEGORY,
         FETCH_SUBCATEGORIES,
@@ -71,6 +72,12 @@ export const deleteCategory =(id) => async dispatch => {
   history.push("/admin/categories/categorieslist");
   };
 
+  //fetching the list of category names
+export const fetchCategoriesName = () => async dispatch => {
+  const res= await axios.get("http://localhost:5000/api/category");  
+  dispatch({type: FETCH_CATEGORIES_NAME, payload: res.data });    
+ };
+
  //action creator for Subcategory Master
  export const addSubcategory = (values) => async dispatch => {
    const res = await axios.post("http://localhost:5000/api/subcategory",values);
@@ -101,6 +108,11 @@ export const deleteSubcategory = (id) => async dispatch => {
     history.push("/admin/subcategories/subcategorieslist");
   };
 
+  //fetching the list of subcategory names
+ export const fetchSubcategoriesName = () => async dispatch => {  
+  const res= await axios.get("http://localhost:5000/api/subcategory");
+  dispatch( {type: FETCH_SUBCATEGORIES_NAME, payload: res.data });
+}
 
  //action creator for Questions Master
  export const addQuestion = (values) => async dispatch => {
@@ -133,6 +145,12 @@ export const deleteSubcategory = (id) => async dispatch => {
      history.push("/admin/questions/questionslist");
   }; 
 
+  // fetching the list of questions
+ export const fetchQuestionsName = () => async dispatch => {
+  const res= await axios.get("http://localhost:5000/api/questions");
+  dispatch( {type: FETCH_QUESTIONS_NAME, payload: res.data });
+}
+
  //action creator for subcategory questions
  export const addSubcatQuestion = (values) => async dispatch => {
     try {
@@ -151,18 +169,19 @@ export const deleteSubcategory = (id) => async dispatch => {
    }; 
 
  export const fetchSubcatQuestion = (id) => async dispatch => {
-   const res= await axios.get(`http://localhost:5000/api/subcatquestion/${id}`);
+   const res= await axios.get(`http://localhost:5000/api/subcatquestions/${id}`);
    dispatch({ type: FETCH_SUBCAT_QUESTION, payload: res.data })
    }; 
 
  export const editSubcatQuestion = (id,formValues) => async dispatch => {
-   const res = await axios.patch(`http://localhost:5000/api/subcatquestion/${id}`,formValues) ;
+   const res = await axios.patch(`http://localhost:5000/api/subcatquestions/${id}`,formValues) ;
    dispatch({ type: EDIT_SUBCAT_QUESTION, payload: res.data }) 
   }; 
 
  export const deleteSubcatQuestion = (id) => async dispatch => {
-   const res = await axios.delete(`http://localhost:5000/api/subcatquestion/${id}`);
-   dispatch( { type: DELETE_SUBCAT_QUESTION, payload: id })  
+   const res = await axios.delete(`http://localhost:5000/api/subcatquestions/${id}`);
+   dispatch( { type: DELETE_SUBCAT_QUESTION, payload: id });  
+   history.push("/admin/subcatquestions/subcatquestionslist");
    };
   
 
@@ -181,23 +200,10 @@ export const submitVendorCategories = (values,history) => async dispatch => {
     window.location.href = '/'
  };
 
-//util for fetching the list of category names
-export const fetchCategoriesName = () => async dispatch => {
-  const res= await axios.get("http://localhost:5000/api/util");  
-  dispatch({type: FETCH_CATEGORIES_NAME, payload: res.data});    
- };
 
-//util for fetching the list of subcategory names
- export const fetchSubcategoriesName = () => async dispatch => {  
-   const res= await axios.get("http://localhost:5000/api/util");
-   console.log("Response from fetch subcategories name:", res.data);
-   dispatch( {type: FETCH_SUBCATEGORIES_NAME, payload: res.data });
- }
 
- //util for fetching the list of questions
- export const fetchQuestionsName = () => async dispatch => {
-   const res= await axios.get("http://localhost:5000/api/util");
-   dispatch( {type: FETCH_QUESTIONS_NAME, payload: res.data });
- }
+
+
+ 
 
 
