@@ -31,13 +31,13 @@ class SubcategoriesList extends React.Component {
 
                 <div className= "row" key= {subcategory._id}>
                   
-                 <div className= "col col-md-4 category">
+                 <div className= "col col-md-4 category">                  
                      {subcategory.category.name}
                  </div>
-                  <div className= "col col-md-4 category">
+                  <div className= "col col-md-4 text-align-right category">
                       {subcategory.name}
                   </div>
-               
+                  
                   <div className= "col-md-4 mb-1">
                       <Link to= {`/admin/subcategories/subcategoriesedit/${subcategory._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
                       <Link to= { `/admin/subcategories/subcategoriesdelete/${subcategory._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    

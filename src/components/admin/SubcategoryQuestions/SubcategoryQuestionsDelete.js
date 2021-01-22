@@ -37,9 +37,13 @@ class SubcategoryQuestionsDelete extends Component {
   render() {
         return (
         <div>
-         <AdminMenu 
-             addRoute = {this.addRoute()}
-        />
+
+        <div>
+          <AdminMenu 
+             addRoute = {this.addRoute}
+          />
+        </div>
+         
 
           <Modal 
             title= "Delete a SubCategory Question"

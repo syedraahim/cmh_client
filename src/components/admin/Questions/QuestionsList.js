@@ -21,7 +21,7 @@ class QuestionsList extends Component
          this.props.questions && this.props.questions.map( questionVal => {
         
         return(            
-           <Fragment> 
+           
             <div className= "row">                    
             <div className= "col col-md-6" >
              <p key= {questionVal._id}>  {questionVal.question}</p>  
@@ -32,19 +32,14 @@ class QuestionsList extends Component
                   <p key= {optionVal} >{optionVal}</p>             
                  )
              }) 
-             } 
-                {/* <p key= {questionVal.options}> {questionVal.options}</p> */}
-                {/* <div className= "mb-1">
-                      <Link to= {`/admin/questions/questionsedit/${questionVal._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
-                      <Link to= { `/admin/questions/questionsdelete/${questionVal._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
-                </div>    */}
+             }                 
              </div>   
              <div className= " col col-md-3 float-right mb-1">
                       <Link to= {`/admin/questions/questionsedit/${questionVal._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
                       <Link to= { `/admin/questions/questionsdelete/${questionVal._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
              </div> 
-                </div>         
-          </Fragment>            
+                </div> 
+                    
         )         
         })        
        ) 
@@ -52,9 +47,8 @@ class QuestionsList extends Component
     
     render() {
     return (
-     <div>
-        
-       <h1> Questions </h1>  
+     <div>        
+       <h1 className= "font-weight-bold"> Questions </h1>  
            <AdminMenu
             addRoute = {this.addRoute()}
            />
@@ -73,16 +67,12 @@ class QuestionsList extends Component
           </form>          
        </div> 
        </div>
-     </div>
-     
-        
-    )
-    }
+     </div> 
+    )}
 }
 
 const mapStateToProps = (state) => {    
-        return { questions: Object.values(state.questions)};
-       
+        return { questions: Object.values(state.questions)};       
 }
 
 export default connect(mapStateToProps, {fetchQuestions})(QuestionsList);

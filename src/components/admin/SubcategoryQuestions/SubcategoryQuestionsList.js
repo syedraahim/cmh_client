@@ -17,11 +17,13 @@ class SubcategoryQuestionList extends Component {
 
     renderList() {
       {console.log("props from scqqqqqqq", this.props.subcatquestions)}
-        if (!this.props.subcatquestions) {
+        if (!this.props.subcatquestions.category  || !this.props.subcatquestions.subcategory) {
           <p>Loading....</p>
         }
         return (           
             this.props.subcatquestions && this.props.subcatquestions.map( subquestionval => {
+
+            {if (subquestionval._id)
             return (
                 <div className= "row"  >
                   <div className= "col col-md-2 category text-left" >
@@ -39,9 +41,9 @@ class SubcategoryQuestionList extends Component {
                         
                         {questionval.options.map(optionval => {
                         return(
-                       <div className= "options" >
+                     <div className= "options" >
                           <p key= {optionval}>   {optionval}</p>
-                       </div>  
+                      </div>  
                         )}
                         )}                 
                     </div>                    
@@ -58,6 +60,7 @@ class SubcategoryQuestionList extends Component {
                                
                  </div>
             )
+                }
             }) 
            )}             
 

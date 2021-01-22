@@ -72,8 +72,10 @@ class SubcategoryQuestionsForm extends Component {
     }
      
     
-      renderQuestions = ({fields}) => (          
-       
+      renderQuestions = ({fields}) => (  
+
+             
+        
        <ul className= "list-items">
         <li>
           <button type= "button" className= "btn btn-primary font-weight-bold mb-2"
@@ -95,7 +97,8 @@ class SubcategoryQuestionsForm extends Component {
           component="select"
           className="form-control"
           label={`question #${index + 1}`}
-        >
+        >        
+              
          <option value="">Select a Question</option>
            {this.props.questionsValues[0] && this.props.questionsValues[0].map( questionVal => {
             {console.log("Questionval", questionVal.question)}
@@ -121,6 +124,8 @@ class SubcategoryQuestionsForm extends Component {
                     <div className= "card-body">
                     <form onSubmit = { this.props.handleSubmit(this.onSubmit)} >
                         {this.renderFields()}
+
+                
                         <FieldArray
                            name= "questions"        
                            component=  {this.renderQuestions}

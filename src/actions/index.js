@@ -153,13 +153,9 @@ export const deleteSubcategory = (id) => async dispatch => {
 
  //action creator for subcategory questions
  export const addSubcatQuestion = (values) => async dispatch => {
-    try {
-     const res= await axios.post("http://localhost:5000/api/subcatquestions",values);   
+    const res= await axios.post("http://localhost:5000/api/subcatquestions",values);   
      dispatch({type: CREATE_SUBCAT_QUESTION, payload: res.data });
-     history.push("/admin/subcatquestions/subcatquestionslist");
-    } catch (error) {
-      console.log(error.message);
-    }     
+     history.push("/admin/subcatquestions/subcatquestionslist");       
    };
 
  export const fetchSubcatQuestions = () => async dispatch => {

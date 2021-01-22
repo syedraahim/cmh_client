@@ -6,8 +6,10 @@ import thunk from "redux-thunk";
 import styles from "./styles.css"
 import App from "./components/App";
 import reducers from './reducers';
-// import store from './store';
+import 'antd/dist/antd.css';
 <link rel="stylesheet" href= "./styles.css" />
+
+
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 

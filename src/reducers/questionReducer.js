@@ -5,7 +5,7 @@ import { CREATE_QUESTION,
          EDIT_QUESTION,
          DELETE_QUESTION } from "../actions/types";
 
-export default (state= {}, action) => {
+export default (state= [], action) => {
     console.log("Action values from question reducer :",action);
    switch (action.type) {
     case CREATE_QUESTION :
