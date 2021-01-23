@@ -6,7 +6,7 @@ import {
        EDIT_CATEGORY,
        DELETE_CATEGORY } from "../actions/types";
 
-export default (state = [], action) => {
+const categoryReducer= (state = [], action) => {
     console.log("category reducer",state);
     switch (action.type) {
         case FETCH_CATEGORIES:            
@@ -23,3 +23,5 @@ export default (state = [], action) => {
             return state;
     }
 }
+
+export default categoryReducer;

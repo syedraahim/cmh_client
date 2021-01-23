@@ -8,7 +8,7 @@ import {
     DELETE_SUBCATEGORY
 } from "../actions/types";
 
-export default (state = [], action) => {
+ const subcategoryReducer =(state = [], action) => {
     console.log("Action values from reducer 1:",action.type);
      switch (action.type) {
          case CREATE_SUBCATEGORY:
@@ -26,3 +26,4 @@ export default (state = [], action) => {
               return state;
      }
 }
+export default subcategoryReducer;

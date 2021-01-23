@@ -5,7 +5,7 @@ const Login = () =>
 return(
 <div className="container mt-5 ">
   <div className="row">
-    <div className ="col-sm-8">
+    <div className ="col-md-8">
       <div className="card register-form">
         <div className="card-header">
            <h1>Login</h1>
@@ -27,7 +27,7 @@ return(
     </div>
   </div>
   <div className= "row mt-5">
-    <div className="col-sm-8">
+    <div className="col-md-8">
       <div className="card social-block">
         <div className="card-body">
           <a className="btn btn-block btn-social btn-google"

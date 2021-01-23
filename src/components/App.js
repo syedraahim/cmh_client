@@ -1,6 +1,12 @@
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import {Router, Route, Switch} from "react-router-dom";
 import { connect } from "react-redux";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import {auth} from "../firebase";
+import {useDispatch} from 'react-redux';
+
 import * as actions from "../actions";
 import history from "../history";
 
@@ -30,19 +36,44 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Login from "./login/Login";
 import Register from "./login/Register";
+import RegisterComplete from "./login/RegisterComplete";
+import { LOGGED_IN_USER } from "../actions/types";
 
 class App extends Component {
+
+ 
   componentDidMount() {
      this.props.fetchUser();
+
+     const unsubscribe= auth.onAuthStateChanged( (user) => async dispatch =>
+     {
+      if (user) {
+        const idTokenResult = await user.getIdTokenResult();
+        dispatch({
+          type: LOGGED_IN_USER,
+          payload: {
+             email: user.email,
+             token: idTokenResult.token
+          }
+        });
+      }
+    });
+
+    
+
+     return () => this.props.unsubscribe();
   }
+
   render() {
      return (
      <div className="App">
      <Router history = {history}>
        <Header />
+       <ToastContainer />
        <Switch>
         <Route path= "/login" exact component= {Login} />
         <Route path= "/register" exact component= {Register} />
+        <Route path= "/registercomplete" exact component= {RegisterComplete} />
        </Switch>
        <Route path= "/" exact component= {Mainpage} />
        <Route path= "/admin" exact component= {MainAdmin} />

@@ -6,7 +6,7 @@ import {
     DELETE_SUBCAT_QUESTION
 } from "../actions/types";
 
-export default (state = [], action) => {
+ const subcatQuestionReducer= (state = [], action) => {
     console.log("Action values from subcat question reducer:", state);
      switch (action.type) {
          case CREATE_SUBCAT_QUESTION:           
@@ -22,3 +22,4 @@ export default (state = [], action) => {
               return state;
      }
 }
+export default subcatQuestionReducer;

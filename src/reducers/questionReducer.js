@@ -4,8 +4,9 @@ import { CREATE_QUESTION,
          FETCH_QUESTIONS_NAME,
          EDIT_QUESTION,
          DELETE_QUESTION } from "../actions/types";
+import categoryReducer from "./categoryReducer";
 
-export default (state= [], action) => {
+ const questionReducer= (state= [], action) => {
     console.log("Action values from question reducer :",action);
    switch (action.type) {
     case CREATE_QUESTION :
@@ -22,3 +23,5 @@ export default (state= [], action) => {
         return state;
     }
 }
+
+export default questionReducer;

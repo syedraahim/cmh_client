@@ -2,10 +2,12 @@
 
 # dependencies
 /node_modules
+/keys.js
 /.pnp
 .pnp.js
 keys.js
 /config/keys.js
+client\keys.js
 server\config\keys.js
 
 # testing
