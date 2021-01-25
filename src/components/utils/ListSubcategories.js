@@ -7,13 +7,11 @@ import {Link} from "react-router-dom";
 class ListSubcategories extends Component {
 
     componentDidMount() {
-          console.log("Props from this.props in subcat",this.props);
-          this.props.fetchSubcategories();
+             this.props.fetchSubcategories();
       }
 
       renderSubcategories() {
-        console.log("props from list subcategories ZZZZ",this.props);
-         return(
+           return(
               this.props.subcategory && this.props.subcategory.map( subcategoryval => {
 
              if (subcategoryval.category._id === this.props.categoryValue) {

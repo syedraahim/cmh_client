@@ -1,10 +1,13 @@
 import React, {useState} from "react";
-import { connect } from "react-redux";
-import {Link} from "react-router-dom";
+import { connect, useDispatch, useSelector } from "react-redux";
+import {Link, useHistory} from "react-router-dom";
 import {Menu} from 'antd';
-import { HomeOutlined, LoginOutlined, UserAddOutlined,SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, LoginOutlined, UserAddOutlined,SettingOutlined,LogoutOutlined } from '@ant-design/icons';
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "./common/cmh_new.png";
+import firebase from 'firebase';
+import { LOGOUT } from "../actions/types";
+import useSelection from "antd/lib/table/hooks/useSelection";
 
 const { SubMenu} = Menu;
 
@@ -12,8 +15,22 @@ const Header = () => {
 
 const [current,setCurrent] = useState('home');
 
+const dispatch = useDispatch();
+const history = useHistory();
+const {user}= useSelector( (stateVal) => ({...stateVal}));
+
 const handleClick = (e) => {
    setCurrent(e.key);
+}
+
+const logout = () => {
+  firebase.auth().signOut()
+  dispatch ({
+     type: LOGOUT,
+     payload:null
+
+  });
+  history.push("/login");
 }
 
  return (
@@ -43,10 +60,10 @@ const handleClick = (e) => {
         
       </div>
 
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className= "font-weight-bold ">
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className= "font-weight-bold menu">
 
         <Menu.Item  icon={<HomeOutlined />} >
-          <Link to= "/">Home</Link>
+          <Link to= "/">Home </Link>
         </Menu.Item> 
         <Menu.Item  icon={<HomeOutlined />} className= "float-left">
           <Link to= "/admin">Admin</Link>
@@ -54,19 +71,33 @@ const handleClick = (e) => {
         <Menu.Item  icon={<HomeOutlined />} className= "float-left">
           <Link to= "/vendor/vendorlogin">Vendor</Link>
         </Menu.Item>
-        <Menu.Item  icon={<LoginOutlined /> }>
+
+        { !user && 
+          <Menu.Item  icon={<LoginOutlined /> } > 
          <Link to= "/login">Login</Link>
-        </Menu.Item> 
-        <Menu.Item  icon={<UserAddOutlined />}>
+        </Menu.Item> }
+         
+         { !user &&
+          <Menu.Item  icon={<UserAddOutlined />}>
          <Link to= "/register">Register</Link>
-        </Menu.Item>        
-        <SubMenu key="SubMenu" icon={<SettingOutlined />} title="User name">
+        </Menu.Item> 
+         }
+
+         { user &&
+          <SubMenu key="SubMenu" icon={<SettingOutlined />} 
+                   className= "float-right"
+                   title= {user.email && user.email.split("@")[0]}>
           <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
+            <Menu.Item key="setting:1">Dashboard</Menu.Item>
             <Menu.Item key="setting:2">Option 2</Menu.Item>
+            <Menu.Item icon={<LogoutOutlined />} onClick= {logout}>Logout</Menu.Item>
           </Menu.ItemGroup>
           
         </SubMenu>
+          
+         }
+               
+        
         
       </Menu>
     </nav>

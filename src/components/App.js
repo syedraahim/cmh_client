@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from "react";
+import React, { useEffect} from "react";
 import {Router, Route, Switch} from "react-router-dom";
 import { connect } from "react-redux";
 import {toast, ToastContainer} from "react-toastify";
@@ -37,35 +37,33 @@ import Footer from "./Footer";
 import Login from "./login/Login";
 import Register from "./login/Register";
 import RegisterComplete from "./login/RegisterComplete";
+import ForgotPassword from "./login/ForgotPassword";
 import { LOGGED_IN_USER } from "../actions/types";
 
-class App extends Component {
+const App = () => {
 
- 
-  componentDidMount() {
-     this.props.fetchUser();
+  const dispatch= useDispatch();
 
-     const unsubscribe= auth.onAuthStateChanged( (user) => async dispatch =>
+   useEffect(() => {
+     const unsubscribe= auth.onAuthStateChanged( async (user) => 
      {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
+        console.log('User', user);
         dispatch({
           type: LOGGED_IN_USER,
           payload: {
              email: user.email,
              token: idTokenResult.token
           }
-        });
+        })
+        history.push("/");
       }
-    });
-
-    
-
-     return () => this.props.unsubscribe();
-  }
-
-  render() {
-     return (
+    })
+    // return () => this.props.unsubscribe();
+  }, []) 
+      
+  return (
      <div className="App">
      <Router history = {history}>
        <Header />
@@ -74,6 +72,7 @@ class App extends Component {
         <Route path= "/login" exact component= {Login} />
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
+        <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        <Route path= "/" exact component= {Mainpage} />
        <Route path= "/admin" exact component= {MainAdmin} />
@@ -101,6 +100,6 @@ class App extends Component {
     </div>
   );
 }
-}
+
 
 export default connect(null,actions)(App);

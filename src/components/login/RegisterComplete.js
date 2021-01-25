@@ -36,7 +36,7 @@ const RegisterComplete = (history) => {
             // update in redux store 
             console.log("User",user, idTokenResult);
 
-            history.push('/');
+            // history.push('/');
         }
     } 
     catch (err) {
@@ -54,7 +54,7 @@ const RegisterComplete = (history) => {
   
   return (
   <form  onSubmit = {handleSubmit}>
-    <div className="form-group">
+    <div className="form-group font-weight-bold">
     <label htmlFor="email">Email</label>
     <input type="email" 
            className="form-control" 

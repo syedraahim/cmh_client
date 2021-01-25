@@ -7,10 +7,12 @@ import utilReducer from "./utilReducer";
 import questionReducer from "./questionReducer";
 import subcatQuestionReducer from "./subcatQuestionReducer";
 import alertReducer from "./alertReducer";
+import userReducer from "./userReducer";
 
 export default combineReducers(
                { alert: alertReducer,
-                auth: authReducer,               
+                auth: authReducer, 
+                user: userReducer,              
                 form: formReducer,
                 categories: categoryReducer,
                 subcategories: subcategoryReducer,

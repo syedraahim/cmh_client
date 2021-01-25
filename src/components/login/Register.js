@@ -1,10 +1,19 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import {useSelector} from "react-redux";
 import {auth} from "../../firebase";
 import {toast,ToastContainer} from "react-toastify";
 
-const Register = () => {
+const Register = ({history}) => {
 
   const [email, setEmail] = useState("");
+  const {user} = useSelector( (state) => ({...state}));
+
+  useEffect( () => {
+      if ( user && user.token) {
+          history.push("/");
+      }
+  }, [user]);
+
  
 const handleSubmit= async (e) => {
     e.preventDefault();
@@ -25,7 +34,7 @@ const handleSubmit= async (e) => {
   
   return (
   <form  onSubmit = {handleSubmit}>
-    <div className="form-group">
+    <div className="form-group font-weight-bold mb-1">
     <label htmlFor="email">Email</label>
     <input type="email" 
            className="form-control" 
@@ -35,7 +44,7 @@ const handleSubmit= async (e) => {
     />
     </div>
    <div className= "row justify-content-center">
-     <button type="submit" className= "btn btn-primary" >Register</button>
+     <button type="submit" className= "btn btn-primary mt-3" >Register</button>
    </div>
   
   </form>
@@ -44,7 +53,7 @@ const handleSubmit= async (e) => {
  return (
    <div className="container mt-5 ">
 
-     <div className="row">
+     <div className="row mb-2">
        <div className="col-md-8 offset-md-3">
          <div className="card register-form">
            <div className="card-header">
@@ -57,25 +66,7 @@ const handleSubmit= async (e) => {
          </div>
        </div>
      </div>
-     <div className= "row mt-5">
-       <div className="col-md-8 offset-md-3">
-         <div className="card social-block">
-           <div className="card-body">
-             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-               <i className="fab fa-google"></i>
-               Sign Up with Google
-             </a>
-           </div>
-           <div className="card-body">
-             <a className="btn btn-block btn-social btn-facebook" href="/auth/google" role="button">
-               <i className="fab fa-facebook"></i>
-               Sign Up with Facebook
-             </a>
-           </div>
-           
-       </div>
-       </div>
-   </div>
+     
    </div>
  );
 }
