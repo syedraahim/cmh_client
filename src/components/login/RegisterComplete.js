@@ -36,7 +36,7 @@ const RegisterComplete = (history) => {
             // update in redux store 
             console.log("User",user, idTokenResult);
 
-            // history.push('/');
+            history.push('/');
         }
     } 
     catch (err) {
@@ -93,25 +93,7 @@ const RegisterComplete = (history) => {
          </div>
        </div>
      </div>
-     <div className= "row mt-5">
-       <div className="col-md-8 offset-md-3">
-         <div className="card social-block">
-           <div className="card-body">
-             <a className="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-               <i className="fab fa-google"></i>
-               Sign Up with Google
-             </a>
-           </div>
-           <div className="card-body">
-             <a className="btn btn-block btn-social btn-facebook" href="/auth/google" role="button">
-               <i className="fab fa-facebook"></i>
-               Sign Up with Facebook
-             </a>
-           </div>
-           
-       </div>
-       </div>
-   </div>
+     
    </div>
  );
  }

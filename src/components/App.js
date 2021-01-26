@@ -57,11 +57,11 @@ const App = () => {
              token: idTokenResult.token
           }
         })
-        history.push("/");
       }
-    })
-    // return () => this.props.unsubscribe();
-  }, []) 
+    });
+    //clean up
+     return () => unsubscribe();
+  }, []); 
       
   return (
      <div className="App">

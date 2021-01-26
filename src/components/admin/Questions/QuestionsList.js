@@ -22,11 +22,11 @@ class QuestionsList extends Component
         
         return(            
            
-            <div className= "row">                    
-            <div className= "col col-md-6" >
+            <div className= "row mb-1">                    
+            <div className= "col col-md-6 question" >
              <p key= {questionVal._id}>  {questionVal.question}</p>  
             </div>
-            <div className= "col col-md-3 " > 
+            <div className= "col col-md-3 question" > 
               {questionVal.options && questionVal.options.map( optionVal => {
                  return(                              
                   <p key= {optionVal} >{optionVal}</p>             
@@ -52,7 +52,7 @@ class QuestionsList extends Component
            <AdminMenu
             addRoute = {this.addRoute()}
            />
-       <div className= "container" > 
+       <div className= "container mt-2" > 
        <div className = "row p-3 bg-light ">
           <div className= "col col-md-6 ">
             <h5 className= "font-weight-bold text-left"> Question</h5>           
@@ -61,7 +61,7 @@ class QuestionsList extends Component
             <h5 className= "font-weight-bold text-left"> Options</h5>             
             </div>
          </div>
-        <div className= "card ">        
+        <div className= "card">        
           <form>
              {this.renderList()}
           </form>          

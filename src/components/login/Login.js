@@ -6,7 +6,14 @@ import {toast,ToastContainer} from "react-toastify";
 import {Button } from 'antd';
 import { MailOutlined, FacebookOutlined, GoogleOutlined} from '@ant-design/icons';
 import { LOGGED_IN_USER } from "../../actions/types";
+import axios from 'axios';
 
+  const createOrUpdateUser = async (authtoken) =>  { 
+    return  await axios.post( "http://localhost:5000/api/auth/createupdateuser", {},
+     { headers: { authtoken}  });     
+    // dispatch({ type: LOGGED_IN_USER, payload: res.data});      
+   }
+  
 
 const Login = ({history}) => {
 
@@ -28,20 +35,24 @@ const handleSubmit= async (e) => {
     setLoading(true);
     try {
       const result= await auth.signInWithEmailAndPassword(email,password);
-      console.log(result);
+     
       const {user} = result;
       const idTokenResult = await user.getIdTokenResult();
-        console.log('User', user);
-        dispatch({
-          type: LOGGED_IN_USER,
-          payload: {
-             email: user.email,
-             token: idTokenResult.token
-          }
-        });
-        setLoading(false);
-        history.push("/");
-    }  
+      console.log(idTokenResult.token);
+      createOrUpdateUser(idTokenResult.token)
+        .then((res) => console.log("CREATE OR UPDATE RES", res.user))
+        .catch((err) => console.log("Error from create user", err));
+          // .then ( (res) => dispatch({
+          //        type: LOGGED_IN_USER,
+          //        payload: {
+          //        name: res.data.name,
+          //        email: res.data.email,
+          //        token: idTokenResult.token,
+          //       role: res.data.role,
+          //       _id: res.data._id
+          //     }
+          // }))         
+          }  
     catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -54,6 +65,12 @@ const handleSubmit= async (e) => {
        const {user} = result;
        console.log("user from google", result.user);
        const idTokenResult = await user.getIdTokenResult();
+
+       createOrUpdateUser(idTokenResult.token)
+       .then ( (res) => console.log("CreateUpdateResponse", res))
+       .catch ( (err) => console.log(err));
+        
+
        dispatch({
         type: LOGGED_IN_USER,
         payload: {
@@ -69,6 +86,10 @@ const handleSubmit= async (e) => {
     auth.signInWithPopup(facebookAuthProvider).then( async (result) => {
        const {user} = result;
        const idTokenResult = await user.getIdTokenResult();
+
+       createOrUpdateUser(idTokenResult.token)
+         .then ( (res) => console.log("CreateUpdateResponse", res))
+         .catch ( (err) => console.log(err));
        dispatch({
         type: LOGGED_IN_USER,
         payload: {
@@ -83,7 +104,7 @@ const handleSubmit= async (e) => {
   
   return (
   <form  onSubmit = {handleSubmit}>
-    <div className="form-group font-weight-bold mb-1">
+    <div className="form-group font-weight-bold mb-1 question">
     <label htmlFor="email">Email</label>
     <input type="email" 
            className="form-control" 
@@ -92,7 +113,7 @@ const handleSubmit= async (e) => {
            autoFocus
     />
     </div>
-    <div className="form-group font-weight-bold mb-2">
+    <div className="form-group font-weight-bold mb-2 question">
     <label htmlFor="password">Password</label>
     <input type="password" 
            className="form-control" 
@@ -100,7 +121,7 @@ const handleSubmit= async (e) => {
            onChange = { (e) => setPassword(e.target.value) }         
     />
     </div>
-   <div className= "row justify-content-center mt-2">
+   <div className= "row justify-content-center font-weight-bold mt-2 question">
      <Button onClick= {handleSubmit} 
              type="primary" 
              shape="round"
@@ -108,7 +129,7 @@ const handleSubmit= async (e) => {
              icon= {<MailOutlined />}
              size= "large"
              disabled= {!email || password.length < 6}
-             className= "mb-2 mt-2 font-weight-bold">Login with Email and Password
+             className= "mb-2 mt-2 font-weight-bold font-weight-bold question">Login with Email and Password
       </Button>
       <Button onClick= {googleLogin} 
              type="danger" 
@@ -116,7 +137,7 @@ const handleSubmit= async (e) => {
              block
              icon= {<GoogleOutlined />}
              size= "large"
-             className= "mb-2 mt-2 font-weight-bold">Login with Google
+             className= "mb-2 mt-2 font-weight-bold question">Login with Google
       </Button>
       <Button onClick= {facebookLogin} 
              type="primary" 
@@ -124,7 +145,7 @@ const handleSubmit= async (e) => {
              block
              icon= {<FacebookOutlined />}
              size= "large"
-             className= "mb-2 mt-2 font-weight-bold">Login with Facebook
+             className= "mb-2 mt-2 font-weight-bold question">Login with Facebook
       </Button>
       <Link to= "/forgot/password" className= "text-danger mt-2">Forgot Password</Link>
    </div>
