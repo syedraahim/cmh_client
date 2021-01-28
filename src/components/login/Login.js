@@ -6,15 +6,9 @@ import {toast,ToastContainer} from "react-toastify";
 import {Button } from 'antd';
 import { MailOutlined, FacebookOutlined, GoogleOutlined} from '@ant-design/icons';
 import { LOGGED_IN_USER } from "../../actions/types";
-import axios from 'axios';
+import { createOrUpdateUser} from "../../actions/auth";
 
-  const createOrUpdateUser = async (authtoken) =>  { 
-    return  await axios.post( "http://localhost:5000/api/auth/createupdateuser", {},
-     { headers: { authtoken}  });     
-    // dispatch({ type: LOGGED_IN_USER, payload: res.data});      
-   }
   
-
 const Login = ({history}) => {
 
   const [email, setEmail] = useState("");
@@ -23,11 +17,23 @@ const Login = ({history}) => {
   const dispatch= useDispatch();
   const {user} = useSelector( (state) => ({...state}));
 
+  const roleBasedRedirect = (res) => {
+     if (res.data.role ===  "admin") {
+       history.push("/admin/dashboard");
+     } 
+     else if (res.data.role === "vendor") {
+       history.push("/vendor/dashboard");
+     } else {
+       history.push("/user/history");
+     }
+     }
+  
+
   useEffect( () => {
       if ( user && user.token) {
           history.push("/");
       }
-  }, [user]);
+  }, [user,history]);
 
  
 const handleSubmit= async (e) => {
@@ -38,20 +44,21 @@ const handleSubmit= async (e) => {
      
       const {user} = result;
       const idTokenResult = await user.getIdTokenResult();
-      console.log(idTokenResult.token);
-      createOrUpdateUser(idTokenResult.token)
-        .then((res) => console.log("CREATE OR UPDATE RES", res.user))
-        .catch((err) => console.log("Error from create user", err));
-          // .then ( (res) => dispatch({
-          //        type: LOGGED_IN_USER,
-          //        payload: {
-          //        name: res.data.name,
-          //        email: res.data.email,
-          //        token: idTokenResult.token,
-          //       role: res.data.role,
-          //       _id: res.data._id
-          //     }
-          // }))         
+      createOrUpdateUser(idTokenResult.token)     
+          .then ( (res) =>  { dispatch  ({
+                 type: LOGGED_IN_USER,
+                 payload: {
+                 name: res.data.name,
+                 email: res.data.email,
+                 token: idTokenResult.token,
+                 role: res.data.role,
+                _id: res.data._id
+              }
+          });
+           roleBasedRedirect(res);
+         }) 
+          .catch ( (err) => console.log(err))           
+          // history.push("/");
           }  
     catch (err) {
       console.log(err);
@@ -61,26 +68,31 @@ const handleSubmit= async (e) => {
 }
 
  const googleLogin = async () => {
-     await auth.signInWithPopup(googleAuthProvider).then( async (result) => {
-       const {user} = result;
-       console.log("user from google", result.user);
-       const idTokenResult = await user.getIdTokenResult();
+    
+      await auth.signInWithPopup(googleAuthProvider).then( async (result) => {
+        const {user} = result;
+        console.log("user from google", result.user);
+        const idTokenResult = await user.getIdTokenResult();
 
        createOrUpdateUser(idTokenResult.token)
-       .then ( (res) => console.log("CreateUpdateResponse", res))
-       .catch ( (err) => console.log(err));
-        
-
-       dispatch({
-        type: LOGGED_IN_USER,
-        payload: {
-           email: user.email,
-           token: idTokenResult.token
+       .then ( (res) => { dispatch ({
+         type: LOGGED_IN_USER,
+          payload: {
+          name: res.data.name,
+          email: res.data.email,
+          token: idTokenResult.token,
+          role: res.data.role,
+         _id: res.data._id
         }
-      });
-      history.push("/");
-     }).catch( (err) => {console.log(err)})
- }
+     })
+     roleBasedRedirect(res);
+     
+    }).catch( (err) => {
+            console.log(err)
+            toast.error(err.message)
+            setLoading(false) });       
+      })
+     }
 
  const facebookLogin = async () => {
     auth.signInWithPopup(facebookAuthProvider).then( async (result) => {
@@ -88,18 +100,25 @@ const handleSubmit= async (e) => {
        const idTokenResult = await user.getIdTokenResult();
 
        createOrUpdateUser(idTokenResult.token)
-         .then ( (res) => console.log("CreateUpdateResponse", res))
-         .catch ( (err) => console.log(err));
-       dispatch({
-        type: LOGGED_IN_USER,
-        payload: {
-           email: user.email,
-           token: idTokenResult.token
+       .then ( (res) => { dispatch ({
+         type: LOGGED_IN_USER,
+          payload: {
+          name: res.data.name,
+          email: res.data.email,
+          token: idTokenResult.token,
+          role: res.data.role,
+         _id: res.data._id
         }
-      });
-      history.push("/");
-    }).catch( (err) => { console.log(err)})
- }
+     })
+       roleBasedRedirect(res);
+    }).catch( (err) => {
+      console.log(err)
+      toast.error(err.message)
+      setLoading(false) });   
+   })
+  }
+
+
  const loginForm = ()  => {
   
   return (

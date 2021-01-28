@@ -11,7 +11,7 @@ const AdminMenu= (props) => {
           <Link to= {props.addRoute} >Add New</Link>
         </div>
         <div className= "ml-3">
-        <Link to= "/admin" className= "d-flex justify-content-center admin-class">Admin</Link>
+        <Link to= "/admin/dashboard" className= "d-flex justify-content-center admin-class">Admin</Link>
         </div>
          
       </div>

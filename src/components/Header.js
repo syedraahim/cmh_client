@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import logo from "./common/cmh_new.png";
 import firebase from 'firebase';
 import { LOGOUT } from "../actions/types";
+import UserHistory from "./user/UserHistory";
 import useSelection from "antd/lib/table/hooks/useSelection";
 
 const { SubMenu} = Menu;
@@ -65,13 +66,7 @@ const logout = () => {
         <Menu.Item  icon={<HomeOutlined />} >
           <Link to= "/">Home </Link>
         </Menu.Item> 
-        <Menu.Item  icon={<HomeOutlined />} className= "float-left">
-          <Link to= "/admin">Admin</Link>
-        </Menu.Item> 
-        <Menu.Item  icon={<HomeOutlined />} className= "float-left">
-          <Link to= "/vendor/vendorlogin">Vendor</Link>
-        </Menu.Item>
-
+                
         { !user && 
           <Menu.Item  icon={<LoginOutlined /> } > 
          <Link to= "/login">Login</Link>
@@ -88,7 +83,7 @@ const logout = () => {
                    className= "float-right"
                    title= {user.email && user.email.split("@")[0]}>
           <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Dashboard</Menu.Item>
+            <Menu.Item key="dashboard" onClick= {UserHistory}> Dashboard</Menu.Item>
             <Menu.Item key="setting:2">Option 2</Menu.Item>
             <Menu.Item icon={<LogoutOutlined />} onClick= {logout}>Logout</Menu.Item>
           </Menu.ItemGroup>

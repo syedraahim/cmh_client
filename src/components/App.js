@@ -38,7 +38,12 @@ import Login from "./login/Login";
 import Register from "./login/Register";
 import RegisterComplete from "./login/RegisterComplete";
 import ForgotPassword from "./login/ForgotPassword";
+import UserHistory from "./user/UserHistory";
+import VendorHistory from "./vendor/VendorHistory";
+import UserRoute from "./routes/UserRoute";
+import VendorMain from "./vendor/VendorMain";
 import { LOGGED_IN_USER } from "../actions/types";
+import {currentUser} from "../actions/auth";
 
 const App = () => {
 
@@ -49,14 +54,19 @@ const App = () => {
      {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        console.log('User', user);
-        dispatch({
-          type: LOGGED_IN_USER,
-          payload: {
-             email: user.email,
-             token: idTokenResult.token
-          }
-        })
+        console.log('User from App', user);
+        currentUser(idTokenResult.token)     
+          .then ( (res) => dispatch ({
+                 type: LOGGED_IN_USER,
+                 payload: {
+                 name: res.data.name,
+                 email: res.data.email,
+                 token: idTokenResult.token,
+                 role: res.data.role,
+                _id: res.data._id
+              }
+          })) 
+          .catch ( (err) => console.log(err));        
       }
     });
     //clean up
@@ -69,13 +79,13 @@ const App = () => {
        <Header />
        <ToastContainer />
        <Switch>
-        <Route path= "/login" exact component= {Login} />
+        <Route  path= "/login" exact component= {Login} />
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
-       <Route path= "/" exact component= {Mainpage} />
-       <Route path= "/admin" exact component= {MainAdmin} />
+       <Route path= "/" exact component= {Mainpage} />       
+       <Route path= "/vendor" exact component= {VendorMain} />      
        <Route path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
        <Route path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
        <Route path= "/admin/categories/categoriesedit/:id" exact component= {CategoriesEdit} />
@@ -95,7 +105,11 @@ const App = () => {
        <Route path= "/admin/vendor" exact component= {Vendor} />
        <Route path= "/vendor/vendorlogin" exact component= {VendorNew} />
        <Route path= "/admin/vendorcategories" exact component= {VendorCategories} />
-       <Footer />
+
+       <UserRoute path= "/user/history" exact component= {UserHistory} />
+       <UserRoute  exact path= "/vendor/dashboard"  component= {VendorHistory} />
+       <UserRoute path= "/admin/dashboard" exact component= {MainAdmin} />
+       {/* <Footer /> */}
      </Router>
     </div>
   );

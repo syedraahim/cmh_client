@@ -1,17 +1,23 @@
 import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import axios from "axios";
 import {auth} from "../../firebase";
 import {toast, ToastContainer} from "react-toastify";
+import { LOGGED_IN_USER } from "../../actions/types";
+import { createOrUpdateUser} from "../../actions/auth";
 
-const RegisterComplete = (history) => {
+const RegisterComplete = ({history}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch= useDispatch();
+  const {user} = useSelector( (state) => ({...state}));
 
   //history.push(dashboard);
 
   useEffect(() => {
       setEmail(window.localStorage.getItem("emailForRegistration"))
-  }, []);
+  }, [history]);
 
   const handleSubmit= async (e) => {
     e.preventDefault();
@@ -26,17 +32,27 @@ const RegisterComplete = (history) => {
     }
     try {
         const result = await auth.signInWithEmailLink(email, window.location.href)
-        console.log(result);
-
+        
         if(result.user.emailVerified) {
             window.localStorage.removeItem("emailForRegistration");
             let user = auth.currentUser;
             await user.updatePassword(password);
             const idTokenResult = await user.getIdTokenResult();
             // update in redux store 
-            console.log("User",user, idTokenResult);
+           createOrUpdateUser(idTokenResult.token)     
+          .then ( (res) => dispatch ({
+                 type: LOGGED_IN_USER,
+                 payload: {
+                 name: res.data.name,
+                 email: res.data.email,
+                 token: idTokenResult.token,
+                 role: res.data.role,
+                _id: res.data._id
+              }
+          })) 
+          .catch ( (err) => console.log(err)); 
 
-            history.push('/');
+          history.push('/');
         }
     } 
     catch (err) {

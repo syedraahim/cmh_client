@@ -1,4 +1,3 @@
-import { map } from "lodash";
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchSubcategories} from "../../actions";
@@ -7,23 +6,29 @@ import {Link} from "react-router-dom";
 class ListSubcategories extends Component {
 
     componentDidMount() {
-             this.props.fetchSubcategories();
+       this.props.fetchSubcategories();
       }
 
-      renderSubcategories() {
-           return(
-              this.props.subcategory && this.props.subcategory.map( subcategoryval => {
+      renderSubcategories() {        
+         return(
 
+            this.props.subcategory && this.props.subcategory.map( subcategoryval => {
+          if(subcategoryval.category._id) {
              if (subcategoryval.category._id === this.props.categoryValue) {
              return(
-                <div  key= {subcategoryval._id}>
+              <div  key= {subcategoryval._id}>
                  <Link to= {subcategoryval.name} >{subcategoryval.name} </Link>
-              </div>
+               </div>
              ) }
+           }
            } )
          )
      }
     render () {
+      if (!this.props.subcategory)  {
+        return (
+           <div>Loading....</div>
+       )} ;       
       return(
        <div>
            {this.renderSubcategories()}

@@ -14,8 +14,9 @@ class MainBody extends React.Component {
    renderFields() {
      return(
      
-      this.props.category && this.props.category.map( categoryval => {       
-           return(            
+      this.props.category && this.props.category.map( categoryval => {    
+        if (categoryval._id)  { 
+           return (            
               <div className= "col col-eq-height col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
                 
                   <p className = "float-bottom text-dark " > {categoryval.name } </p> 
@@ -30,6 +31,7 @@ class MainBody extends React.Component {
                   
               </div>                                      
            ) 
+          }
         }) 
     ) } 
     
