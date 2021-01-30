@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {fetchCategories, fetchSubcategories} from "../actions";
+import {fetchCategories} from "../actions/category";
+import {fetchSubcategories} from "../actions";
 import ListSubcategories from "./utils/ListSubcategories";
 import VendorField from "./vendor/VendorField";
 

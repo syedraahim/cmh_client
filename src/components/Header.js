@@ -82,12 +82,26 @@ const logout = () => {
           <SubMenu key="SubMenu" icon={<SettingOutlined />} 
                    className= "float-right"
                    title= {user.email && user.email.split("@")[0]}>
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="dashboard" onClick= {UserHistory}> Dashboard</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
+
+            { user && user.role ==="subscriber" &&  (
+            <Menu.Item>                
+                <Link to= "/user/history">Dashboard</Link> 
+            </Menu.Item>
+            )}
+            { user && user.role ==="vendor" &&  (
+            <Menu.Item>                
+                <Link to= "/vendor/dashboard">Dashboard</Link> 
+            </Menu.Item>
+            )}
+            { user && user.role ==="admin" &&  (
+            <Menu.Item>                
+                <Link to= "/admin/dashboard">Dashboard</Link> 
+            </Menu.Item>
+            )}
+            
+           
             <Menu.Item icon={<LogoutOutlined />} onClick= {logout}>Logout</Menu.Item>
-          </Menu.ItemGroup>
-          
+                   
         </SubMenu>
           
          }

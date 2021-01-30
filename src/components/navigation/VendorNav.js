@@ -9,13 +9,13 @@ const VendorNav = () => {
           <Link to= "/vendor/history" className= "nav-link">VENDOR HISTORY</Link>
         </li>
         <li className= "nav-item">
-          <Link to= "/vendor/vendorlogin" className= "nav-link">UPDATE PERSONAL DETAILS</Link>
+          <Link to= "/vendor/vendordetails" className= "nav-link">UPDATE PERSONAL DETAILS</Link>
         </li>
         <li className= "nav-item">
           <Link to= "/vendor/vendorcategories" className= "nav-link">CHANGE CATEGORIES</Link>
         </li>
         <li className= "nav-item">
-          <Link to= "/user/password" className= "nav-link">PASSWORD RESET</Link>
+          <Link to= "/vendor/password" className= "nav-link">PASSWORD RESET</Link>
         </li>
       </ul>
     </nav>

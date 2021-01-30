@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import { editCategory, fetchCategory} from "../../../actions";
+import { editCategory, fetchCategory} from "../../../actions/category";
 import AdminMenu from "../AdminMenu";
 import CategoriesForm from "./CategoriesForm";
 

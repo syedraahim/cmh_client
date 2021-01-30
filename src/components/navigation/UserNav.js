@@ -5,13 +5,13 @@ const UserNav = () => {
   return (
     <nav className="navbar navbar-default navbar-top sidenavbar">
       <ul className= "nav flex-column font-weight-bold ">
-        <li className= "nav-item">
+        <li className= "nav-item mb-2">
           <Link to= "/user/history" className= "nav-link">USER HISTORY</Link>
         </li>
-        <li className= "nav-item">
-          <Link to= "/user/password" className= "nav-link">PASSWORD RESET</Link>
+        <li className= "nav-item mb-2">
+          <Link to= "/user/userpassword" className= "nav-link">PASSWORD RESET</Link>
         </li>
-        <li className= "nav-item">
+        <li className= "nav-item mb-2">
           <Link to= "/user/accountinfo" className= "nav-link">ACCOUNT DETAILS</Link>
         </li>
       </ul>

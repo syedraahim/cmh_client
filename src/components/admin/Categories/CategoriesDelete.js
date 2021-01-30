@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {reduxForm} from "redux-form";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
-import {fetchCategory, deleteCategory} from "../../../actions";
+import {fetchCategory, deleteCategory} from "../../../actions/category";
 import AdminMenu from "../AdminMenu";
 import Modal from "../../Modal";
 import history from "../../../history";

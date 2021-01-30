@@ -4,27 +4,31 @@ import {Link} from "react-router-dom";
 const AdminNav = () => {
 
   return(
-    <div className= "container">
-      <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center" >
-          <Link to= "/admin/categories/categoriesList">Categories</Link>
-       </div>
-      <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
-          <Link to= "/admin/subcategories/subcategorieslist">Sub Categories</Link>
-        </div>
-        <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
-          <Link to= "/admin/questions/questionslist">Questions</Link>
-        </div>
-        <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
-          <Link to= "/admin/subcatquestions/subcatquestionslist">Sub Category Questions</Link>
-        </div>
-        <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
-          <Link to="/admin/vendor">Vendor Details</Link>
-        </div>
-        <div className= "row mt-3 mb-2 admin-class d-flex text-center justify-content-center">
-          <Link to="/admin/vendorcategories">Vendor Categories</Link>
-        </div>
-
-    </div>
+    <nav className="navbar mt-3 ">
+      <ul className= "nav flex-column font-weight-bold ">
+      <li className= "nav-item mb-3" >
+          <Link to= "/admin/categories/categoriesList">CATEGORIES</Link>
+       </li>
+       <li className= "nav-item mb-3" >
+          <Link to= "/admin/subcategories/subcategorieslist">SUB CATEGORIES</Link>
+        </li>
+        <li className= "nav-item mb-3" >
+          <Link to= "/admin/questions/questionslist">QUESTIONS</Link>
+        </li>
+        <li className= "nav-item mb-3" >
+          <Link to= "/admin/subcatquestions/subcatquestionslist">SUB CATEGORY QUESTIONS</Link>
+        </li>
+        <li className= "nav-item mb-3" >
+          <Link to="/admin/vendor">VENDOR DETAILS</Link>
+        </li>
+        <li className= "nav-item mb-3" >
+          <Link to="/vendor/vendorpassword">VENDOR PASSWORD</Link>
+        </li>
+        <li className= "nav-item mb-3" >
+          <Link to="/user/userpassword">USER PASSWORD </Link>
+        </li>
+     </ul>
+    </nav>
   )
 }
 

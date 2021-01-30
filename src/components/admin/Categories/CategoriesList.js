@@ -1,12 +1,11 @@
 import React from "react";
 import { connect} from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchCategories } from "../../../actions";
+import { fetchCategories } from "../../../actions/category";
 import AdminMenu from "../AdminMenu";
 
 class CategoriesList extends React.Component
 {
-
     
 componentDidMount() {
     this.props.fetchCategories();

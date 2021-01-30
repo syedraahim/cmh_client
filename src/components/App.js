@@ -11,7 +11,7 @@ import * as actions from "../actions";
 import history from "../history";
 
 import Mainpage from "./Mainpage";
-import MainAdmin from "./admin/MainAdmin";
+import AdminDashboard from "./admin/AdminDashboard";
 import CategoriesCreate from "./admin/Categories/CategoriesCreate";
 import CategoriesList from "./admin/Categories/CategoriesList";
 import CategoriesEdit from "./admin/Categories/CategoriesEdit";
@@ -28,22 +28,28 @@ import SubcategoryQuestionsCreate from "./admin/SubcategoryQuestions/Subcategory
 import SubcategoryQuestionsEdit from "./admin/SubcategoryQuestions/SubcategoryQuestionsEdit";
 import SubcategoryQuestionsDelete from "./admin/SubcategoryQuestions/SubcategoryQuestionsDelete";
 import SubcategoryQuestionsList from "./admin/SubcategoryQuestions/SubcategoryQuestionsList";
-import Vendor from "./admin/Vendor";
-import VendorNew from "./vendor/VendorNew";
-import VendorCategories from "./admin/VendorCategories";
-import Vendorsign from "./vendor/Vendorsign";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import Login from "./login/Login";
 import Register from "./login/Register";
 import RegisterComplete from "./login/RegisterComplete";
 import ForgotPassword from "./login/ForgotPassword";
+// use navigation
 import UserHistory from "./user/UserHistory";
+import UserPassword from "./user/UserPassword";
+//vendor navigation
 import VendorHistory from "./vendor/VendorHistory";
+import VendorPassword from "./vendor/VendorPassword";
+import Vendor from "./admin/Vendor";
+import VendorNew from "./vendor/VendorNew";
+import VendorCategories from "./admin/VendorCategories";
+import Vendorsign from "./vendor/Vendorsign";
 import UserRoute from "./routes/UserRoute";
+import AdminRoute from "./routes/AdminRoute";
 import VendorMain from "./vendor/VendorMain";
 import { LOGGED_IN_USER } from "../actions/types";
-import {currentUser} from "../actions/auth";
+import {currentUser, admintUser} from "../actions/auth";
 
 const App = () => {
 
@@ -85,11 +91,13 @@ const App = () => {
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        <Route path= "/" exact component= {Mainpage} />       
-       <Route path= "/vendor" exact component= {VendorMain} />      
-       <Route path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
-       <Route path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
-       <Route path= "/admin/categories/categoriesedit/:id" exact component= {CategoriesEdit} />
-       <Route path= "/admin/categories/categoriesdelete/:id" component= {CategoriesDelete} />
+       <Route path= "/vendor" exact component= {VendorMain} /> 
+
+        {/* admin routes   */}
+       <AdminRoute path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
+       <AdminRoute path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
+       <AdminRoute path= "/admin/categories/categoriesedit/:id" exact component= {CategoriesEdit} />
+       <AdminRoute path= "/admin/categories/categoriesdelete/:id" component= {CategoriesDelete} />
        <Route path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
        <Route path= "/admin/subcategories/subcategorieslist" exact component= {SubcategoriesList} />
        <Route path= "/admin/subcategories/subcategoriesdelete/:id"   component= {SubcategoriesDelete} />
@@ -102,13 +110,18 @@ const App = () => {
        <Route path= "/admin/subcatquestions/subcatquestionsedit/:id" component= {SubcategoryQuestionsEdit} />
        <Route path= "/admin/subcatquestions/subcatquestionsdelete/:id"  component= {SubcategoryQuestionsDelete} />
        <Route path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
-       <Route path= "/admin/vendor" exact component= {Vendor} />
-       <Route path= "/vendor/vendorlogin" exact component= {VendorNew} />
-       <Route path= "/admin/vendorcategories" exact component= {VendorCategories} />
+       <Route path= "/admin/vendor" exact component= {Vendor} />   
 
+      
+      {/* user routes */}
        <UserRoute path= "/user/history" exact component= {UserHistory} />
+       <UserRoute path= "/user/userpassword" exact component = {UserPassword} />
        <UserRoute  exact path= "/vendor/dashboard"  component= {VendorHistory} />
-       <UserRoute path= "/admin/dashboard" exact component= {MainAdmin} />
+       <UserRoute path= "/vendor/password" exact component= {VendorPassword} />
+       <UserRoute path= "/vendor/vendordetails" exact component= {VendorNew} />
+       <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />
+
+       <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
        {/* <Footer /> */}
      </Router>
     </div>

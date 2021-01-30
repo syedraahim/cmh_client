@@ -5,12 +5,7 @@ import addressDistance from "../apis/addressDistance";
 import {FETCH_USER, 
         FETCH_DISTANCE,
         SUBMIT_VENDOR, 
-        CREATE_VENDOR,
-        CREATE_CATEGORY,
-        FETCH_CATEGORIES,
-        FETCH_CATEGORY,
-        EDIT_CATEGORY,
-        DELETE_CATEGORY,
+        CREATE_VENDOR,        
         FETCH_CATEGORIES_NAME,
         FETCH_SUBCATEGORIES_NAME,
         FETCH_SUBCATEGORIES_CATEGORIES,
@@ -43,34 +38,6 @@ export const fetchUser = () => async (dispatch) => {
    dispatch({type: FETCH_USER, payload:res.data});
  };
 
-//action creators for Categories master
-export const addCategory = (values) =>  async dispatch => {
-    const res = await axios.post("http://localhost:5000/api/category",values);
-    dispatch({type: CREATE_CATEGORY, payload: res.data });
-    history.push("/admin/categories/categorieslist");
-  };
-
-export const fetchCategories = () => async dispatch => {
-   const res= await axios.get("http://localhost:5000/api/category");
-   dispatch({type: FETCH_CATEGORIES, payload: res.data });     
-  };
-
-  export const editCategory = (id, formValues) => async dispatch => {
-      const res= await axios.put(`http://localhost:5000/api/category/${id}`,formValues);
-      dispatch({type:EDIT_CATEGORY, payload: res.data });
-      history.push("/admin/categories/categorieslist"); 
-   };  
-
- export const fetchCategory = (id) => async dispatch => {
-    const res= await axios.get(`http://localhost:5000/api/category/${id}`);
-    dispatch({type: FETCH_CATEGORY, payload:res.data });
-  };
-
-export const deleteCategory =(id) => async dispatch => {
-  await axios.delete(`http://localhost:5000/api/category/${id}`); 
-  dispatch({type: DELETE_CATEGORY, payload: id});
-  history.push("/admin/categories/categorieslist");
-  };
 
   //fetching the list of category names
 export const fetchCategoriesName = () => async dispatch => {

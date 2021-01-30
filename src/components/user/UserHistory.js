@@ -5,7 +5,7 @@ const UserHistory = () => {
    return(
     <div className= "container-fluid">
         <div className= "row ml-0 text-align-top">
-           <div className= "col-md-6">
+           <div className= "col-md-2">
                < UserNav />   
            </div>
            <div className= "col-md-6">            

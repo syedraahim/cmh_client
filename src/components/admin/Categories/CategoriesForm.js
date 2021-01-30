@@ -18,18 +18,20 @@ renderError({touched, error}) {
 
  renderFields() {
     return(
-     <div>
+     <div >
         <Field label= "Category"
                component = {VendorField}
                type = "text"
                name= "name"
+               className= "category"
                placeholder= "Enter Category"             
           />
           <Field label= "Image Link"
                  component= {VendorField}
                  type= "text"
                  name= "imgURL"
-                 Placeholder= "Enter Image Link"               
+                 className= "category"
+                 placeholder= "Enter Image Link"               
           />
      </div>
     ) }

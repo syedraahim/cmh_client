@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import { addCategory} from "../../../actions";
+import { addCategory} from "../../../actions/category";
 import CategoriesForm from "./CategoriesForm";
 import AdminMenu from "../AdminMenu";
 
