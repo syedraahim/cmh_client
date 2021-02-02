@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const VendorNav = () => {
    return(
-    <nav className="navbar mt-2 ">
+    <nav className="navbar mt-2  navlist">
       <ul className= "nav flex-column font-weight-bold mt-2">
       <li className= "nav-item">
           <Link to= "/vendor/history" className= "nav-link">VENDOR HISTORY</Link>

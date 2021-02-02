@@ -1,7 +1,8 @@
 import React from "react";
 import {connect } from "react-redux";
 import { Link} from "react-router-dom";
-import {fetchCategoriesName,fetchSubcategories} from "../../../actions";
+import {fetchCategoriesName} from "../../../actions/category";
+import {fetchSubcategories} from "../../../actions/subcategory";
 import AdminMenu from "../AdminMenu";
 
 

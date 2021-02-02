@@ -1,21 +1,25 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import {fetchCategories} from "../actions/category";
-import {fetchSubcategories} from "../actions";
+import {fetchSubcategories} from "../actions/subcategory";
 import ListSubcategories from "./utils/ListSubcategories";
 import VendorField from "./vendor/VendorField";
 
+const MainBody = () => {
 
-class MainBody extends React.Component {
+  const [ categories, setCategories] = useState([]);
 
-  componentDidMount() {
-    this.props.fetchCategories();   
-  }
+  useState( () => {
 
-   renderFields() {
+    fetchCategories().then( res => setCategories(res.data));
+
+  },[]);
+
+  
+  const renderFields= () => {
      return(
      
-      this.props.category && this.props.category.map( categoryval => {    
+     categories && categories.map( categoryval => {    
         if (categoryval._id)  { 
            return (            
               <div className= "col col-eq-height col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
@@ -37,10 +41,8 @@ class MainBody extends React.Component {
     ) } 
     
    
-   
- render()
- {
-  return (
+  
+   return (
   <div>
  <section className="feature-class" id="features">
   <div className="container-fluid">
@@ -67,7 +69,7 @@ class MainBody extends React.Component {
   <section className= "content-section" >
    <div className= "container-fluid">
    <div className= "row row-eq-height content-header">
-       {this.renderFields()} 
+       {renderFields()} 
     
    </div>   
    </div>        
@@ -85,7 +87,7 @@ class MainBody extends React.Component {
   )
 }
 
-}
+
 
 const mapStateToProps = (state) => {
    return ( { category: Object.values(state.categories)}        

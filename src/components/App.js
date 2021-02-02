@@ -96,8 +96,8 @@ const App = () => {
         {/* admin routes   */}
        <AdminRoute path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
        <AdminRoute path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
-       <AdminRoute path= "/admin/categories/categoriesedit/:id" exact component= {CategoriesEdit} />
-       <AdminRoute path= "/admin/categories/categoriesdelete/:id" component= {CategoriesDelete} />
+       <AdminRoute path= "/admin/categories/categoriesedit/:slug" exact component= {CategoriesEdit} />
+       <AdminRoute path= "/admin/categories/categoriesdelete/:slug" component= {CategoriesDelete} />
        <Route path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
        <Route path= "/admin/subcategories/subcategorieslist" exact component= {SubcategoriesList} />
        <Route path= "/admin/subcategories/subcategoriesdelete/:id"   component= {SubcategoriesDelete} />

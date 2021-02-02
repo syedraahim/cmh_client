@@ -4,10 +4,10 @@ import {Link} from "react-router-dom";
 const AdminNav = () => {
 
   return(
-    <nav className="navbar mt-3 ">
+    <nav className="navbar mt-3 navlist">
       <ul className= "nav flex-column font-weight-bold ">
       <li className= "nav-item mb-3" >
-          <Link to= "/admin/categories/categoriesList">CATEGORIES</Link>
+          <Link to= "/admin/categories/categorieslist">CATEGORIES</Link>
        </li>
        <li className= "nav-item mb-3" >
           <Link to= "/admin/subcategories/subcategorieslist">SUB CATEGORIES</Link>

@@ -12,13 +12,18 @@ import keys from "./config/keys";
     appId: keys.FIREBASE_APP_ID
   };
   // Initialize Firebase
+  if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
-
+  }
   //export auth provider
 
   export const auth = firebase.auth();
   export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   export const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+
+ 
+
+
 
 
   

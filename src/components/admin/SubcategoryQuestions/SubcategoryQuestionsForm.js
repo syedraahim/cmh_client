@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {reduxForm ,Field, FieldArray} from "redux-form";
 import {connect } from "react-redux";
 import {fetchCategories} from "../../../actions/category";
-import {fetchSubcategories, fetchQuestionsName} from "../../../actions";
+import {fetchSubcategories} from "../../../actions/subcategory";
+import { fetchQuestionsName} from "../../../actions";
 import VendorField from "../../vendor/VendorField";
 
 class SubcategoryQuestionsForm extends Component {

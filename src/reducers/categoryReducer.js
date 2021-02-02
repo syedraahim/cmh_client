@@ -18,7 +18,8 @@ const categoryReducer= (state = [], action) => {
          case CREATE_CATEGORY:
            return {...state, [action.payload.id] : action.payload} ;        
          case DELETE_CATEGORY:
-            return _.omit( state, action.payload) ;       
+             const categoryId = action.data;
+             return state.filter(category => category.id !== categoryId);     
         default:
             return state;
     }

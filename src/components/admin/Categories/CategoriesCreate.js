@@ -1,36 +1,77 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
+import {useSelector} from "react-redux";
+import AdminNav from "../../navigation/AdminNav";
 import { addCategory} from "../../../actions/category";
-import CategoriesForm from "./CategoriesForm";
 import AdminMenu from "../AdminMenu";
+import { toast } from "react-toastify";
+import CategoriesForm from "./CategoriesForm";
 
-class CategoriesCreate extends Component
+const CategoriesCreate = () =>
 {
+  const {user} = useSelector( state => ({...state}));
+  const [name,setName] = useState("");
+  const [imgURL, setImgURL] = useState("");
+  const [loading,setLoading] = useState(false);
 
-   addRoute() {
+   const addRoute= () => {
     return("/admin/categories/categoriescreate");
    } 
 
-   onSubmit= formValues => {
-            console.log("formvalues from category create", formValues);
-            this.props.addCategory(formValues);
+   
+   const handleSubmit= (e) => {
+            e.preventDefault();
+            setLoading(true);
+            addCategory({name: name, imgURL: imgURL}, user.token)
+            .then ( (res) => {
+              setLoading(false);
+              setName("");
+              setImgURL("");
+              toast.success(`Successfully created ${res.data.name}`);
+            })
+            .catch (err => {
+              console.log(err);
+              setLoading(false);
+              if(err.response===400) 
+                 toast.error(err.response.data);
+              else
+                  toast.error(err.response);
+            })
    }
     
-  render() {  
+  
    return(
-   <div>
-    <AdminMenu 
-     addRoute= {this.addRoute()} />     
-    <h1 className="card-header font-weight-bold" > Add New Categories </h1>   
-    <CategoriesForm onSubmit= {this.onSubmit} />
-   </div>   
+    <div className= "row"> 
+
+    {console.log("Value for user", {user})};
+     <div className= "col col-md-3" >
+        <AdminNav />
+     </div> 
+     <div className= "col col-md-6">
+       <AdminMenu 
+        addRoute= {addRoute()} />  
+      <section className= "vendor-center">  
+
+      { loading ? <h2>Loading....</h2> 
+                : <h2 className="card-header font-weight-bold" > Add New Categories </h2>  }    
+       
+       <div className = "card  mb-2" >
+     <div className= " card-body mb-1 " >   
+      <CategoriesForm 
+        handleSubmit = {handleSubmit}
+        name= {name}
+        setName= {setName}
+        imgURL= {imgURL}
+        setImgURL= {setImgURL}
+      />
+    </div>
+    </div>
+   </section>
+   </div> 
+   </div>  
+   
   );
 }
-}
 
-function mapStateToProps(state) {
-    return { formValues: state.form.categoryForm};
-}
-
-export default connect(mapStateToProps, {addCategory})(CategoriesCreate);
+export default CategoriesCreate;
 

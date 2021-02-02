@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import {connect} from "react-redux";
 import AdminMenu from "../AdminMenu";
-import { addSubcategory } from "../../../actions";
+import { addSubcategory } from "../../../actions/subcategory";
 import SubcategoriesForm from "./SubcategoriesForm";
 
 class SubcategoriesCreate extends React.Component {  

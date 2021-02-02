@@ -1,22 +1,31 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { connect} from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchCategories } from "../../../actions/category";
+import AdminNav from "../../navigation/AdminNav";
 import AdminMenu from "../AdminMenu";
+import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import { fetchCategories } from "../../../actions/category";
 
-class CategoriesList extends React.Component
-{
-    
-componentDidMount() {
-    this.props.fetchCategories();
+
+const CategoriesList = () =>
+{    
+const [categories, setCategories] = useState([]);
+
+ useEffect( () => {        
+      getCategories()
+    },[]);
+
+const getCategories = async () => {
+   fetchCategories().then( (res) => setCategories(res.data));
 }
 
-addRoute() {
+ const addRoute= () => {
   return("/admin/categories/categoriescreate");
  }
-
-renderList() {
-    return (this.props.categories.map( category =>
+ 
+ const renderList = () => 
+ {
+    return (categories.map( category =>
     {
      
       {if(category.name)
@@ -28,50 +37,51 @@ renderList() {
               <div className= "col col-md-4 mb-2 category">
               {category.imgURL}
               </div>
-              <div className= "col-md-4 mb-1">
-              <Link to= {`/admin/categories/categoriesedit/${category._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
-              <Link to= {`/admin/categories/categoriesdelete/${category._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>
+              <div className= "col-md-2 mb-1">
+              <Link to= {`/admin/categories/categoriesedit/${category.slug}`} 
+                 className= "btn btn-primary  mr-1 "><EditOutlined/>
+              </Link>
+              <Link to= {`/admin/categories/categoriesdelete/${category.slug}`} 
+                        className= "btn btn-danger mr-1 "><DeleteOutlined/>
+              </Link>
               </div>
-            </div>  
-                   
+            </div>                    
         )
-      }
-  
+      }  
     })
       )
 }
-render() {
-  if (!this.props.categories)  {
-    return (
-       <div>Loading....</div>
-  )} ;
-   
+
  return (
-     <div >
-       <AdminMenu
-         addRoute= {this.addRoute()}
-       />
-        <h2 className= "card-header font-weight-bold">Categories</h2>
-       <div className= "container category-center"> 
-        <div className= "row mt-2">
-        <div className = "col col-md-4 mb-3 mt-2 category">
-            <h5 className= "font-weight-bold"> Category Name</h5>
+     <div className= "row" >
+       <div className= "col col-md-2">
+        <AdminNav />
+       </div>  
+       <div className = "col col-md-9 category">  
+         <AdminMenu
+            addRoute= {addRoute()}
+         />
+       { (!categories) 
+          ? <h2>Loading.....</h2>  
+          : <h2 className= "card-header font-weight-bold mt-2">Categories</h2>
+       }
+       <div className= "container-fluid category-center"> 
+       <div className = " row">  
+        <div className= " col col-md-4">     
+            <h5 className= "float-center font-weight-bold"> Category Name</h5>
         </div>
-         <div className = "col col-md-4 mb-3 mt-2 category">
-             <h5 className= "font-weight-bold">  Image URL</h5>
+        <div className = "col col-md-4">
+             <h5 className= "float-center font-weight-bold">  Image URL</h5>
        </div>
        </div> 
+       </div>
         <form>
-         {this.renderList()}
+         {renderList()}
          </form>
-        </div>
-     </div>
+   </div>
+   </div>
+           
  )
 }
-}
 
-const mapStateToProps = (state) => {
- return { categories: Object.values(state.categories)};
-}
-
-export default connect(mapStateToProps, {fetchCategories})(CategoriesList);
+export default CategoriesList;

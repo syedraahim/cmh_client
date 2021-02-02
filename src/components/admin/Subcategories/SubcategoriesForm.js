@@ -4,7 +4,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import VendorField from "../../vendor/VendorField";
 import { connect } from "react-redux";
-import { fetchCategoriesName } from "../../../actions";
+import { fetchCategoriesName } from "../../../actions/category";
 import RenderSelect from "../../utils/RenderSelect";
 
 class SubcategoriesForm extends React.Component {

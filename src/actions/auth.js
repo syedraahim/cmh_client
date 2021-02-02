@@ -5,12 +5,12 @@ export const createOrUpdateUser = async (authtoken) => {
      {headers: {authtoken} });           
    }
 
-   export const currentUser = async (authtoken) => {
+export const currentUser = async (authtoken) => {
     return  await axios.post( "http://localhost:5000/api/auth/currentuser", {},
      {headers: {authtoken} });           
    }
 
-   export const adminUser = async (authtoken) => {
+export const adminUser = async (authtoken) => {
     return  await axios.post( "http://localhost:5000/api/auth/adminuser", {},
      {headers: {authtoken} });           
    }

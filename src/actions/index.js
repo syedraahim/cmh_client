@@ -9,12 +9,7 @@ import {FETCH_USER,
         FETCH_CATEGORIES_NAME,
         FETCH_SUBCATEGORIES_NAME,
         FETCH_SUBCATEGORIES_CATEGORIES,
-        FETCH_QUESTIONS_NAME,
-        CREATE_SUBCATEGORY,
-        FETCH_SUBCATEGORIES,
-        FETCH_SUBCATEGORY,
-        EDIT_SUBCATEGORY,
-        DELETE_SUBCATEGORY,
+        FETCH_QUESTIONS_NAME,        
         CREATE_QUESTION,  
         FETCH_QUESTIONS,
         FETCH_QUESTION,
@@ -32,48 +27,15 @@ export const fetchDistance = () =>  async dispatch => {
     dispatch({type: FETCH_DISTANCE, payload: res.data});
   };
 
-
 export const fetchUser = () => async (dispatch) => {
   const res= await axios.get("/api/current_user");
    dispatch({type: FETCH_USER, payload:res.data});
  };
 
 
-  //fetching the list of category names
-export const fetchCategoriesName = () => async dispatch => {
-  const res= await axios.get("http://localhost:5000/api/category");  
-  dispatch({type: FETCH_CATEGORIES_NAME, payload: res.data });    
- };
+ 
 
- //action creator for Subcategory Master
- export const addSubcategory = (values) => async dispatch => {
-   const res = await axios.post("http://localhost:5000/api/subcategory",values);
-   dispatch({type: CREATE_SUBCATEGORY, payload: res.data });
-   history.push("/admin/subcategories/subcategorieslist");
- };
-
- export const fetchSubcategories = () => async dispatch => {
-    const res = await axios.get("http://localhost:5000/api/subcategory");
-    dispatch({ type: FETCH_SUBCATEGORIES, payload: res.data });
- };
-
- export const fetchSubcategory = (id) => async dispatch => {
-    const res = await axios.get(`http://localhost:5000/api/subcategory/${id}`);
-    dispatch({ type: FETCH_SUBCATEGORY, payload: res.data });
- };
-
- export const editSubcategory = (id, formValues) => async dispatch => {
-   console.log("Formvalues from edit subcategory",formValues);
-    const res = await axios.put(`http://localhost:5000/api/subcategory/${id}`,formValues);
-    dispatch( { type: EDIT_SUBCATEGORY, payload: res.data });
-    history.push("/admin/subcategories/subcategorieslist");
- };
-
-export const deleteSubcategory = (id) => async dispatch => {
-    await axios.delete(`http://localhost:5000/api/subcategory/${id}`);
-    dispatch({type: DELETE_SUBCATEGORY, payload: id });
-    history.push("/admin/subcategories/subcategorieslist");
-  };
+ 
 
   //fetching the list of subcategory names
  export const fetchSubcategoriesName = () => async dispatch => {  

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchSubcategories} from "../../actions";
+import {fetchSubcategories} from "../../actions/subcategory";
 import {Link} from "react-router-dom";
 
 class ListSubcategories extends Component {
@@ -12,7 +12,7 @@ class ListSubcategories extends Component {
       renderSubcategories() {        
          return(
 
-            this.props.subcategory && this.props.subcategory.map( subcategoryval => {
+          this.props.subcategory && this.props.subcategory.map( subcategoryval => {
           if(subcategoryval.category._id) {
              if (subcategoryval.category._id === this.props.categoryValue) {
              return(

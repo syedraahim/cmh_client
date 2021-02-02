@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import { reduxForm } from "redux-form";
-import {fetchSubcategory, editSubcategory} from "../../../actions";
+import {fetchSubcategory, editSubcategory} from "../../../actions/subcategory";
 import AdminMenu from "../AdminMenu";
 import SubcategoriesForm from "./SubcategoriesForm";
 

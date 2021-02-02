@@ -1,65 +1,84 @@
-import React, {Component} from "react";
-import {reduxForm} from "redux-form";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import {Link} from "react-router-dom";
-import {fetchCategory, deleteCategory} from "../../../actions/category";
+import { fetchCategories,deleteCategory} from "../../../actions/category";
 import AdminMenu from "../AdminMenu";
 import Modal from "../../Modal";
 import history from "../../../history";
+import { toast } from "react-toastify";
 
-class CategoriesDelete extends Component
+
+const CategoriesDelete = (props) =>
 {
- componentDidMount() {
-    this.props.fetchCategory(this.props.match.params.id);
- }
+   const {user} = useSelector( state => ({...state}));
+   const [loading, setLoading] = useState(false);
+   const [categories, setCategories] = useState([]);
+   const slug = props.match.params.slug;
 
- addRoute() {
-   return("/admin/categories/categoriescreate");
-  } 
-     
-    renderActions() {
+   useEffect( () => {
+       getCategories();
+   }, [] );
+
+   const getCategories = () => {
+      fetchCategories().then ( (res) => setCategories(res.data));
+   }
+
+   const addRoute= () => {
+     return("/admin/categories/categoriescreate");
+   } 
+  
+   const handleDelete = () => {
+      setLoading(true);
+      deleteCategory(slug, user.token)
+      .then ( res => {
+          setLoading(false);
+          toast.success(`Category deleted successfully: ${slug}`);
+          getCategories();
+           
+      })
+      .catch ( (err) => {
+             console.log(err);
+             setLoading(false);
+             if(err.response===400) 
+                  toast.error(err.response.data);
+             else
+                  toast.error(err.message);
+         });
+   }
+
+    const renderActions = () => {
+       
       return (
          <React.Fragment>
-         <button onClick= { () => this.props.deleteCategory(this.props.match.params.id)} type="submit" className=" btn btn-danger primary-button mr-3">Yes</button>
-         <Link to= "/admin/categories/categoriesList" type="button" className= "btn btn-secondary primary-button">No</Link>
+         <button onClick= { () => {handleDelete()}    } 
+            type="submit" className=" btn btn-danger primary-button mr-3">Yes</button>
+         <Link to= "/admin/categories/categoriesList" 
+               type="button" className= "btn btn-secondary primary-button">No</Link>
          </React.Fragment>
          );
     }
 
-    renderContent() {
-       if(!this.props.category) {
+    const renderContent= () => {
+       
+       if(!slug) {
           return ("Are you sure you want to delete this category?");
        }
-          return(`Are you sure you want to delete the category: ${this.props.category.name}`);
-    }    
-
-    
-  render() { 
+          return(`Are you sure you want to delete the category: ${slug}`);
+      }
    
    return(
    <div>
        <AdminMenu  
-        addRoute= {this.addRoute()}
+        addRoute= {addRoute()}
         />         
         <Modal 
             title= "Delete a Category"
-            content= {this.renderContent()}
-            actions= {this.renderActions()}
+            content= {renderContent()}
+            actions= {renderActions()}
             onDismiss = {() => history.push("/admin/categories/categorieslist") }
          />
     </div>    
      );
 }
-}
 
-
-function mapStateToProps(state, ownProps) {
-    return { category: state.categories[ownProps.match.params.id]};
-}
-
-const formWrapped = 
-  reduxForm({
-   form: "categoryForm"  
-})(CategoriesDelete);
-
-export default connect(mapStateToProps, {fetchCategory, deleteCategory})(formWrapped);
+export default CategoriesDelete;
