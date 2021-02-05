@@ -13,6 +13,7 @@ const CategoriesCreate = () =>
   const [name,setName] = useState("");
   const [imgURL, setImgURL] = useState("");
   const [loading,setLoading] = useState(false);
+  
 
    const addRoute= () => {
     return("/admin/categories/categoriescreate");
@@ -24,10 +25,10 @@ const CategoriesCreate = () =>
             setLoading(true);
             addCategory({name: name, imgURL: imgURL}, user.token)
             .then ( (res) => {
-              setLoading(false);
-              setName("");
-              setImgURL("");
-              toast.success(`Successfully created ${res.data.name}`);
+             setLoading(false);
+             setName("");
+             setImgURL("");
+             toast.success(`Successfully created ${res.data.name}`);
             })
             .catch (err => {
               console.log(err);

@@ -1,24 +1,35 @@
 import _ from "lodash";
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import { reduxForm } from "redux-form";
+import React, {useState, useEffect} from "react";
+import {useSelector} from "react-redux";
 import {fetchSubcategory, editSubcategory} from "../../../actions/subcategory";
 import AdminMenu from "../AdminMenu";
 import SubcategoriesForm from "./SubcategoriesForm";
 
-class SubcategoriesEdit extends Component
+const SubcategoriesEdit = ({match}) => 
 {
+    const {user} = useSelector( (state) => ({...state}));
+    const [category, setCategory] = useState("");
+    const [name, setName] = useState("");
+    const [subcat, setSubcat] = useState("");
+    const [loading, setLoading] = useState(false);
+    const slug= match.params.slug;
 
-    componentDidMount() {
-        console.log("From Subcategories edit  cdm initial values", this.props.subcategory.category.name);
-        this.props.fetchSubcategory(this.props.match.params.id);        
-    }
+    useEffect( () => {
+       getSubcat();
+    });
 
-    addRoute() {
+    const getSubcat= () => {
+       fetchSubcategory(slug).then( (res) => {
+          setCategory= res.data.category
+          setName= res.data.name
+       }) 
+      }
+
+    const addRoute= () => {
         return("/admin/subcategories/subcategoriescreate");
      } 
      
-     onSubmit = (formValues) => {
+    const onSubmit = (formValues) => {
       console.log("Form values from subcategory edit",formValues);
       if (formValues.category._id) {
         let updatedData = {
@@ -31,15 +42,13 @@ class SubcategoriesEdit extends Component
       this.props.editSubcategory(this.props.match.params.id,formValues);
       }
   }
-
-
      
-    render() {
-      {console.log("props from subcat edit", this.props)}
-       if (!this.props.subcategory)  {        
-        return (
-           <div>Loading....</div>
-        )} ; 
+   
+      // {console.log("props from subcat edit", this.props)}
+      //  if (!this.props.subcategory)  {        
+      //   return (
+      //      <div>Loading....</div>
+      //   )} ; 
 
         return (
             <div>
@@ -56,7 +65,7 @@ class SubcategoriesEdit extends Component
             </div>
         )
     }
-}
+
 
 const mapStateToProps = (state,ownProps) => {
     console.log("state from mapstatetoprops edit", state);
@@ -70,11 +79,4 @@ const mapStateToProps = (state,ownProps) => {
             )
 }
 
-const formWrapped = reduxForm( { form: "subcategoriesEdit",
-                                 keepDirtyOnReinitialize: true,
-                                enableReinitialize: true,
-                                 updateUnregisteredFields: true
-                          })(SubcategoriesEdit)
-
-export default connect(mapStateToProps, {fetchSubcategory, editSubcategory})
-                      (formWrapped);
+export default SubcategoriesEdit;

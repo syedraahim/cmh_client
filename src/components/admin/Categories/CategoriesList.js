@@ -5,11 +5,13 @@ import AdminNav from "../../navigation/AdminNav";
 import AdminMenu from "../AdminMenu";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import { fetchCategories } from "../../../actions/category";
+import SearchBar from "../../utils/SearchBar";
 
 
 const CategoriesList = () =>
 {    
 const [categories, setCategories] = useState([]);
+const [keyword, setKeyword] = useState("");
 
  useEffect( () => {        
       getCategories()
@@ -22,10 +24,13 @@ const getCategories = async () => {
  const addRoute= () => {
   return("/admin/categories/categoriescreate");
  }
+
+ 
+ const searchValue= (keyword) => (res) => res.name.toLowerCase().includes(keyword);
  
  const renderList = () => 
  {
-    return (categories.map( category =>
+    return (categories.filter(searchValue(keyword)).map( category =>
     {
      
       {if(category.name)
@@ -65,6 +70,12 @@ const getCategories = async () => {
           ? <h2>Loading.....</h2>  
           : <h2 className= "card-header font-weight-bold mt-2">Categories</h2>
        }
+
+       <SearchBar
+          keyword= {keyword}
+          setKeyword = {setKeyword}
+         />
+         
        <div className= "container-fluid category-center"> 
        <div className = " row">  
         <div className= " col col-md-4">     
@@ -76,7 +87,9 @@ const getCategories = async () => {
        </div> 
        </div>
         <form>
-         {renderList()}
+        
+          
+           {renderList()}
          </form>
    </div>
    </div>

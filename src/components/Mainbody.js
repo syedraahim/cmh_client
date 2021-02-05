@@ -7,15 +7,15 @@ import VendorField from "./vendor/VendorField";
 
 const MainBody = () => {
 
-  const [ categories, setCategories] = useState([]);
-
-  useState( () => {
-
-    fetchCategories().then( res => setCategories(res.data));
-
+  const [categories, setCategories] = useState([]);
+  
+  useEffect( () => {
+    getSubcat();
   },[]);
 
-  
+  const getSubcat= () => {
+    fetchCategories().then( res => setCategories(res.data));
+  }
   const renderFields= () => {
      return(
      

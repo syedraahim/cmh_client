@@ -1,43 +1,68 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
-import {connect} from "react-redux";
+import React, {useState, useEffect} from "react";
+import {useSelector} from "react-redux";
 import AdminMenu from "../AdminMenu";
 import { addSubcategory } from "../../../actions/subcategory";
 import SubcategoriesForm from "./SubcategoriesForm";
+import AdminNav from "../../navigation/AdminNav";
+import { toast } from "react-toastify";
 
-class SubcategoriesCreate extends React.Component {  
+const  SubcategoriesCreate = () =>
+{  
+  const {user} = useSelector( state => ({...state})); 
+  const [category, setCategory] = useState("");
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    
-   addRoute() {
+  const addRoute = () => {
      return("/admin/subcategories/subcategoriescreate");
    }
 
-   onSubmit = (formValues) => {
-     console.log("Props from subcat XXX",this.props);
-       this.props.addSubcategory(formValues);
+   const handleSubmit= (e) => {
+      e.preventDefault();
+      setLoading(true);
+      addSubcategory({category: category, name: name}, user.token)
+      .then ( (res) => {
+         setLoading(false);
+         setCategory("");
+         setName("");
+         toast.success(`Successfully added sub category: ${res.data.name}`);
+      })
+      .catch ( (err) => {
+         console.log(err);
+         setLoading(false);
+         if(err.response===400) 
+             toast.error(err.response.data);
+          else
+             toast.error(err.response);
+    })
    }
-
      
-    render() {  
-          return (
-              
-            <div>             
+    return (              
+           <div className= "row"> 
+             <div className= "col col-md-2">
+                <AdminNav />
+             </div> 
+             <div className= "col col-md-9">          
              <AdminMenu 
-               addRoute = {this.addRoute()}
+               addRoute = {addRoute()}
              />
-             <h1 className="category-head font-weight-bold card-header"> Add New Sub Category</h1>             
-             <SubcategoriesForm
-               onSubmit = {this.onSubmit}
-              /> 
-             </div>                         
+             { (!loading) ? <h2>Loading....</h2>
+                        : <h2 className="category-head font-weight-bold card-header"> Add New Sub Category</h2>
+             }                 
+            <div className = "card  mb-2" >
+               <div className= " card-body mb-1 " >                              
+                 <SubcategoriesForm
+                    handleSubmit = {handleSubmit}
+                     category= {category}
+                     seCategory= {setCategory}
+                     name= {name}
+                     setName= {setName}
+                  />
+                </div>
+              </div> 
+             </div>
+           </div>                          
             ); 
       }      
-    }
-
-const mapStateToProps = (state) => {
-      return ( { formValues: state.form.subcategoriesForm }
-     );
- }
-
-
-export default connect(mapStateToProps,{ addSubcategory })(SubcategoriesCreate);
+  
+export default SubcategoriesCreate;

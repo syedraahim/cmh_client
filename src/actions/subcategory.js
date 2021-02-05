@@ -9,20 +9,20 @@ import {
 } from "../actions/types";
 
 //action creator for Subcategory Master
-export const addSubcategory = (values) => async dispatch => {
-    const res = await axios.post("http://localhost:5000/api/subcategory",values);
-    dispatch({type: CREATE_SUBCATEGORY, payload: res.data });
+export const addSubcategory =  async (values, authtoken) =>  {
+    const res = await axios.post("http://localhost:5000/api/subcategory",values,
+    {headers: {authtoken}});
     history.push("/admin/subcategories/subcategorieslist");
   };
  
-  export const fetchSubcategories = () => async dispatch => {
-     const res = await axios.get("http://localhost:5000/api/subcategories");
-     dispatch({ type: FETCH_SUBCATEGORIES, payload: res.data });
+  export const fetchSubcategories = async () =>  {
+     return await axios.get("http://localhost:5000/api/subcategories");
+    //  dispatch({ type: FETCH_SUBCATEGORIES, payload: res.data });
   };
  
   export const fetchSubcategory = (slug) => async dispatch => {
-     const res = await axios.get(`http://localhost:5000/api/subcategory/${slug}`);
-     dispatch({ type: FETCH_SUBCATEGORY, payload: res.data });
+     return await axios.get(`http://localhost:5000/api/subcategory/${slug}`);
+    //  dispatch({ type: FETCH_SUBCATEGORY, payload: res.data });
   };
  
   export const editSubcategory = (slug, formValues) => async dispatch => {
@@ -32,8 +32,7 @@ export const addSubcategory = (values) => async dispatch => {
      history.push("/admin/subcategories/subcategorieslist");
   };
  
- export const deleteSubcategory = (slug) => async dispatch => {
+ export const deleteSubcategory = async (slug) => {
      await axios.delete(`http://localhost:5000/api/subcategory/${slug}`);
-     dispatch({type: DELETE_SUBCATEGORY, payload: slug });
      history.push("/admin/subcategories/subcategorieslist");
    };

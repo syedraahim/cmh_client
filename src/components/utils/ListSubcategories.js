@@ -1,20 +1,22 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, {useState, useEffect} from "react";
 import {fetchSubcategories} from "../../actions/subcategory";
 import {Link} from "react-router-dom";
 
-class ListSubcategories extends Component {
+const ListSubcategories = (props) => 
+{  
+ const [subcat, setSubcat] = useState([]);
 
-    componentDidMount() {
-       this.props.fetchSubcategories();
-      }
+ useEffect( () => {    
+     fetchSubcategories().then ( (res) => setSubcat(res.data));
+ },[]);
 
-      renderSubcategories() {        
-         return(
 
-          this.props.subcategory && this.props.subcategory.map( subcategoryval => {
+    
+   const renderSubcategories= () => {        
+    return(
+      subcat.map( subcategoryval => {
           if(subcategoryval.category._id) {
-             if (subcategoryval.category._id === this.props.categoryValue) {
+             if (subcategoryval.category._id === props.categoryValue) {
              return(
               <div  key= {subcategoryval._id}>
                  <Link to= {subcategoryval.name} >{subcategoryval.name} </Link>
@@ -24,22 +26,13 @@ class ListSubcategories extends Component {
            } )
          )
      }
-    render () {
-      if (!this.props.subcategory)  {
-        return (
-           <div>Loading....</div>
-       )} ;       
-      return(
-       <div>
-           {this.renderSubcategories()}
-       </div>
-      )
-    }
+    
+    return (
+      <div>
+         {renderSubcategories()}             
+      </div>
+    );
+
 }
-
-const mapStateToProps = (state) => {
-   return { subcategory: Object.values(state.subcategories)}  
-  }
-
-export default connect(mapStateToProps, {fetchSubcategories})(ListSubcategories);
+export default ListSubcategories;
 
