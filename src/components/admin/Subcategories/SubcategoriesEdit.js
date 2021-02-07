@@ -2,81 +2,86 @@ import _ from "lodash";
 import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {fetchSubcategory, editSubcategory} from "../../../actions/subcategory";
+import {fetchCategories} from "../../../actions/category";
 import AdminMenu from "../AdminMenu";
+import AdminNav from "../../navigation/AdminNav";
 import SubcategoriesForm from "./SubcategoriesForm";
+import { toast } from "react-toastify";
 
-const SubcategoriesEdit = ({match}) => 
+const SubcategoriesEdit = ({match, history}) => 
 {
     const {user} = useSelector( (state) => ({...state}));
     const [category, setCategory] = useState("");
     const [name, setName] = useState("");
-    const [subcat, setSubcat] = useState("");
     const [loading, setLoading] = useState(false);
     const slug= match.params.slug;
 
     useEffect( () => {
-       getSubcat();
-    });
+         getSubcat();      
+    }, []);
 
     const getSubcat= () => {
        fetchSubcategory(slug).then( (res) => {
-          setCategory= res.data.category
-          setName= res.data.name
-       }) 
+          console.log("value from res",res.data);
+          setCategory(res.data.category)
+          setName(res.data.name)
+       }); 
       }
 
-    const addRoute= () => {
+     const addRoute= () => {
         return("/admin/subcategories/subcategoriescreate");
      } 
-     
-    const onSubmit = (formValues) => {
-      console.log("Form values from subcategory edit",formValues);
-      if (formValues.category._id) {
-        let updatedData = {
-          _id: formValues._id,
-          category: formValues.category.name,
-          name: formValues.name
-        }
-        this.props.editSubcategory(this.props.match.params.id,updatedData);
-      } else {
-      this.props.editSubcategory(this.props.match.params.id,formValues);
-      }
-  }
-     
-   
-      // {console.log("props from subcat edit", this.props)}
-      //  if (!this.props.subcategory)  {        
-      //   return (
-      //      <div>Loading....</div>
-      //   )} ; 
 
-        return (
-            <div>
+     const handleSubmit= (e) => {
+         e.preventDefault();
+         setLoading(true);
+         console.log("VALUES from subcat",slug, category,name);
+         editSubcategory(slug, { name: name, category: category}, user.token)
+         .then( (res) => {
+            setLoading(false);
+            setName("");
+            toast.success(`Subcategory updated successfully:${res.data.name}`);
+           
+         })
+         .catch( (err) => {
+           console.log(err);
+           setLoading(false);
+           if(err.response===400) 
+              toast.error(err.response.data);
+           else
+               toast.error(err.response);
+         });      
+     }
+         
+  return (
+            <div className= "row">
+              <div className= "col col-md-2">
+                <AdminNav />
+              </div>
+              <div className= "col col-md-9">
+                <AdminMenu 
+                   addRoute = {addRoute()}
+                />
              
-              <AdminMenu 
-                addRoute = {this.addRoute()}
-              />
-              <h1 className="category-head font-weight-bold card-header" > Edit Sub Categories </h1>
-              {console.log("state", this.props.category)}
-              <SubcategoriesForm
-                initialValues = { this.props.category, this.props.subcategory}
-                onSubmit= {this.onSubmit }
-               /> 
+              { (loading) ? <h1>Loading......</h1>
+                           : <h1 className="category-head font-weight-bold card-header" > 
+                                 Edit Sub Categories </h1>
+              }
+              { console.log("category from subcat", category,name)}
+              <div className = "card  mb-2" >
+                 <div className= " card-body mb-1 " >  
+                 <SubcategoriesForm
+                   handleSubmit= {handleSubmit}                  
+                   category= {category}
+                   setCategory= {setCategory}
+                   name = {name}
+                   setName= {setName}                   
+                  /> 
+              </div>
+              </div>
+            </div>
             </div>
         )
     }
-
-
-const mapStateToProps = (state,ownProps) => {
-    console.log("state from mapstatetoprops edit", state);
-     const subcategory = state.subcategories[ownProps.match.params.id]
-   return ( { subcategory,
-               initialValues: {
-                     category:  subcategory.category.name,
-                     name: subcategory.name
-              } 
-           }
-            )
-}
 
 export default SubcategoriesEdit;

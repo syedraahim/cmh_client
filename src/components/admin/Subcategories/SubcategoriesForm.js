@@ -22,14 +22,15 @@ const SubcategoriesForm = ({handleSubmit, category, setCategory, name, setName})
                 <label  className="admin-class">Select a Category</label>         
                 <select className="form-control"  
                    name="category"
-                   value= {category}
                    onChange={(e) => setCategory(e.target.value)}
-                   autoFocus 
                  >
                <option>Select a category</option>             
                {categories.length > 0 && categories.map(catval => 
               (
-                <option key={catval._id} value={catval._id}> {catval.name} </option> 
+                <option key={catval._id} 
+                        value={catval._id}
+                        selected={catval._id===category}
+                        > {catval.name} </option> 
                ))}
              </select>
             </div>       

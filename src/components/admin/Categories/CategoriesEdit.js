@@ -14,8 +14,6 @@ const  CategoriesEdit = ({history, match}) =>
   const [name, setName] = useState("");
   const [imgURL, setImgURL] = useState("");
 
-  console.log("USER FROM EDIT", user.token);
-
   const slug= match.params.slug;
 
   useEffect( () => {
@@ -55,8 +53,7 @@ const  CategoriesEdit = ({history, match}) =>
         else
             toast.error(err.response);
       })
-  }
-    
+  }    
   
    return (
    <div className= "row">

@@ -54,7 +54,7 @@ const  SubcategoriesCreate = () =>
                  <SubcategoriesForm
                     handleSubmit = {handleSubmit}
                      category= {category}
-                     seCategory= {setCategory}
+                     setCategory= {setCategory}
                      name= {name}
                      setName= {setName}
                   />

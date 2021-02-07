@@ -100,8 +100,8 @@ const App = () => {
        <AdminRoute path= "/admin/categories/categoriesdelete/:slug" component= {CategoriesDelete} />
        <Route path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
        <Route path= "/admin/subcategories/subcategorieslist" exact component= {SubcategoriesList} />
-       <Route path= "/admin/subcategories/subcategoriesdelete/:id"   component= {SubcategoriesDelete} />
-       <Route path= "/admin/subcategories/subcategoriesedit/:id"  component= {SubcategoriesEdit} />
+       <Route path= "/admin/subcategories/subcategoriesdelete/:slug"   component= {SubcategoriesDelete} />
+       <Route path= "/admin/subcategories/subcategoriesedit/:slug"  component= {SubcategoriesEdit} />
        <Route path= "/admin/questions/questionscreate" exact component= {QuestionsCreate} />
        <Route path= "/admin/questions/questionslist"  component= {QuestionsList} /> 
        <Route path= "/admin/questions/questionsedit/:id"  component= {QuestionsEdit} />

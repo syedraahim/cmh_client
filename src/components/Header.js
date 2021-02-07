@@ -61,7 +61,8 @@ const logout = () => {
         
       </div>
 
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className= "font-weight-bold menu">
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"
+                                  className= "font-weight-bold menu fontname">
 
         <Menu.Item  icon={<HomeOutlined />} >
           <Link to= "/">Home </Link>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import AdminMenu from "../AdminMenu";
@@ -11,15 +11,18 @@ const SubcategoriesDelete = (props) =>  {
     
     const {user} = useSelector( state => ({...state}));
     const [loading, setLoading] = useState(false);
-    const [subcat, setSubcat] = useState("");
+    const [subcats, setSubcats] = useState([]);
     const slug= props.match.params.slug;
 
-    useEffect=( () => {
-         getSubcat();
-    }, []);
+    console.log("Slug",props.match.params);
 
-    const getSubcat= () => {
-        fetchSubcategories().then ((res) => setSubcat(res.data));
+    useEffect( () => {
+        getSubcats();
+    }, [] );
+ 
+
+    const getSubcats= () => {
+        fetchSubcategories().then ((res) => setSubcats(res.data));
     }   
      
     const addRoute = () => {
@@ -27,10 +30,10 @@ const SubcategoriesDelete = (props) =>  {
      }
 
      const renderContent= () => {       
-             if(!subcat) {
+             if(!subcats) {
                return ("Are you sure you want to delete this subcategory?");
             }
-               return(`Are you sure you want to delete the subcategory: ${subcat.name}`);
+               return(`Are you sure you want to delete the subcategory: ${slug}`);
        }
     
      const handleDelete= () => {
@@ -39,7 +42,7 @@ const SubcategoriesDelete = (props) =>  {
          .then( (res) => {
              setLoading(false);
              toast.success(`Sub catgeory deleted successfully: ${slug}`);
-             getSubcat();
+             getSubcats();
          } )
          .catch( (err) => {
              setLoading(false);
