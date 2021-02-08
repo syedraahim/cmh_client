@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, {Component} from "react";
 import { connect} from "react-redux";
-import { editQuestion, fetchQuestion} from "../../../actions";
+import { editQuestion, fetchQuestion} from "../../../actions/questions";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
 

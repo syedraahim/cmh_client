@@ -6,6 +6,9 @@ const VendorNav = () => {
     <nav className="navbar mt-2  navlist">
       <ul className= "nav flex-column font-weight-bold mt-2">
       <li className= "nav-item">
+          <Link to= "/vendor/vendorcreate" className= "nav-link">ADD VENDOR DETAILS</Link>
+        </li>
+      <li className= "nav-item">
           <Link to= "/vendor/history" className= "nav-link">VENDOR HISTORY</Link>
         </li>
         <li className= "nav-item">

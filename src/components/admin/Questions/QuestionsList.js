@@ -1,28 +1,38 @@
-import React, {Component, Fragment} from "react";
+import React, {useState,useEffect, Fragment} from "react";
 import AdminMenu from "../AdminMenu";
 import {connect} from "react-redux";
 import { Link } from "react-router-dom";
-import {fetchQuestions} from "../../../actions";
+import {fetchQuestions} from "../../../actions/questions";
+import AdminNav from "../../navigation/AdminNav";
 import categoryReducer from "../../../reducers/categoryReducer";
+import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 
-class QuestionsList extends Component
+const QuestionsList = () =>
 {
+  
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    componentDidMount() {
-        this.props.fetchQuestions();
-    }
+  useEffect( () => {
+      getQuestions(); 
+  }, []);
 
-    addRoute() {
+  const getQuestions= () => {
+    setLoading(true);
+    fetchQuestions()
+    .then( (res) => setQuestions(res.data));  
+    setLoading(false);    
+  }
+
+    const addRoute= () =>  {
         return("/admin/questions/questionscreate");
        }
 
-    renderList() {
-        return (         
-         this.props.questions && this.props.questions.map( questionVal => {
-        
-        return(            
-           
-            <div className= "row mb-1">                    
+    const renderList= () => {
+        return (   
+          questions && questions.map( questionVal => {        
+          return (         
+            <div className= "row mt-1">                    
             <div className= "col col-md-6 question" >
              <p key= {questionVal._id}>  {questionVal.question}</p>  
             </div>
@@ -33,24 +43,37 @@ class QuestionsList extends Component
                  )
              }) 
              }                 
-             </div>   
-             <div className= " col col-md-3 float-right mb-1">
-                      <Link to= {`/admin/questions/questionsedit/${questionVal._id}`} className= "btn btn-primary  mr-1 primary-button">Edit</Link>
-                      <Link to= { `/admin/questions/questionsdelete/${questionVal._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
+             </div>    
+             <div className= " col col-md-3 float-right ">
+                      <Link to= {`/admin/questions/questionsedit/${questionVal._id}`}
+                                   className= "btn btn-primary  mr-1">
+                                   <EditOutlined />
+                       </Link>
+                      <Link to= { `/admin/questions/questionsdelete/${questionVal._id}`} 
+                            className= "btn btn-danger mr-1">
+                            <DeleteOutlined /></Link>    
              </div> 
                 </div> 
-                    
-        )         
-        })        
+          )          
+                
+        }) 
+              
        ) 
     }
     
-    render() {
+    
     return (
-     <div>        
-       <h1 className= "font-weight-bold"> Questions </h1>  
-           <AdminMenu
-            addRoute = {this.addRoute()}
+     <div> 
+      { (loading) ? <h2>Loading....</h2>      
+                   :<h2 className= "font-weight-bold"> Questions </h2> 
+      } 
+      <div className= "row">
+       <div className= "col col-md-2">
+         <AdminNav />
+       </div>
+       <div className= "col col-md-9">
+       <AdminMenu
+            addRoute = {addRoute()}
            />
        <div className= "container mt-2" > 
        <div className = "row p-3 bg-light ">
@@ -63,16 +86,14 @@ class QuestionsList extends Component
          </div>
         <div className= "card">        
           <form>
-             {this.renderList()}
+             {renderList()}
           </form>          
        </div> 
        </div>
+       </div>
      </div> 
+     </div>
     )}
-}
 
-const mapStateToProps = (state) => {    
-        return { questions: Object.values(state.questions)};       
-}
 
-export default connect(mapStateToProps, {fetchQuestions})(QuestionsList);
+export default QuestionsList;

@@ -15,10 +15,6 @@ export const fetchCategories =  async () =>  {
     return await axios.get("http://localhost:5000/api/categories");     
    };
 
-//    export const fetchCategoriesnew = async () =>  {
-//       await axios.get("http://localhost:5000/api/categories");    
-//    };
-
 
 export const fetchCategory = async (slug) =>  {
     return await axios.get(`http://localhost:5000/api/category/${slug}`);

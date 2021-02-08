@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 // import { toast} from "react-toastify";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
-import { addQuestion } from "../../../actions";
+import { addQuestion } from "../../../actions/questions";
 
 
 class QuestionsCreate extends React.Component {

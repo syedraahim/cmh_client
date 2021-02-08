@@ -11,6 +11,7 @@ import SearchBar from "../../utils/SearchBar";
 const CategoriesList = () =>
 {    
 const [categories, setCategories] = useState([]);
+const [loading, setLoading] = useState(false);
 const [keyword, setKeyword] = useState("");
 
  useEffect( () => {        
@@ -18,7 +19,9 @@ const [keyword, setKeyword] = useState("");
     },[]);
 
 const getCategories = async () => {
+   setLoading(true);
    fetchCategories().then( (res) => setCategories(res.data));
+   setLoading(false);
 }
 
  const addRoute= () => {
@@ -75,7 +78,7 @@ const getCategories = async () => {
           keyword= {keyword}
           setKeyword = {setKeyword}
          />
-         
+
        <div className= "container-fluid category-center"> 
        <div className = " row">  
         <div className= " col col-md-4">     
@@ -86,9 +89,7 @@ const getCategories = async () => {
        </div>
        </div> 
        </div>
-        <form>
-        
-          
+        <form>         
            {renderList()}
          </form>
    </div>

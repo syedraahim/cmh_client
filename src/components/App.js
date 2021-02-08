@@ -48,6 +48,8 @@ import Vendorsign from "./vendor/Vendorsign";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 import VendorMain from "./vendor/VendorMain";
+import VendorCreate from "./vendor/VendorCreate";
+
 import { LOGGED_IN_USER } from "../actions/types";
 import {currentUser, admintUser} from "../actions/auth";
 
@@ -112,7 +114,8 @@ const App = () => {
        <Route path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
        <Route path= "/admin/vendor" exact component= {Vendor} />   
 
-      
+        {/* vendor routes */}
+        <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
       {/* user routes */}
        <UserRoute path= "/user/history" exact component= {UserHistory} />
        <UserRoute path= "/user/userpassword" exact component = {UserPassword} />
