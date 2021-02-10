@@ -2,7 +2,7 @@
 
 import React, {Component} from "react";
 import {reduxForm} from "redux-form";
-import VendorForm from "./VendorForm";
+import VendorForm from "./VendorProducts/VendorForm";
 import VendorCategories from "./VendorCategories";
 
 class VendorNew extends Component {

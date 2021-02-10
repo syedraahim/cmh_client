@@ -1,109 +1,90 @@
-import React, {Component} from "react";
-import {reduxForm, Field, FieldArray} from "redux-form";
-import VendorField from "../../vendor/VendorField";
+import React from "react";
+import { Form, Input, Button} from 'antd';
+import { MinusCircleOutlined, PlusOutlined} from '@ant-design/icons';
 
 
-class QuestionsForm extends Component {
+const QuestionsForm= ({handleSubmit,question,setQuestion,options,setOptions}) =>  {
 
-renderError = ({touched, error}) => {
-  if (touched && error) {
-     return (
-        <div className= "alert alert-danger mt-2">
-           <div className= "header">{error} </div>
-        </div>
-     ); 
-  }
-}
+ const [form] = Form.useForm();
 
-renderOptions = ({fields}) => (
+ const onFinish = values => {
+   console.log( "received values from form", values.question);
+   console.log( "received values from form", values.options);  
+   
+ }
+
+ const onFinishFailed = (errorInfo) => {
+  console.log('Failed:', errorInfo);
+};
+
+ const handleChange = () => {
+   form.setFieldsValue({options: []});
+ }
+
     
-    <ul className= "list-items"> 
-      <li>
-           <button className= " btn btn-primary mt-3 mb-2" type="button" onClick= {() => fields.push()}>
-             Add Option 
-           </button>         
-      </li>
-        { fields.map( (option, index) => (     
-        <li key= {index}>                                 
-         
-         <button className="btn btn-danger float-right fa fa-trash-o  delete-button" type="button"
-                      title= "Remove option"
-                      onClick = {() => fields.remove(index)} > 
-          </button> 
-         <div className= "row form-group"> 
-           <div className= "col col-md-12 mt-0">
-                 <Field
-                   name= {option} 
-                   type= "text"
-                   component= {VendorField}
-                   label= {`Option # ${index + 1}`}
-                 />   
-          </div> 
-         </div> 
-         </li>                 
-        )) }
-     </ul>
-      );
+     return (             
+      <div>        
+       <section className= "vendor-center">       
+        <div className= "card mt-2">
+        <div className= "card-body admin-class">              
+       <Form   name="question-form" autoComplete="off" 
+               onFinish= {handleSubmit} 
+               onFinishFailed= {onFinishFailed}
+               
+               layout= "vertical">
+        <Form.Item 
+               name="question" 
+               size="large"
+               label="Question"  
+               onChange= {(e) => setQuestion(e.target.value)}
+               setFieldsValue={question}                               
+               rules={[{ required: true, Message: "Please enter the question"}]}  >
+         <Input  />        
+       </Form.Item>
 
- renderFields() {
-   
-   return(
-          <Field 
-               label= "Question"
-               type= "text"
-               name= "question" 
-               component= {VendorField} 
-               placeholder = "Please enter a question"             
-          />         
-    ) 
-  }
-
-  onSubmit= (formValues) => {
-          this.props.onSubmit(formValues);
-    }
-
-   
-  render ()  {
-       return (             
-        <div>        
-         <section className= "vendor-center mb-2">
-       
-         <div className= "card">
-         <div className= "card-body">               
-           <form onSubmit=  {this.props.handleSubmit(this.onSubmit)}>
-            {console.log("props from questionsform level 2:", this.props)}
-              {this.renderFields()} 
-             <FieldArray
-                name= "options"        
-                component=  {this.renderOptions}
-              />                
-
-            <div className= "d-flex justify-content-center mt-1" >
-              <button type="submit"  className= "btn btn-primary font-weight-bold" >Submit</button>
-            </div> 
-            </form>             
-         </div>
-         </div>                        
-          
-        
-        </section>
-        </div>
+      <Form.List name="options" >
+       { (fields, {add,remove}) => (
+        <>
+         { fields.map( field => (    
+         <Form.Item           
+           key= {field.key}          >      
+          <Form.Item
+                  {...field}
+                  label="Option"
+                  size="large"
+                  name={[field.name, 'option']}                             
+                  fieldKey={[field.fieldKey, 'option']}
+                  onChange= {(e) => setOptions(e.target.value)}
+                  setFieldsValue={options}
+                  rules={[{ required: true, message: 'Please enter an option' }]}
+            >
+                <Input style={{ width: '100%' }}/>               
+          </Form.Item>
+           <MinusCircleOutlined onClick={() => remove(field.name)} />
+           
+         </Form.Item>
+         ))}
+         <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add options
+              </Button>
+         </Form.Item>
+        </>
+       )}
+       </Form.List>      
+       <Form.Item>
+           <Button type="primary" htmlType="submit">
+             Submit
+          </Button>
+       </Form.Item>
+    </Form>
+                 
+     </div>
+     </div>          
+             
+     </section>
+    </div>
     )
-  }
-}  
-
-const validate = (formValues) => {
-
-   const errors = {}
-
-   if (!formValues.question) {
-      errors.question = "Please enter the question";
    }
-   if (!formValues.option) {
-     errors.option = "Please enter a valid option"
-   }
-  return errors;
-}
 
-export default reduxForm( {form: "questionsForm",
-                          validate})(QuestionsForm);
+export default QuestionsForm;

@@ -39,7 +39,7 @@ const QuestionsList = () =>
             <div className= "col col-md-3 question" > 
               {questionVal.options && questionVal.options.map( optionVal => {
                  return(                              
-                  <p key= {optionVal} >{optionVal}</p>             
+                  <p key= {optionVal.option} >{optionVal}</p>             
                  )
              }) 
              }                 
@@ -65,7 +65,7 @@ const QuestionsList = () =>
     return (
      <div> 
       { (loading) ? <h2>Loading....</h2>      
-                   :<h2 className= "font-weight-bold"> Questions </h2> 
+                   :<h2 className= "font-weight-bold">List Questions </h2> 
       } 
       <div className= "row">
        <div className= "col col-md-2">

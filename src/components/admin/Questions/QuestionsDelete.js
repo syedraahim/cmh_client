@@ -1,65 +1,96 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, {useState, useEffect} from "react";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import { fetchQuestion, deleteQuestion } from "../../../actions/questions";
+import { fetchQuestion, deleteQuestion, fetchQuestions } from "../../../actions/questions";
 import AdminMenu from "../AdminMenu";
 import Modal from "../../Modal";
 import history from "../../../history";
+import { toast } from "react-toastify";
 
-class QuestionsDelete extends Component {
+const QuestionsDelete = ({match}) => {
 
-componentDidMount() {
-    console.log("From question delete", this.props.match.params.id);
-    this.props.fetchQuestion(this.props.match.params.id);
-}
+   const {user} = useSelector( state => ({...state}));
+   const [questions, setQuestions] = useState([]);
+   const [question, setQuestion] = useState("");
+   const [loading, setLoading] = useState(false);
 
- addRoute() {
+   useEffect( () => {
+      getQuestions();
+      getQuestion();      
+   },[]);
+
+   const getQuestions= () => {
+        fetchQuestions().then ( (qs) => setQuestions(qs.data));
+   }
+
+   const getQuestion = () => {
+      fetchQuestion(match.params.id)
+      .then ( (q) => setQuestion(q.data))
+      .catch( (err) => {
+         console.log(err);
+         setLoading(false);
+         if(err.response===400) 
+            toast.error(err.response.data);
+          else
+            toast.error(err.message);
+      })
+   } 
+
+ const addRoute= () => {
         return("/admin/questions/questionscreate");
  }
 
- renderActions() {
+ const handleDelete= () => {
+    deleteQuestion(match.params.id, user.token)
+   .then ( (res) => {
+      setLoading(false);
+      toast.success(`Question deleted successfully for ${match.params.id}`);
+      getQuestions();
+   })
+   .catch( (err) => {
+      console.log(err);
+      setLoading(false);
+      if(err.response===400) 
+         toast.error(err.response.data);
+       else
+         toast.error(err.message);
+   })
+ }
+
+const renderActions= () => {
     return (
        <React.Fragment>
-       <button onClick= { () => this.props.deleteQuestion(this.props.match.params.id)} type="submit" className=" btn btn-danger primary-button mr-3">Yes</button>
+       <button onClick= { handleDelete()} type="submit" className=" btn btn-danger primary-button mr-3">Yes</button>
        <Link to= "/admin/questions/questionsList" type="button" className= "btn btn-secondary primary-button">No</Link>
        </React.Fragment>
        );
   }
 
 
- renderContent() {
-    if(!this.props.question) {
+const renderContent= () => {
+    if(! question) {
        return ("Are you sure you want to delete this question?");
     }
-       return(`Are you sure you want to delete the question: ${this.props.question.question}`);
- }    
+       return(`Are you sure you want to delete the question: ${question.question}`);
+ }  
 
-
-
-render() {
-   return(
+  return (
     <div>
     <AdminMenu 
-    addRoute = {this.addRoute()}
-    />
-  
+       addRoute = {addRoute()} 
+    />  
+     { loading ?  <h2>"Loading....." </h2>  
+     :
     <Modal 
-      title= "Delete a Question"
-      content= {this.renderContent()}
-      actions= {this.renderActions()}
+      title= "Delete a Question"     
+      content= {renderContent()}
+      actions= {renderActions()}
       onDismiss = {() => history.push("/admin/categories/categorieslist") }
     />
+     }
     </div>
-   ) 
-    
-}
-
-}
-
-const mapStateToProps= (state,ownProps) => {
-    console.log(state);
-    return {question: state.questions[ownProps.match.params.id]};
+   )     
 }
 
 
-export default connect(mapStateToProps, { fetchQuestion, deleteQuestion})(QuestionsDelete);
+export default QuestionsDelete;

@@ -1,46 +1,65 @@
-import React from "react";
-import {connect} from "react-redux";
-// import { toast} from "react-toastify";
+import React, {useState} from "react";
+import {connect, useSelector} from "react-redux";
+import { toast } from "react-toastify";
+import AdminNav from "../../navigation/AdminNav";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
 import { addQuestion } from "../../../actions/questions";
 
 
-class QuestionsCreate extends React.Component {
+const QuestionsCreate = () => {
 
-addRoute() {
+  const {user} = useSelector( state => ({...state}));
+  const [question,setQuestion]= useState("");
+  const [options,setOptions]= useState([]);
+  const [loading,setLoading]= useState(false);
+
+const addRoute= () => {
     return("/admin/questions/questionscreate");
 }
 
-onSubmit = (formValues) => {
-        this.props.addQuestion(formValues);
-        //   .then( (res) => 
-        //   {
-        //     toast.success("Category is created successfully!!!!");
-        //   })
-        //   .catch(err => {
-        //     toast.error("Category creation failed !!!!!");
-        //   }            
-        //  )
+const handleSubmit = (e) => {
+      e.preventDefault();
+      setLoading(true);
+      addQuestion({question,options},user.token)
+      .then( (res) =>         
+      {
+        setLoading(false);
+        setQuestion("");
+        setOptions("");
+        toast.success("Question is created successfully!!!!");
+      })
+      .catch(err => {
+           console.log(err);
+           toast.error("Category creation failed !!!!!");
+          }            
+         )
        }
 
-  render ()  {      
+       
       return (             
-        <div>
+        <div className= "row">
+        <div className= "col col-md-2">
+          <AdminNav />
+        </div>
+        <div className= "col col-md-10">
         <AdminMenu
-          addRoute= {this.addRoute}
+          addRoute= {addRoute}
          /> 
-           <h1 className="category-head font-weight-bold card-header">Add Questions </h1>          
+         { (loading) ? <h2>Loading...</h2>
+           : <h2 className="category-head font-weight-bold card-header">Add Questions </h2> 
+         }         
           <QuestionsForm
-             onSubmit = {this.onSubmit}
-           />        
+             handleSubmit = {handleSubmit}
+             question= {question}
+             setQuestion= {setQuestion}
+             options= {options}
+             setOptions= {setOptions}
+           /> 
+          </div>       
         </div>
     )
   }
-}  
 
-function mapStateToProps(state) {
-    return { formValues: state.form.questionsForm}
-}
 
-export default connect(mapStateToProps,{addQuestion})(QuestionsCreate);
+export default QuestionsCreate;

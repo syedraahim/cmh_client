@@ -33,8 +33,7 @@ const CategoriesDelete = (props) =>
       .then ( res => {
           setLoading(false);
           toast.success(`Category deleted successfully: ${slug}`);
-          getCategories();
-           
+          getCategories();           
       })
       .catch ( (err) => {
              console.log(err);

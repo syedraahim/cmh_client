@@ -48,7 +48,7 @@ import Vendorsign from "./vendor/Vendorsign";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 import VendorMain from "./vendor/VendorMain";
-import VendorCreate from "./vendor/VendorCreate";
+import VendorCreate from "./vendor/VendorProducts/VendorCreate";
 
 import { LOGGED_IN_USER } from "../actions/types";
 import {currentUser, admintUser} from "../actions/auth";
@@ -62,7 +62,6 @@ const App = () => {
      {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        console.log('User from App', user);
         currentUser(idTokenResult.token)     
           .then ( (res) => dispatch ({
                  type: LOGGED_IN_USER,
