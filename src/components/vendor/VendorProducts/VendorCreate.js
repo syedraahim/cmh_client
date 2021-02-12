@@ -8,15 +8,7 @@ import {fetchCategories, fetchCategorySubs} from "../../../actions/category";
 
 
 const initialState= {
-   postcode: "",
-   name: "",
    description: "",
-   houseNo: "",
-   address1: "",
-   address2: "",
-   city: "",
-   county: "",
-   country: "United Kingdom",
    categories: [],
    category: "",
    subcategories: [],
@@ -34,23 +26,16 @@ const VendorCreate = () => {
  const [subOptions, setSubOptions] = useState([]);
  const [ showSubs, setShowSubs] = useState(false);
  
- const {postcode,
-  name,
-  description,
-  houseNo,
-  addressLine1,
-  addressLine2,
-  city,
-  county,
-  country,
+ const {
+   email,
+   userId,
+   description,
   categories,
   subcategories,
-  category,
-  subcategory,
+  category, 
    price,
    pricetypes,
-   pricetype,
-   images 
+   pricetype  
 }  = values;
 
  useEffect( () => {
@@ -69,7 +54,7 @@ const VendorCreate = () => {
   const handleCategoryChange= (e) => {
     e.preventDefault();
     console.log("Category SELECTED", e.target.value);
-    setValues({ ...values, category: e.target.value});
+    setValues({ ...values,subs: [], category: e.target.value});
     fetchCategorySubs(e.target.value)
     .then ( (res) => {
       console.log("VALUE from  SUBCAT", res.data);
@@ -83,6 +68,7 @@ const VendorCreate = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        setValues({ ...values,  userId: user._id, email:user.email}); 
         addVendor(values, user.token)
         .then ( (res) => {
             console.log(res);
@@ -102,20 +88,16 @@ const VendorCreate = () => {
               <VendorNav />
            </div>
            <div className= "col col-md-10">
-              <h2 className= "font-weight-bold">Vendor Details Form</h2>  
-              
-              {JSON.stringify(values.subcategories)}
+             <section className= "vendor-center">
+              <h2 className= "card-header font-weight-bold">Vendor Categories Form</h2>  
+              <div className = "card " >
+               <div className= " card-body mb-1 " >   
               <VendorForm 
                  handleSubmit= {handleSubmit}
                  handleChange= {handleChange}
-                 name= {name}
-                 postcode= {postcode}
-                 houseNo = {houseNo}
-                 addressLine1= {addressLine1}
-                 addressLine2= {addressLine2}
-                 city= {city}
-                 county= {county}
-                 country= {country}
+                 email= {user.email}
+                 userId={user._Id}
+                 user={user}  
                  description= {description}
                  pricetypes= {pricetypes}
                  price= {price}
@@ -127,8 +109,9 @@ const VendorCreate = () => {
                  values= {values}
                  setValues= {setValues}
               /> 
-
-             
+             </div>
+             </div>
+             </section>
            </div>
 
         </div>

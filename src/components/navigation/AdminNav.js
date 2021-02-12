@@ -19,7 +19,7 @@ const AdminNav = () => {
           <Link to= "/admin/subcatquestions/subcatquestionslist">SUB CATEGORY QUESTIONS</Link>
         </li>
         <li className= "nav-item mb-3" >
-          <Link to="/admin/vendor">VENDOR DETAILS</Link>
+          <Link to="/vendor/vendorsinfolist">VENDORS</Link>
         </li>
         <li className= "nav-item mb-3" >
           <Link to="/vendor/vendorpassword">VENDOR PASSWORD</Link>

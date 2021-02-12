@@ -47,8 +47,12 @@ import VendorCategories from "./admin/VendorCategories";
 import Vendorsign from "./vendor/Vendorsign";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
+
 import VendorMain from "./vendor/VendorMain";
 import VendorCreate from "./vendor/VendorProducts/VendorCreate";
+import VendorInfoCreate from "./vendor/VendorInfo/VendorInfoCreate";
+import VendorInfoEdit from "./vendor/VendorInfo/VendorInfoEdit";
+import VendorsInfoList from "./admin/Vendors/VendorsInfoList";
 
 import { LOGGED_IN_USER } from "../actions/types";
 import {currentUser, admintUser} from "../actions/auth";
@@ -99,22 +103,27 @@ const App = () => {
        <AdminRoute path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
        <AdminRoute path= "/admin/categories/categoriesedit/:slug" exact component= {CategoriesEdit} />
        <AdminRoute path= "/admin/categories/categoriesdelete/:slug" component= {CategoriesDelete} />
-       <Route path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
-       <Route path= "/admin/subcategories/subcategorieslist" exact component= {SubcategoriesList} />
-       <Route path= "/admin/subcategories/subcategoriesdelete/:slug"   component= {SubcategoriesDelete} />
-       <Route path= "/admin/subcategories/subcategoriesedit/:slug"  component= {SubcategoriesEdit} />
-       <Route path= "/admin/questions/questionscreate" exact component= {QuestionsCreate} />
-       <Route path= "/admin/questions/questionslist"  component= {QuestionsList} /> 
-       <Route path= "/admin/questions/questionsedit/:id"  component= {QuestionsEdit} />
-       <Route path= "/admin/questions/questionsdelete/:id" component= {QuestionsDelete} /> 
+
+       <AdminRoute path= "/admin/subcategories/subcategoriescreate" exact component= {SubcategoriesCreate} />
+       <AdminRoute path= "/admin/subcategories/subcategorieslist" exact component= {SubcategoriesList} />
+       <AdminRoute path= "/admin/subcategories/subcategoriesdelete/:slug"   component= {SubcategoriesDelete} />
+       <AdminRoute path= "/admin/subcategories/subcategoriesedit/:slug"  component= {SubcategoriesEdit} />
+
+       <AdminRoute path= "/admin/questions/questionscreate" exact component= {QuestionsCreate} />
+       <AdminRoute path= "/admin/questions/questionslist"  component= {QuestionsList} /> 
+       <AdminRoute path= "/admin/questions/questionsedit/:id"  component= {QuestionsEdit} />
+       <AdminRoute path= "/admin/questions/questionsdelete/:id" component= {QuestionsDelete} />        
+
        <Route path= "/admin/subcatquestions/subcatquestionscreate"  component= {SubcategoryQuestionsCreate} />
        <Route path= "/admin/subcatquestions/subcatquestionsedit/:id" component= {SubcategoryQuestionsEdit} />
        <Route path= "/admin/subcatquestions/subcatquestionsdelete/:id"  component= {SubcategoryQuestionsDelete} />
        <Route path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
-       <Route path= "/admin/vendor" exact component= {Vendor} />   
+       <Route path= "/admin/vendor" exact component= {Vendor} /> 
+
+       <AdminRoute path= "/vendor/vendorsinfolist" exact component={VendorsInfoList} />  
 
         {/* vendor routes */}
-        <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
+       <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
       {/* user routes */}
        <UserRoute path= "/user/history" exact component= {UserHistory} />
        <UserRoute path= "/user/userpassword" exact component = {UserPassword} />
@@ -122,6 +131,13 @@ const App = () => {
        <UserRoute path= "/vendor/password" exact component= {VendorPassword} />
        <UserRoute path= "/vendor/vendordetails" exact component= {VendorNew} />
        <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />
+     
+       
+       <Switch>
+         <UserRoute path= "/vendor/vendorinfocreate" exact component= {VendorInfoCreate} />
+         <UserRoute path= "/vendor/vendorinfoedit/:email" exact component= {VendorInfoEdit} />
+       </Switch>
+
 
        <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
        {/* <Footer /> */}

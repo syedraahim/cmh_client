@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import PostcodeSearch from "./PostcodeSearch";
-import AddressList from "./AddressList";
-import PostcodeValues from "./PostcodeValues";
+import PostcodeSearch from "./VendorProducts/PostcodeSearch";
+import AddressList from "./VendorProducts/AddressList";
+import PostcodeValues from "./VendorProducts/PostcodeValues";
 
 
 const  Vendorsign  = () => {

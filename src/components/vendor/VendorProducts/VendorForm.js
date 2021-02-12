@@ -8,15 +8,10 @@ const VendorForm = ( {handleSubmit,
                      subOptions,
                      showSubs,
                      values,
-                     setValues,
-                     name, 
-                     postcode,
-                     houseNo,
-                     addressLine1,
-                     addressLine2, 
-                     city,
-                     county,
-                     country,
+                     setValues, 
+                     email,
+                     userid,
+                     user,                                       
                     categories,
                     subcategories,
                     description,
@@ -29,76 +24,19 @@ const VendorForm = ( {handleSubmit,
             <form onSubmit= {handleSubmit}>
             <section >
               <div className= "form-group">
-                <label className= "admin-class">Name</label>
+                <label className= "admin-class">Email</label>
                 <input
                   type= "text"
-                  name= "name"
+                  disabled= "disabled"
+                  name= "email"s
                   className= "form-control"
-                  value= {name}
-                  onChange= {handleChange}
-                  autoFocus
-                 />
-                                
-                <label className= "admin-class">Postcode</label>
-                <input
-                  type= "text"
-                  name= "postcode"
-                  className= "form-control"
-                  value= {postcode}
-                  onChange= {handleChange}
-                 />
-                <label className= "admin-class">House No</label>
-                <input
-                  type= "text"
-                  name= "houseNo"
-                  className= "form-control"
-                  value= {houseNo}
-                  onChange= {handleChange}
-                 />
-                <label className= "admin-class">Address Line 1</label>
-                <input
-                  type= "text"
-                  name= "addressLine1"
-                  className= "form-control"
-                  value= {addressLine1}
-                  onChange= {handleChange}
-                 />
-                <label className= "admin-class">Address Line 2</label>
-                <input
-                  type= "text"
-                  name= "addressLine2"
-                  className= "form-control"
-                  value= {addressLine2}
-                  onChange= {handleChange}
-                 />
-                <label className= "admin-class">City</label>
-                <input
-                  type= "text"
-                  name= "city"
-                  className= "form-control"
-                  value= {city}
-                  onChange= {handleChange}
-                 />
-                 <label className= "admin-class">County</label>
-                <input
-                  type= "text"
-                  name= "county"
-                  className= "form-control"
-                  value= {county}
-                  onChange= {handleChange}
-                 />
-                 <label className= "admin-class">Country</label>
-                 <input
-                  type= "text"
-                  name= "country"
-                  className= "form-control"
-                  value= {country}
-                  onChange= {handleChange}
-                 />
+                  value= {email}                 
+                 />                            
+                
                  <label className= "admin-class">Description</label>
-                <input
-                  type= "textarea"
+                <textarea
                   name= "description"
+                  rows="2"
                   className= "form-control"
                   value= {description}
                   onChange= {handleChange}
@@ -119,11 +57,11 @@ const VendorForm = ( {handleSubmit,
 
                  { showSubs && (
                  <div>
-                  <label className= "admin-class mt-1">Subcategories</label>
+                  <label className= "admin-class mt-1 mb-1">Subcategories</label>
                   <Select mode= "multiple"
                           style={{ width: '100%' }}
                           placeholder= "Select a Sub category"
-                          className= "admin-class"
+                          className= "font-weight:600"
                           value= {subcategories}
                           onChange= { (value) => setValues({...values, subcategories: value})}
                   >
@@ -159,7 +97,7 @@ const VendorForm = ( {handleSubmit,
                  />                   
 
                </div>
-               <div className= "d-flex justify-content-center mt-1 mb-2 ">
+               <div className= "d-flex justify-content-center mt-1">
                   <button type="submit" className = "btn btn-primary font-weight-bold " name="category">Save</button>  
                </div> 
             </section>
