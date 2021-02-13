@@ -4,20 +4,25 @@ const {Option} = Select;
 
 const VendorForm = ( {handleSubmit, 
                      handleChange,
+                     email,
+                     userId,
+                     values,
+                     setValues,
                      handleCategoryChange,
                      subOptions,
-                     showSubs,
-                     values,
-                     setValues, 
-                     email,
-                     userid,
-                     user,                                       
-                    categories,
-                    subcategories,
-                    description,
-                    pricetypes,
-                    price,
+                     showSubs,                    
                     }) =>  {
+
+  
+ const {   
+   description,
+  categories,
+  subcategories,
+  category, 
+   price,
+   pricetypes,
+   pricetype  
+}  = values;
 
     const renderFields= () => {
         return (
@@ -28,7 +33,7 @@ const VendorForm = ( {handleSubmit,
                 <input
                   type= "text"
                   disabled= "disabled"
-                  name= "email"s
+                  name= "email"
                   className= "form-control"
                   value= {email}                 
                  />                            
@@ -61,7 +66,7 @@ const VendorForm = ( {handleSubmit,
                   <Select mode= "multiple"
                           style={{ width: '100%' }}
                           placeholder= "Select a Sub category"
-                          className= "font-weight:600"
+                          className= "font-weight:800"
                           value= {subcategories}
                           onChange= { (value) => setValues({...values, subcategories: value})}
                   >
@@ -94,6 +99,12 @@ const VendorForm = ( {handleSubmit,
                   className= "form-control"
                   value= {price}
                   onChange= {handleChange}
+                 />  
+                 <input
+                  type= "hidden"                  
+                  name= "userId"
+                  className= "form-control"
+                  value= {userId}                 
                  />                   
 
                </div>

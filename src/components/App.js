@@ -48,7 +48,7 @@ import Vendorsign from "./vendor/Vendorsign";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 
-import VendorMain from "./vendor/VendorMain";
+import VendorDashboard from "./vendor/VendorDashboard";
 import VendorCreate from "./vendor/VendorProducts/VendorCreate";
 import VendorInfoCreate from "./vendor/VendorInfo/VendorInfoCreate";
 import VendorInfoEdit from "./vendor/VendorInfo/VendorInfoEdit";
@@ -96,7 +96,7 @@ const App = () => {
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        <Route path= "/" exact component= {Mainpage} />       
-       <Route path= "/vendor" exact component= {VendorMain} /> 
+       <Route path= "/vendor" exact component= {VendorDashboard} /> 
 
         {/* admin routes   */}
        <AdminRoute path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
@@ -127,7 +127,7 @@ const App = () => {
       {/* user routes */}
        <UserRoute path= "/user/history" exact component= {UserHistory} />
        <UserRoute path= "/user/userpassword" exact component = {UserPassword} />
-       <UserRoute  exact path= "/vendor/dashboard"  component= {VendorHistory} />
+       <UserRoute  exact path= "/vendor/dashboard"  component= {VendorDashboard} />
        <UserRoute path= "/vendor/password" exact component= {VendorPassword} />
        <UserRoute path= "/vendor/vendordetails" exact component= {VendorNew} />
        <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />

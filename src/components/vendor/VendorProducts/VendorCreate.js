@@ -5,9 +5,16 @@ import VendorNav from "../../navigation/VendorNav";
 import {addVendor} from "../../../actions/vendor";
 import VendorForm from "./VendorForm";
 import {fetchCategories, fetchCategorySubs} from "../../../actions/category";
+import FileUpload from "../../utils/FileUpload";
+import { LoadingOutlined } from "@ant-design/icons";
 
+const VendorCreate = () => {
 
-const initialState= {
+ const {user} = useSelector( state => ({...state}));   
+
+ const initialState= {  
+   userId: user._id,
+   email:user.email,
    description: "",
    categories: [],
    category: "",
@@ -18,25 +25,11 @@ const initialState= {
    pricetype: "Hourly",
    images: []
 }
-
-const VendorCreate = () => {
-
- const {user} = useSelector( state => ({...state}));   
  const [values, setValues] = useState(initialState); 
+ const [loading,setLoading] = useState(false);
  const [subOptions, setSubOptions] = useState([]);
  const [ showSubs, setShowSubs] = useState(false);
- 
- const {
-   email,
-   userId,
-   description,
-  categories,
-  subcategories,
-  category, 
-   price,
-   pricetypes,
-   pricetype  
-}  = values;
+
 
  useEffect( () => {
     getCategories();
@@ -48,13 +41,13 @@ const VendorCreate = () => {
 
   const handleChange= (e) => {  
         setValues({ ...values, [e.target.name] : e.target.value});
-        console.log(e.target.name, ".....", e.target.value);
+        console.log(("Values from handlechange"),values);
     }
 
   const handleCategoryChange= (e) => {
     e.preventDefault();
     console.log("Category SELECTED", e.target.value);
-    setValues({ ...values,subs: [], category: e.target.value});
+    setValues({ ...values,subcategories: [], category: e.target.value});
     fetchCategorySubs(e.target.value)
     .then ( (res) => {
       console.log("VALUE from  SUBCAT", res.data);
@@ -68,15 +61,21 @@ const VendorCreate = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        setValues({ ...values,  userId: user._id, email:user.email}); 
+        setLoading(true);
+        console.log("Values before submit",values);
+        setValues({ ...values,userId: user._id, email:user.email}); 
+      
+        console.log("Values after set values vendor submit",values);
+      
         addVendor(values, user.token)
         .then ( (res) => {
-            console.log(res);
+            setLoading(false);
             window.alert(`Vendor is created successfully !!!!` );
             window.location.reload();
         })
         .catch ( (err) => {
            console.log(err);
+           setLoading(false);
            toast.error(err.response);            
         });        
    }
@@ -89,25 +88,32 @@ const VendorCreate = () => {
            </div>
            <div className= "col col-md-10">
              <section className= "vendor-center">
-              <h2 className= "card-header font-weight-bold">Vendor Categories Form</h2>  
+             { loading ? <LoadingOutlined  className= "text-danger h1"/>
+                       : <h2 className= "card-header font-weight-bold">Vendor Categories Form</h2>  
+             }
+             
               <div className = "card " >
-               <div className= " card-body mb-1 " >   
+               <div className= " card-body mb-1 " > 
+
+               <div className= "p3">
+                  <FileUpload
+                     values= {values}
+                     setValues= {setValues}
+                     setLoading= {setLoading}
+                   />
+
+               </div>  
+
               <VendorForm 
                  handleSubmit= {handleSubmit}
                  handleChange= {handleChange}
-                 email= {user.email}
-                 userId={user._Id}
-                 user={user}  
-                 description= {description}
-                 pricetypes= {pricetypes}
-                 price= {price}
-                 categories= {categories}
-                 subcategories= {subcategories}
-                 handleCategoryChange= {handleCategoryChange}
-                 subOptions= {subOptions}
-                 showSubs= {showSubs}
+                 email={user.email}  
+                 userId={user._id}
                  values= {values}
                  setValues= {setValues}
+                 handleCategoryChange= {handleCategoryChange}
+                 subOptions= {subOptions}
+                 showSubs= {showSubs}                 
               /> 
              </div>
              </div>

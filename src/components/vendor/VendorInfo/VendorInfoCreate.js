@@ -5,22 +5,23 @@ import VendorNav from "../../navigation/VendorNav";
 import {addVendorInfo} from "../../../actions/vendorInfo";
 import VendorInfoForm from "../VendorInfo/VendorInfoForm";
 
-
-const initialState= {   
-   postcode: "",
-   name: "",
-   houseNo: "",
-   addressLine1: "",
-   addressLine2: "",
-   city: "",
-   county: "",
-   country: "United Kingdom",
-   website: ""
-}
-
 const VendorInfoCreate = () => {
 
- const {user} = useSelector( state => ({...state}));   
+ const {user} = useSelector( state => ({...state})); 
+ 
+ const initialState= {  
+    userid: user._id,
+    email: user.email,
+    postcode: "",
+    name: "",
+    houseNo: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    county: "",
+    country: "United Kingdom",
+    website: ""
+ }
  const [values, setValues] = useState(initialState); 
  const [loading,setLoading] = useState(false);
 

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {fetchCategories} from "../actions/category";
 import {fetchSubcategories} from "../actions/subcategory";
 import ListSubcategories from "./utils/ListSubcategories";
+import {Avatar} from "antd";
 import VendorField from "./vendor/VendorField";
 
 const MainBody = () => {
@@ -31,7 +32,12 @@ const MainBody = () => {
                  </div>
                 
                  <div className= "float-left">
-                 <img className= "category-img" href={categoryval.imgURL} src= {categoryval.imgURL}></img> 
+                 <Avatar                  
+                    src= {categoryval.imgURL}
+                    size= {100}
+                    className="category-img"
+                 />
+                 {/* <img className= "category-img" href={categoryval.imgURL} src= {categoryval.imgURL}></img>  */}
                  </div>   
                   
               </div>                                      

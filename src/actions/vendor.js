@@ -6,4 +6,11 @@ export const addVendor =  async (formvalues, authtoken) =>  {
     {headers: {authtoken}});   
   };
 
-  
+export const getAllVendorCategories = async() => {
+  return await axios.get("http://localhost:5000/api/vendors"); 
+}
+
+export const getVendorCategories = async(email) => {
+  return await axios.get(`http://localhost:5000/api/vendors/${email}`); 
+}
+
