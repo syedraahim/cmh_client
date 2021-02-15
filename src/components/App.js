@@ -52,7 +52,10 @@ import VendorDashboard from "./vendor/VendorDashboard";
 import VendorCreate from "./vendor/VendorProducts/VendorCreate";
 import VendorInfoCreate from "./vendor/VendorInfo/VendorInfoCreate";
 import VendorInfoEdit from "./vendor/VendorInfo/VendorInfoEdit";
-import VendorsInfoList from "./admin/Vendors/VendorsInfoList";
+import VendorsInfoList from "./vendor/VendorInfo/VendorsInfoList"
+import VendorCatList from "./admin/Vendors/VendorCatList";
+import VendorCatDelete from "./admin/Vendors/VendorCatDelete";
+import VendorListUser from "./vendor/VendorProducts/VendorListUser";
 
 import { LOGGED_IN_USER } from "../actions/types";
 import {currentUser, admintUser} from "../actions/auth";
@@ -120,7 +123,8 @@ const App = () => {
        <Route path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
        <Route path= "/admin/vendor" exact component= {Vendor} /> 
 
-       <AdminRoute path= "/vendor/vendorsinfolist" exact component={VendorsInfoList} />  
+       <AdminRoute path= "/vendor/vendorsinfolist" exact component={VendorsInfoList} /> 
+       <AdminRoute path= "/vendor/vendorcatlist" exact component={VendorCatList} />   
 
         {/* vendor routes */}
        <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
@@ -131,6 +135,8 @@ const App = () => {
        <UserRoute path= "/vendor/password" exact component= {VendorPassword} />
        <UserRoute path= "/vendor/vendordetails" exact component= {VendorNew} />
        <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />
+       <UserRoute path= "/vendor/vendorcatdelete/:id" exact component= {VendorCatDelete} />
+       <UserRoute path= "/vendor/vendorcatlistuser/:userid" exact component= {VendorListUser} />
      
        
        <Switch>

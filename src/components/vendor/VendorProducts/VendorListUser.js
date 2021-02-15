@@ -1,20 +1,22 @@
 import React, {useState, useEffect} from "react";
 import AdminNav from "../../navigation/AdminNav";
-import {getAllVendorCategories} from "../../../actions/vendor";
+import {getVendorCategoriesUser} from "../../../actions/vendor";
 import AdminVendorCard from "../../cards/AdminVendorCard";
-import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import {useSelector} from "react-redux";
 
-const VendorCatList = () => {
+const VendorListUser = () => {
+
+  const {user} = useSelector( state => ({...state}));
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect( () => {
-     loadVendorCategories();     
+     loadVendorCategoriesUser();     
   },[]);
 
-  const loadVendorCategories= () => {
+  const loadVendorCategoriesUser= () => {
     setLoading(true);
-    getAllVendorCategories()
+    getVendorCategoriesUser(user._id)
     .then ( res => {
         setCategories(res.data);
         setLoading(false);
@@ -33,7 +35,7 @@ const VendorCatList = () => {
            </div>  
            <div className= "col col-md-10">
             { loading ? <h4>Loading....</h4>
-                      :  <h4 className= "font-weight-bold">All Vendor Categories</h4>
+                      :  <h4 className= "font-weight-bold"> Vendor Categories</h4>
             }
             <div className= "row pb-3">
             { categories.map( (cat) => {
@@ -54,12 +56,4 @@ const VendorCatList = () => {
 }
 
 
-export default VendorCatList;
-
-
-
-
-
-
-  
-
+export default VendorListUser;

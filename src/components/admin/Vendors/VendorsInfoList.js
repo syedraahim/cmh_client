@@ -5,6 +5,8 @@ import AdminNav from "../../navigation/AdminNav";
 import AdminMenu from "../AdminMenu";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import SearchBar from "../../utils/SearchBar";
+import VendorInfoCard from "../../cards/VendorInfoCard";
+
 
 const VendorsInfoList = () => {
 
@@ -23,7 +25,7 @@ const VendorsInfoList = () => {
  }
 
  const addRoute= () => {
-  return("/admin/vendors/vendorsinfolist");
+  return("/vendor/vendorinfocreate");
  }
 
  const searchValue= (keyword) => (res) => res.name.toLowerCase().includes(keyword);
@@ -33,43 +35,11 @@ const VendorsInfoList = () => {
   return (
      vendors && vendors.filter(searchValue(keyword)).map( (vendor) => {
       return(
-      <div className= "row"  key= {vendor._id}>            
-      <div className= "col col-md-2 mb-2  category" >
-           {vendor.name}
-      </div>
-      <div className= "col col-md-1 mb-2  category" >
-           {vendor.postcode}
-      </div>
-      <div className= "col col-md-1 mb-2  category" >
-           {vendor.houseNo}
-      </div>
-      <div className= "col col-md-2 mb-2  category" >
-           {vendor.addressLine1}
-         <div className= "col" >
-           {vendor.addressLine2}
-          </div>
-      </div>      
-      <div className= "col col-md-1 mb-2  category" >
-           {vendor.city}
-      </div>
-      <div className= "col col-md-2 mb-2  category" >
-           {vendor.county}
-      </div>
-      <div className= "col col-md-1 mb-2  category" >
-           {vendor.country}
-      </div>
-      <div className= "col col-md-2 mb-2  category" >
-           {vendor.website}
-      </div>
-      <div className= "col-md-2 mb-1">
-              <Link to= {`/admin/vendors/vendoredit/${vendor.email}`} 
-                 className= "btn btn-primary  mr-1 "><EditOutlined/>
-              </Link>
-              <Link to= {`/admin/vendors/vendordelete/${vendor.delete}`} 
-                        className= "btn btn-danger mr-1 "><DeleteOutlined/>
-              </Link>
-              </div>
-      </div>
+      <div className= "row"  key= {vendor._id}> 
+       <VendorInfoCard  vendor= {vendor}                                
+     />
+    </div>        
+      
       )
      })
   )
@@ -87,49 +57,19 @@ const VendorsInfoList = () => {
       />
 
      { loading ? <h2>Loading....</h2>
-               : <h2 className= "card-header mb-2">List of Vendors</h2>
+               : <h2 className= "font-weight-bold mb-2">List of Vendors</h2>
      }
      <SearchBar
           keyword= {keyword}
           setKeyword = {setKeyword}
      />
-     <div className= "container-fluid category-center"> 
-       <div className = " row">  
-        <div className= " col col-md-2">     
-            <h6 className= "float-left font-weight-bold">Name</h6>
-        </div>
-        <div className = "col col-md-1">
-             <h6 className= "float-left font-weight-bold">Postcode</h6>
-       </div>
-       <div className = "col col-md-1">
-             <h6 className= "float-left font-weight-bold">House</h6>
-       </div>
-       <div className = "col col-md-2">
-             <h6 className= "float-center font-weight-bold">Address</h6>
-       </div>
-       <div className = "col col-md-1">
-             <h6 className= "float-center font-weight-bold">City</h6>
-       </div>
-       <div className = "col col-md-2">
-             <h6 className= "float-center font-weight-bold">County</h6>
-       </div>
-       <div className = "col col-md-1">
-             <h6 className= "float-center font-weight-bold">Country</h6>
-       </div>
-       <div className = "col col-md-2">
-             <h6 className= "float-center font-weight-bold">Website</h6>
-       </div>
-       </div> 
-       </div>
+    
      <form>
        {renderList()}
      </form>
    
    </div>
-   </div>
-
-
-     
+   </div>   
     
   )
 }

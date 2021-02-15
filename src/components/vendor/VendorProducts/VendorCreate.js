@@ -5,6 +5,7 @@ import VendorNav from "../../navigation/VendorNav";
 import {addVendor} from "../../../actions/vendor";
 import VendorForm from "./VendorForm";
 import {fetchCategories, fetchCategorySubs} from "../../../actions/category";
+import {fetchVendorInfo} from "../../../actions/vendorInfo";
 import FileUpload from "../../utils/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -13,8 +14,8 @@ const VendorCreate = () => {
  const {user} = useSelector( state => ({...state}));   
 
  const initialState= {  
-   userId: user._id,
-   email:user.email,
+   userId: user._id, 
+   vendorInfoId: "" ,
    description: "",
    categories: [],
    category: "",
@@ -29,14 +30,30 @@ const VendorCreate = () => {
  const [loading,setLoading] = useState(false);
  const [subOptions, setSubOptions] = useState([]);
  const [ showSubs, setShowSubs] = useState(false);
+ const [vendor, setvendor] = useState("");
 
 
  useEffect( () => {
     getCategories();
+    getVendorInfo();
  }, []);
 
  const getCategories= () => {
     fetchCategories().then( (res) => setValues({ ...values, subcategories:[], categories: res.data}));
+ }
+
+ const getVendorInfo = () => {
+    setLoading(true);
+    fetchVendorInfo(user.email)
+       .then ( (v) =>  {
+          setLoading(false);
+          setvendor(v.data);
+       })      
+       .catch ( (err) => {
+          setLoading(false);
+          console.log(err);
+          toast.error(`Vendor info not found for user: ${user.email}`);
+       })
  }
 
   const handleChange= (e) => {  
@@ -49,8 +66,7 @@ const VendorCreate = () => {
     console.log("Category SELECTED", e.target.value);
     setValues({ ...values,subcategories: [], category: e.target.value});
     fetchCategorySubs(e.target.value)
-    .then ( (res) => {
-      console.log("VALUE from  SUBCAT", res.data);
+    .then ( (res) => {      
       setSubOptions(res.data)
     })
     .catch ( (err) => {
@@ -63,8 +79,9 @@ const VendorCreate = () => {
         e.preventDefault();
         setLoading(true);
         console.log("Values before submit",values);
-        setValues({ ...values,userId: user._id, email:user.email}); 
-      
+        setValues({ ...values,userId: user._id,
+                              vendorInfoId: vendor._id}); 
+        setLoading(false);
         console.log("Values after set values vendor submit",values);
       
         addVendor(values, user.token)
@@ -107,7 +124,8 @@ const VendorCreate = () => {
               <VendorForm 
                  handleSubmit= {handleSubmit}
                  handleChange= {handleChange}
-                 email={user.email}  
+                 vendorInfoId={vendor._id}  
+                 vendorName= {vendor.name}
                  userId={user._id}
                  values= {values}
                  setValues= {setValues}

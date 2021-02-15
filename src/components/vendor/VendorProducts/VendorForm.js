@@ -4,7 +4,8 @@ const {Option} = Select;
 
 const VendorForm = ( {handleSubmit, 
                      handleChange,
-                     email,
+                     vendorInfoId, 
+                     vendorName,                    
                      userId,
                      values,
                      setValues,
@@ -21,21 +22,24 @@ const VendorForm = ( {handleSubmit,
   category, 
    price,
    pricetypes,
-   pricetype  
+   pricetype,
+   vendorInfo    
 }  = values;
+
+ {console.log("Vendor....",vendorInfoId)}
 
     const renderFields= () => {
         return (
             <form onSubmit= {handleSubmit}>
             <section >
               <div className= "form-group">
-                <label className= "admin-class">Email</label>
+                <label className= "admin-class">Vendor</label>
                 <input
                   type= "text"
                   disabled= "disabled"
-                  name= "email"
+                  name= "vendorname"
                   className= "form-control"
-                  value= {email}                 
+                  value= {vendorName}                 
                  />                            
                 
                  <label className= "admin-class">Description</label>
@@ -105,6 +109,12 @@ const VendorForm = ( {handleSubmit,
                   name= "userId"
                   className= "form-control"
                   value= {userId}                 
+                 />   
+                 <input
+                  type= "hidden"                  
+                  name= "vendorInfoId"
+                  className= "form-control"
+                  value= {vendorInfoId}                 
                  />                   
 
                </div>

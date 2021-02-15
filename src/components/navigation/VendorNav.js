@@ -25,7 +25,7 @@ const VendorNav = () => {
         </li>
       }
       <li className= "nav-item">
-          <Link to= "/vendor/vendorcreate" className= "nav-link">VENDOR CATEGORIES</Link>
+          <Link to= "/vendor/vendorcatlistuser/:userid" className= "nav-link">VENDOR CATEGORIES</Link>
       </li>
       
       <li className= "nav-item">

@@ -53,7 +53,7 @@ console.log("Authtoken:",user.token );
         e.preventDefault();
         setLoading(true);  
         console.log("Values before EDIT",values);           
-        editVendorInfo(values, user.token)
+        editVendorInfo(slug,values, user.token)
         .then ( (res) => {
             setLoading(false);
             window.alert(`Vendor Information is changed successfully for ${user.email}` );

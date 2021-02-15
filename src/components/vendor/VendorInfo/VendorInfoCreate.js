@@ -11,7 +11,7 @@ const VendorInfoCreate = () => {
  
  const initialState= {  
     userid: user._id,
-    email: user.email,
+    email: user.email,    
     postcode: "",
     name: "",
     houseNo: "",
