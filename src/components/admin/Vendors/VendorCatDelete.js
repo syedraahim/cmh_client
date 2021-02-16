@@ -5,7 +5,7 @@ import AdminMenu from "../AdminMenu";
 import Modal from "../../Modal";
 import history from "../../../history";
 import { toast } from "react-toastify";
-import {deleteVendor, getAllVendorCategories, getVendorCategories} from "../../../actions/vendor";
+import {deleteVendor, getAllVendorCategories, getVendorCategory} from "../../../actions/vendor";
 
 
 const VendorCatDelete = (props) => {
@@ -29,7 +29,7 @@ const VendorCatDelete = (props) => {
           };
 
     const loadVendorCategories= () => {
-        getVendorCategories(id)
+        getVendorCategory(id)
         .then ( (v) => setVendor(v.data))
         .catch ( (err) => {
             console.log(err);

@@ -7,14 +7,14 @@ const {Meta} = Card;
 
 const AdminVendorCard = ({cat}) => {
     console.log("values from CAT", {cat})
-    const {email, description, category, subcategories,images,_id} = cat;
+    const {name, description, category, subcategories,images,_id} = cat;
   return (
       <Card  cover= {
           <img src= { images && images.length ? images[0].url : ""} 
                style= {{ height: "150px", objectFit: "cover"}}
           />
       }
-         actions= {[ <Link to= {`/admin/vendors/vendorcatedit/${_id}`}>
+         actions= {[ <Link to= {`/vendor/vendoredit/${_id}`}>
                       <EditOutlined  className= "text-warning" />
                       </Link>,
                      <Link to= {`/vendor/vendorcatdelete/${_id}`}>
@@ -24,7 +24,7 @@ const AdminVendorCard = ({cat}) => {
       >
 
 
-        <Meta title= {email} description= {`${description && description.substring(0,50)}....`} />
+        <Meta title= {name} description= {`${description && description.substring(0,50)}....`} />
       </Card>
   )
 }

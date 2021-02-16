@@ -2,31 +2,28 @@ import React from "react";
 import { Select } from "antd";
 const {Option} = Select;
 
-const VendorForm = ( {handleSubmit, 
-                     handleChange,
-                     vendorInfoId, 
-                     vendorName,                    
-                     userId,
-                     values,
-                     setValues,
-                     handleCategoryChange,
-                     subOptions,
-                     showSubs,                    
-                    }) =>  {
+const VendorUpdateForm = ( {handleSubmit, 
+                            handleChange,                    
+                            values,
+                            setValues,
+                            categories,
+                            subOptions,
+                            arrOfSubIds,
+                            setArrOfSubIds,
+                            handleCategoryChange                                     
+                           }) =>  {
 
-  
  const {   
-   description,
-  categories,
-  subcategories,
-  category, 
+   description,  
+   subcategories,
+   category, 
    price,
    pricetypes,
-   pricetype     
+   pricetype,
+   vendorInfoId     
 }  = values;
 
- {console.log("Vendor....",vendorInfoId)}
-
+ 
     const renderFields= () => {
         return (
             <form onSubmit= {handleSubmit}>
@@ -38,9 +35,9 @@ const VendorForm = ( {handleSubmit,
                   disabled= "disabled"
                   name= "vendorname"
                   className= "form-control"
-                  value= {vendorName}                 
-                 />                            
-                
+                  value= {vendorInfoId.name}                 
+                 />                  
+                                 
                  <label className= "admin-class">Description</label>
                 <textarea
                   name= "description"
@@ -50,28 +47,28 @@ const VendorForm = ( {handleSubmit,
                   onChange= {handleChange}
                  />  
 
-                  <label className= "admin-class">Category</label>
+                 <label className= "admin-class">Category</label>
                  <select
                    name= "category"
+                   value= {category.name}
                    className= "form-control"
                    onChange= { handleCategoryChange}
                  >
-                 <option>Select a Category</option>
-                 {categories.length > 0 && categories.map( (c) => (
+                  <option>{ category ? category.name : "Select a category"}</option>
+                  {categories.length > 0 && categories.map( (c) => (
                     <option key= {c._id} value= {c._id}> {c.name}</option>
                  ))
                  }
                  </select> 
 
-                 { showSubs && (
                  <div>
                   <label className= "admin-class mt-1 mb-1">Subcategories</label>
                   <Select mode= "multiple"
                           style={{ width: '100%' }}
                           placeholder= "Select a Sub category"
-                          className= "font-weight:800"
-                          value= {subcategories}
-                          onChange= { (value) => setValues({...values, subcategories: value})}
+                          className= "font-weight:800 subdropdown"
+                          value= {arrOfSubIds}
+                          onChange= { (value) => setArrOfSubIds( value) }
                   >
                      { subOptions.length && subOptions.map( (s) => (
                          <Option key= {s._id} value= {s._id}>
@@ -80,15 +77,15 @@ const VendorForm = ( {handleSubmit,
                      ))}
                   </Select>                  
                  </div>
-                 )}
-                 
+                                   
                  <label className= "admin-class">Price Type</label>``
                  <select
+                   value= {pricetype}
                    name= "pricetype"
                    className= "form-control"
                    onChange= {handleChange}
                  >
-                  <option>Select a price type</option> 
+                 
                   {pricetypes.map((c) => (
                   <option key={c} value={c}>
                   {c}
@@ -103,18 +100,7 @@ const VendorForm = ( {handleSubmit,
                   value= {price}
                   onChange= {handleChange}
                  />  
-                 <input
-                  type= "hidden"                  
-                  name= "userId"
-                  className= "form-control"
-                  value= {userId}                 
-                 />   
-                 <input
-                  type= "text"                  
-                  name= "vendorInfoId"
-                  className= "form-control"
-                  value= {vendorInfoId}                 
-                 />                   
+                                                   
 
                </div>
                <div className= "d-flex justify-content-center mt-1">
@@ -135,4 +121,4 @@ const VendorForm = ( {handleSubmit,
 
 
 
- export default VendorForm;
+ export default VendorUpdateForm;

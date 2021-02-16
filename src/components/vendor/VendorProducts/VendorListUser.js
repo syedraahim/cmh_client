@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import AdminNav from "../../navigation/AdminNav";
+import {Link} from "react-router-dom";
+import VendorNav from "../../navigation/VendorNav";
 import {getVendorCategoriesUser} from "../../../actions/vendor";
 import AdminVendorCard from "../../cards/AdminVendorCard";
 import {useSelector} from "react-redux";
@@ -14,11 +15,11 @@ const VendorListUser = () => {
      loadVendorCategoriesUser();     
   },[]);
 
-  const loadVendorCategoriesUser= () => {
+   const loadVendorCategoriesUser= () => {
     setLoading(true);
     getVendorCategoriesUser(user._id)
     .then ( res => {
-        setCategories(res.data);
+        setCategories(res.data)
         setLoading(false);
     })
     .catch ( err => {
@@ -26,16 +27,21 @@ const VendorListUser = () => {
         console.log(err);
     })
   }
-      
+
+        
    return(
     <div className= "container-fluid">
         <div className= "row ml-0 text-align-top">
            <div className= "col-md-2 mt-2 ">
-               < AdminNav />   
+               < VendorNav />   
            </div>  
            <div className= "col col-md-10">
+           
+           <li className= "nav-item col d-flex justify-content-center admin-class mb-2">
+            <Link to= "/vendor/vendorcreate" className= "nav-link">Add New Categories</Link>
+          </li>  
             { loading ? <h4>Loading....</h4>
-                      :  <h4 className= "font-weight-bold"> Vendor Categories</h4>
+                      :  <h4 className= "font-weight-bold"> Current Categories</h4>
             }
             <div className= "row pb-3">
             { categories.map( (cat) => {

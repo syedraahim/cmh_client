@@ -50,6 +50,7 @@ import AdminRoute from "./routes/AdminRoute";
 
 import VendorDashboard from "./vendor/VendorDashboard";
 import VendorCreate from "./vendor/VendorProducts/VendorCreate";
+import VendorEdit from "./vendor/VendorProducts/VendorEdit";
 import VendorInfoCreate from "./vendor/VendorInfo/VendorInfoCreate";
 import VendorInfoEdit from "./vendor/VendorInfo/VendorInfoEdit";
 import VendorsInfoList from "./vendor/VendorInfo/VendorsInfoList"
@@ -128,6 +129,7 @@ const App = () => {
 
         {/* vendor routes */}
        <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
+       <UserRoute path= "/vendor/vendoredit/:id" exact component= {VendorEdit} />
       {/* user routes */}
        <UserRoute path= "/user/history" exact component= {UserHistory} />
        <UserRoute path= "/user/userpassword" exact component = {UserPassword} />
@@ -135,7 +137,7 @@ const App = () => {
        <UserRoute path= "/vendor/password" exact component= {VendorPassword} />
        <UserRoute path= "/vendor/vendordetails" exact component= {VendorNew} />
        <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />
-       <UserRoute path= "/vendor/vendorcatdelete/:id" exact component= {VendorCatDelete} />
+       <UserRoute path= "/vendor/vendorcatdelete/:id" exact component= {VendorCatDelete} />      
        <UserRoute path= "/vendor/vendorcatlistuser/:userid" exact component= {VendorListUser} />
      
        

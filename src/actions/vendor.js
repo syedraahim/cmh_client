@@ -4,7 +4,7 @@ import history from "../history";
 export const addVendor =  async (formvalues, authtoken) =>  {
     const res = await axios.post("http://localhost:5000/api/vendor",formvalues,
     {headers: {authtoken}}); 
-
+    history.push("/vendor/vendorcatlist");
   };
 
 export const getAllVendorCategories = async() => {
@@ -12,10 +12,11 @@ export const getAllVendorCategories = async() => {
 }
 
 export const getVendorCategoriesUser = async(userid) => {
+  console.log("user from actions",userid );
   return await axios.get(`http://localhost:5000/api/vendors/${userid}`); 
 }
 
-export const getVendorCategories = async(id) => {
+export const getVendorCategory = async(id) => {
   return await axios.get(`http://localhost:5000/api/vendor/${id}`); 
 }
 

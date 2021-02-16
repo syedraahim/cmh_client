@@ -46,7 +46,7 @@ const VendorCreate = () => {
     setLoading(true);
     fetchVendorInfo(user.email)
        .then ( (v) =>  {
-          setLoading(false);
+          setLoading(false);        
           setvendor(v.data);
        })      
        .catch ( (err) => {
@@ -57,13 +57,12 @@ const VendorCreate = () => {
  }
 
   const handleChange= (e) => {  
-        setValues({ ...values, [e.target.name] : e.target.value});
+        setValues({ ...values, [e.target.name] : e.target.value, vendorInfoId: vendor._id});     
         console.log(("Values from handlechange"),values);
     }
 
   const handleCategoryChange= (e) => {
-    e.preventDefault();
-    console.log("Category SELECTED", e.target.value);
+    e.preventDefault();   
     setValues({ ...values,subcategories: [], category: e.target.value});
     fetchCategorySubs(e.target.value)
     .then ( (res) => {      
@@ -79,8 +78,7 @@ const VendorCreate = () => {
         e.preventDefault();
         setLoading(true);
         console.log("Values before submit",values);
-        setValues({ ...values,userId: user._id,
-                              vendorInfoId: vendor._id}); 
+        setValues({ ...values,vendorInfoId: vendor._id,userId: user._id}); 
         setLoading(false);
         console.log("Values after set values vendor submit",values);
       
