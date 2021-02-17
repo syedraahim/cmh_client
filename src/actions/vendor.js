@@ -28,4 +28,10 @@ export const deleteVendor = async (id, authtoken) =>  {
    history.push("/vendor/vendorcatlist");
   };
 
+  export const updateVendor =  async (id,formvalues, authtoken) =>  {
+    const res = await axios.put(`http://localhost:5000/api/vendor/${id}`,formvalues,
+    {headers: {authtoken}}); 
+    history.push("/vendor/vendorcatlist");
+  };
+
 

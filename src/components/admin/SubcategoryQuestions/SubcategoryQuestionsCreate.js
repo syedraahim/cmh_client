@@ -1,22 +1,22 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import AdminMenu from "../AdminMenu";
 import SubcategoryQuestionsForm from "./SubcategoryQuestionsForm";
-import { addSubcatQuestion } from "../../../actions";
+import { addSubcatQuestion } from "../../../actions/subcatquestions";
 
 
-class SubcategoryQuestionsCreate extends React.Component {
+const SubcategoryQuestionsCreate = () => {
 
-    addRoute() {
+   const addRoute= () => {
         return("/admin/subcatquestions/subcatquestionscreate");
       }
 
-      onSubmit = (formValues) => {
+    const  onSubmit = (formValues) => {
           console.log("From ONSUBMIT in subcat questions create",this.props);
           this.props.addSubcatQuestion(formValues);         
       }
 
-    render() {
+  
         return (
             <div>
                <AdminMenu 
@@ -29,7 +29,7 @@ class SubcategoryQuestionsCreate extends React.Component {
             </div>
         )
     }
-}
+
 
 const mapStateToProps = (state) => {
     console.log("State from MSP in subcat create",state.form.subcatQuestionsForm);

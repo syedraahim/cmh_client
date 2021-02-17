@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import { fetchSubcatQuestion, deleteSubcatQuestion} from "../../../actions";
+import { fetchSubcatQuestion, deleteSubcatQuestion} from "../../../actions/subcatquestions";
 import AdminMenu from "../AdminMenu";
 import Modal from "../../Modal";
 import history from "../../../history";

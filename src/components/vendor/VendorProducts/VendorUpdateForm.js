@@ -10,7 +10,8 @@ const VendorUpdateForm = ( {handleSubmit,
                             subOptions,
                             arrOfSubIds,
                             setArrOfSubIds,
-                            handleCategoryChange                                     
+                            handleCategoryChange,
+                            selectedCategory                                     
                            }) =>  {
 
  const {   
@@ -20,7 +21,7 @@ const VendorUpdateForm = ( {handleSubmit,
    price,
    pricetypes,
    pricetype,
-   vendorInfoId     
+   vendorInfoId  
 }  = values;
 
  
@@ -28,7 +29,7 @@ const VendorUpdateForm = ( {handleSubmit,
         return (
             <form onSubmit= {handleSubmit}>
             <section >
-              <div className= "form-group">
+              <div className= "form-group ml-2">
                 <label className= "admin-class">Vendor</label>
                 <input
                   type= "text"
@@ -50,11 +51,11 @@ const VendorUpdateForm = ( {handleSubmit,
                  <label className= "admin-class">Category</label>
                  <select
                    name= "category"
-                   value= {category.name}
+                   value= {selectedCategory ? selectedCategory : category._id}
                    className= "form-control"
                    onChange= { handleCategoryChange}
                  >
-                  <option>{ category ? category.name : "Select a category"}</option>
+                  {/* <option>{ category ? category.name : "Select a category"}</option> */}
                   {categories.length > 0 && categories.map( (c) => (
                     <option key= {c._id} value= {c._id}> {c.name}</option>
                  ))

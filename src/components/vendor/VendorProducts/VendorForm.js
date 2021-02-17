@@ -110,7 +110,7 @@ const VendorForm = ( {handleSubmit,
                   value= {userId}                 
                  />   
                  <input
-                  type= "text"                  
+                  type= "hidden"                  
                   name= "vendorInfoId"
                   className= "form-control"
                   value= {vendorInfoId}                 

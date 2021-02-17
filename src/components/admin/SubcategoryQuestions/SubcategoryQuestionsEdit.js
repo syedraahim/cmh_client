@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {fetchSubcatQuestion, editSubcatQuestion} from '../../../actions';
+import {fetchSubcatQuestion, editSubcatQuestion} from '../../../actions/subcatquestions';
 import AdminMenu from "../AdminMenu";
 
 class SubcategoryQuestionsEdit extends Component {

@@ -46,34 +46,7 @@ export const fetchUser = () => async (dispatch) => {
   dispatch( {type: FETCH_QUESTIONS_NAME, payload: res.data });
 }
 
- //action creator for subcategory questions
- export const addSubcatQuestion = (values) => async dispatch => {
-    const res= await axios.post("http://localhost:5000/api/subcatquestions",values);   
-     dispatch({type: CREATE_SUBCAT_QUESTION, payload: res.data });
-     history.push("/admin/subcatquestions/subcatquestionslist");       
-   };
-
- export const fetchSubcatQuestions = () => async dispatch => {
-   const res= await axios.get("http://localhost:5000/api/subcatquestions");
-   console.log("Output from fetch subcat QUES",res);
-   dispatch({ type: FETCH_SUBCAT_QUESTIONS, payload: res.data });
-   }; 
-
- export const fetchSubcatQuestion = (id) => async dispatch => {
-   const res= await axios.get(`http://localhost:5000/api/subcatquestions/${id}`);
-   dispatch({ type: FETCH_SUBCAT_QUESTION, payload: res.data })
-   }; 
-
- export const editSubcatQuestion = (id,formValues) => async dispatch => {
-   const res = await axios.patch(`http://localhost:5000/api/subcatquestions/${id}`,formValues) ;
-   dispatch({ type: EDIT_SUBCAT_QUESTION, payload: res.data }) 
-  }; 
-
- export const deleteSubcatQuestion = (id) => async dispatch => {
-   const res = await axios.delete(`http://localhost:5000/api/subcatquestions/${id}`);
-   dispatch( { type: DELETE_SUBCAT_QUESTION, payload: id });  
-   history.push("/admin/subcatquestions/subcatquestionslist");
-   };
+ 
   
 
 //action creator for Vendors

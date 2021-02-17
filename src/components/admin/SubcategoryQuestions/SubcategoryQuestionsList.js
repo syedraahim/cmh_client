@@ -1,37 +1,44 @@
-import React, {Component} from "react" ;
+import React, {useState, useEffect} from "react" ;
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import AdminMenu from "../AdminMenu";
-import { fetchSubcatQuestions } from "../../../actions";
+import AdminNav from "../../navigation/AdminNav";
+import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import { fetchSubcatQuestions } from "../../../actions/subcatquestions";
 
-class SubcategoryQuestionList extends Component {
+const SubcategoryQuestionList = () => {
 
-    componentDidMount() {
-        console.log("Props from Subcat QUES",this.props);
-        this.props.fetchSubcatQuestions();
+  const [subcatquestions, setSubcatquestions]= useState([]);
+  const [loading, setLoading]= useState(false);
+
+  useEffect( () => {
+      loadSubcatQuestions();
+  }, []);
+
+  const loadSubcatQuestions= () => {
+    setLoading(true);
+    fetchSubcatQuestions().then( res => setSubcatquestions(res.data));
+    setLoading(false);
+  }
+   
+   const  addRoute= () => {
+        return("/admin/subcatquestions/subcatquestionscreate");
     }
 
-    addRoute() {
-        return("/admin/subcatquestions/subcatquestionscreate");
-       }
-
-    renderList() {
-      {console.log("props from scqqqqqqq", this.props.subcatquestions)}
-        if (!this.props.subcatquestions.category  || !this.props.subcatquestions.subcategory) {
-          <p>Loading....</p>
-        }
+    const renderList= () => {
+     
         return (           
-            this.props.subcatquestions && this.props.subcatquestions.map( subquestionval => {
+            subcatquestions && subcatquestions.map( subquestionval => {
 
             {if (subquestionval._id)
             return (
                 <div className= "row"  >
-                  <div className= "col col-md-2 category text-left" >
-                    <p key= {subquestionval.category._id}> {subquestionval.category.name}</p>
+                  <div className= "col col-md-2 category text-left" key= {subquestionval.category._id}>
+                    <p > {subquestionval.category.name}</p>
                   </div>
-                   <div className= "col col-md-2 category text-left">                   
-                     <p key= {subquestionval.subcategory._id}> {subquestionval.subcategory.name}</p> 
-                  </div> 
+                   {/* <div className= "col col-md-2 category text-left" key= {subquestionval.subcategory._id}>                   
+                     <p > {subquestionval.subcategory.name}</p> 
+                  </div>  */}
                   <div className= "col col-md-4 category text-left">
 
                    {subquestionval.questions.map(questionval => {
@@ -54,8 +61,10 @@ class SubcategoryQuestionList extends Component {
                   </div>  
 
                   <div className= "col-md-4 mb-1">
-                      <Link to= {`/admin/subcatquestions/subcatquestionsedit/${subquestionval._id}`}  className= "btn btn-primary  mr-1 primary-button">Edit</Link>
-                      <Link to= {`/admin/subcatquestions/subcatquestionsdelete/${subquestionval._id}`} className= "btn btn-danger mr-1 primary-button">Delete</Link>    
+                      <Link to= {`/admin/subcatquestions/subcatquestionsedit/${subquestionval._id}`}  
+                                 className= "btn btn-primary  mr-1 "><EditOutlined /></Link>
+                      <Link to= {`/admin/subcatquestions/subcatquestionsdelete/${subquestionval._id}`} 
+                                 className= "btn btn-danger mr-1 "><DeleteOutlined /></Link>    
                    </div>      
                                
                  </div>
@@ -65,13 +74,19 @@ class SubcategoryQuestionList extends Component {
            )}             
 
 
-    render() {
+    
         return(
-            <div>
+           <div className="row">
+             <div className= "col col-md-2">
+                <AdminNav />
+             </div>
+             <div className= "col col-md-10">
                <AdminMenu 
-                   addRoute= {this.addRoute}
-               />             
-               <h1 className="category-head font-weight-bold "> Subcategory Questions </h1>
+                   addRoute= {addRoute}
+               />   
+               { loading ? <h2>Loading....</h2>
+                         : <h2 className="category-head font-weight-bold "> Subcategory Questions </h2>
+               }          
                <div className= "container" > 
               <div className = "row p-3 bg-light ">
                <div className= "col col-md-2 ">
@@ -84,21 +99,15 @@ class SubcategoryQuestionList extends Component {
                 <h5 className= "font-weight-bold text-align-left mr-2"> Questions/ Options</h5>             
                </div>
                
-         </div>
-               
+         </div>               
           <form>
-             {this.renderList()}            
+            {JSON.stringify(subcatquestions)}
+              {renderList()}             
           </form>          
        </div> 
-      
+       </div>
      </div>
   ) }
-}
-
-const mapStateToProps = (state) => {  
-    console.log("state from mapstate in subcat questions AAA",state); 
-     return { subcatquestions: Object.values(state.subquestion)};   
-}
 
 
-export default connect(mapStateToProps, { fetchSubcatQuestions })(SubcategoryQuestionList);
+export default SubcategoryQuestionList;

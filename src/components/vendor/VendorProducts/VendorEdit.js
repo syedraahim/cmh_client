@@ -3,17 +3,18 @@ import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import VendorNav from "../../navigation/VendorNav";
 import {fetchCategories, fetchCategorySubs} from "../../../actions/category";
-import {fetchVendorInfo} from "../../../actions/vendorInfo";
-import {getVendorCategory} from "../../../actions/vendor";
+import {getVendorCategory, updateVendor} from "../../../actions/vendor";
 import VendorUpdateForm from "./VendorUpdateForm";
+import FileUpload from "../../utils/FileUpload";
 
-const VendorEdit = ({match}) => {
+const VendorEdit = ({match,history}) => {
 
    const {user} = useSelector( (state) => ({...state}));
    const [loading,setLoading] = useState(false);
    const [categories, setCategories]= useState([]);
    const [subOptions, setSubOptions] = useState([]);
    const [arrOfSubIds, setArrOfSubIds]= useState([]);
+   const [selectedCategory, setSelectedCategory]= useState("");
 
    const initialState= {  
     userId: user._id, 
@@ -67,18 +68,38 @@ const VendorEdit = ({match}) => {
 
   const handleCategoryChange= (e) => {
     e.preventDefault();   
-    setValues({ ...values,subcategories: [], category: e.target.value});
+    setValues({ ...values,subcategories: []});
+    setSelectedCategory(e.target.value);
     fetchCategorySubs(e.target.value)
     .then ( (res) => {      
       setSubOptions(res.data)
     })
     .catch ( (err) => {
        console.log(err);
-    })    
+    })
+    //if the user clicks on the original category, fetch the previously selected subcats
+    if( values.category._id === e.target.value) {
+        loadVendorCategory();
+    }
+    setArrOfSubIds([]);    
   }
 
    const handleSubmit= (e) => {
        e.preventDefault();
+       setLoading(true);
+       values.subcategories= arrOfSubIds;
+       values.category= selectedCategory ? selectedCategory : values.category;
+       updateVendor( match.params.id, values, user.token)
+       .then ( (res) => {
+         setLoading(false);
+         toast.success("Vendor categories updated successfully !!!!");
+         history.push(`/vendor/vendorcatlistuser/${match.params.id}`);
+       })
+       .catch ( (err) => {
+         setLoading(false);
+         console.log(err);
+         toast.error(err.response.data.err);
+       })
    }
 
     return (
@@ -86,9 +107,19 @@ const VendorEdit = ({match}) => {
           <div className= "col col-md-2">
             <VendorNav />
           </div>
-          <div className= "col col-md-10 vendor-center">         
+          <div className= "col col-md-10 ">   
+          <section className= "vendor-center">      
             <h2 className= "font-weight-bold mb-2">Change Categories </h2>
-            {JSON.stringify(values)}
+            {/* {JSON.stringify(values)} */}
+
+            <div className= "p3 ml-2">
+                  <FileUpload
+                     values= {values}
+                     setValues= {setValues}
+                     setLoading= {setLoading}
+                   />
+
+               </div>  
             <VendorUpdateForm 
                 handleSubmit= {handleSubmit}
                 handleChange= {handleChange}
@@ -100,8 +131,9 @@ const VendorEdit = ({match}) => {
                 arrOfSubIds= {arrOfSubIds}
                 setArrOfSubIds= {setArrOfSubIds}
                 handleCategoryChange= {handleCategoryChange}
-
+                selectedCategory= {selectedCategory}
             />
+            </section>
           </div>
         </div>
     )

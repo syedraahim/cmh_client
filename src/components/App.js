@@ -11,6 +11,8 @@ import * as actions from "../actions";
 import history from "../history";
 
 import Mainpage from "./Mainpage";
+import GetAllVendors from "./home/GetAllVendors";
+
 import AdminDashboard from "./admin/AdminDashboard";
 import CategoriesCreate from "./admin/Categories/CategoriesCreate";
 import CategoriesList from "./admin/Categories/CategoriesList";
@@ -93,14 +95,18 @@ const App = () => {
      <Router history = {history}>
        <Header />
        <ToastContainer />
+       {/* login and registration routes */}
        <Switch>
         <Route  path= "/login" exact component= {Login} />
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
-       <Route path= "/" exact component= {Mainpage} />       
-       <Route path= "/vendor" exact component= {VendorDashboard} /> 
+       {/* Home page routes */}
+       <Route path= "/" exact component= {GetAllVendors} />  
+       {/* <Route path= "/" exact component= {Mainpage} />       */}
+       <Route path= "/vendor" exact component= {VendorDashboard} />
+       <Route path= "/allvendors" exact component= {GetAllVendors} />  
 
         {/* admin routes   */}
        <AdminRoute path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />

@@ -7,7 +7,7 @@ const {Meta} = Card;
 
 const AdminVendorCard = ({cat}) => {
     console.log("values from CAT", {cat})
-    const {name, description, category, subcategories,images,_id} = cat;
+    const {vendorInfoId, description, category, subcategories,images,_id} = cat;
   return (
       <Card  cover= {
           <img src= { images && images.length ? images[0].url : ""} 
@@ -23,8 +23,7 @@ const AdminVendorCard = ({cat}) => {
                  ]}
       >
 
-
-        <Meta title= {name} description= {`${description && description.substring(0,50)}....`} />
+        <Meta title= {vendorInfoId.name} description= {`${description && description.substring(0,50)}....`} />
       </Card>
   )
 }
