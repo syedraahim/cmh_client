@@ -27,11 +27,11 @@ const VendorCard= ({vendor}) => {
                  style= {{ height: "150px", objectFit: "cover"}}
             />
          }
-         actions= {[ <Link to= {`/vendor/vendoredit/${_id}`}>
+         actions= {[ <Link to= {`/vendordetails/${_id}`}>
                       <EyeOutlined  className= "text-warning" /> <br />View Vendor Details
                       </Link>,
                      <Link to= {`/vendor/vendorcatdelete/${_id}`}>
-                      <ShoppingCartOutlined  className= "text-danger" /><br />Select Vendor
+                      <ShoppingCartOutlined  className= "text-info" /><br />Select Vendor
                       </Link>
                  ]}
          >

@@ -33,6 +33,10 @@ import SubcategoryQuestionsList from "./admin/SubcategoryQuestions/SubcategoryQu
 
 import Header from "./Header";
 import Footer from "./Footer";
+// home page
+import VendorDetails from "./home/VendorDetails";
+
+//login and registration
 import Login from "./login/Login";
 import Register from "./login/Register";
 import RegisterComplete from "./login/RegisterComplete";
@@ -152,8 +156,9 @@ const App = () => {
          <UserRoute path= "/vendor/vendorinfoedit/:email" exact component= {VendorInfoEdit} />
        </Switch>
 
-
        <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
+       <Route  path= "/vendordetails/:id" exact component= {VendorDetails} />
+
        {/* <Footer /> */}
      </Router>
     </div>
