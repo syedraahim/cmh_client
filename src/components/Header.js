@@ -39,7 +39,6 @@ const logout = () => {
 <header>
 <section className="header-section" id="title">
   <div className="container-fluid">
-
     <nav className="navbar navbar-expand-lg navbar-dark">
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -56,9 +55,7 @@ const logout = () => {
           <li className="nav-item">
             <a className="nav-link font-weight-bold" href="/download">Download</a>
           </li>
-        </ul>
-
-        
+        </ul>        
       </div>
 
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"
@@ -111,14 +108,12 @@ const logout = () => {
         
       </Menu>
     </nav>
-<section>
+
     <div className="row">
       <div className="pull-left col-sm-12">
         <img src= { logo } alt="Compare my Helper" className="float-left header-img" />
       </div>
-
-     </div>
-  </section>
+     </div>  
   </div>
   </section>
 </header>

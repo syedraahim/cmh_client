@@ -107,8 +107,8 @@ const App = () => {
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        {/* Home page routes */}
-       <Route path= "/" exact component= {GetAllVendors} />  
-       {/* <Route path= "/" exact component= {Mainpage} />       */}
+       {/* <Route path= "/" exact component= {GetAllVendors} />   */}
+       <Route path= "/" exact component= {Mainpage} />      
        <Route path= "/vendor" exact component= {VendorDashboard} />
        <Route path= "/allvendors" exact component= {GetAllVendors} />  
 
@@ -157,7 +157,7 @@ const App = () => {
        </Switch>
 
        <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
-       <Route  path= "/vendordetails/:id" exact component= {VendorDetails} />
+       <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
 
        {/* <Footer /> */}
      </Router>

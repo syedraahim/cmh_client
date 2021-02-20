@@ -18,7 +18,9 @@ export const getVendorCategoriesUser = async(userid,page) => {
 }
 
 export const getVendorCategory = async(id) => {
-  return await axios.get(`http://localhost:5000/api/vendor/${id}`); 
+  const cat= await axios.get(`http://localhost:5000/api/vendor/${id}`);
+  console.log("Category from getvendorcategory",cat);
+  return(cat); 
 }
 
 export const deleteVendor = async (id, authtoken) =>  {

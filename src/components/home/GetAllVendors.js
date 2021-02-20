@@ -29,13 +29,13 @@ const GetAllVendors= () => {
     return (
     <div>
         {/* {JSON.stringify(vendors)}  */}
-        <div className= "jumbotron font-weight-bold h1 text-danger d-flex justify-content-center">
+        {/* <div className= "jumbotron font-weight-bold h1 text-danger d-flex justify-content-center">
           <Jumbotron
              text= {["We will find the best helper for your needs",
                      "Compare the price to find the most affordable helper",
                      "So easy to use that you will have your help sorted in minutes"]}
            />         
-      </div>
+      </div> */}
         <div className= "container">
          
           { loading ? <LoadingCard  count= {4}/> 

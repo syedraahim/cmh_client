@@ -1,10 +1,21 @@
 import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import {fetchCategories} from "../actions/category";
 import {fetchSubcategories} from "../actions/subcategory";
 import ListSubcategories from "./utils/ListSubcategories";
-import {Avatar} from "antd";
-import VendorField from "./vendor/VendorField";
+import {EyeOutlined} from "@ant-design/icons";
+import {Avatar,Card} from "antd";
+import Jumbotron from "./cards/Jumbotron";
+
+const {Meta} = Card;
+const gridStyle = {
+  width: '50%',
+  height:'200px',
+  textAlign: 'left',
+  border: 'none',   
+};
+
 
 const MainBody = () => {
 
@@ -23,68 +34,50 @@ const MainBody = () => {
      categories && categories.map( categoryval => {    
         if (categoryval._id)  { 
            return (            
-              <div className= "col col-eq-height col-lg-4 main-class font-weight-bold" key= {categoryval._id}>
-                
-                  <p className = "float-bottom text-dark " > {categoryval.name } </p> 
-                  <div className= "float-right mr-2">              
+              <div className= "col col-md-4 main-class font-weight-bold d-flex justify-content-center" key= {categoryval._id}>         
+               
+                  <Card style={{ width: 400}}                   
+                  actions= {[ <Link to= {`/vendordetails/${categoryval.name}`} className= "font-weight-bold h5">
+                       {categoryval.name}
+                      </Link>                    
+                 ]}
+                   > 
+                   <Card.Grid style={gridStyle}>                  
+                       <img src= { categoryval.imgURL && categoryval.imgURL} className= "d-flex justify-content-center ml-2"
+                     style= {{ height: "200px", width:"150px", objectFit: "none"}} /> 
+                   </Card.Grid>
+                   <Card.Grid style={gridStyle } hoverable={true}  className= "h6">
                    <ListSubcategories 
-                     categoryValue = {categoryval._id} />                 
-                 </div>
-                
-                 <div className= "float-left">
-                 <Avatar                  
-                    src= {categoryval.imgURL}
-                    size= {100}
-                    className="category-img"
-                 />
-                 {/* <img className= "category-img" href={categoryval.imgURL} src= {categoryval.imgURL}></img>  */}
-                 </div>   
-                  
-              </div>                                      
+                        categoryValue = {categoryval._id} />  
+                   </Card.Grid>                  
+                  </Card>                               
+                 </div>                                                 
            ) 
           }
         }) 
     ) } 
-    
    
   
    return (
   <div>
  <section className="feature-class" id="features">
-  <div className="container-fluid">
-    <div className="row">
-      <div className="features col-lg-4 col-md-3">
-       <h3> <i className="fab fa-hire-a-helper icon-class"></i></h3>
-         <h3 className="feature-header"> Get the best help</h3>
-        <p className="feature-text">We will find the best helper for your needs</p>
-       </div>
-       <div className="col-lg-4 col-md-6">
-         <h3><i className="fas fa-money-bill-wave icon-class"></i></h3>
-         <h3 className="feature-header"> Find the best price</h3>
-         <p className="feature-text">Compare the price to find the most affordable helper</p>
-       </div>
-       <div className="col-lg-4 col-md-6">
-         <h3><i className="fab fa-gratipay icon-class"></i></h3>
-         <h3 className="feature-header"> Easy to use</h3>
-        <p className ="feature-text">So easy to use that you will have your help sorted in minutes</p>
+ <div className= "jumbotron-fluid font-weight-bold h1 text-danger d-flex justify-content-center mt-3 mb-3">
+          <Jumbotron
+             text= {["We will find the best helper for your needs",
+                     "Compare the price to find the most affordable helper",
+                     "So easy to use that you will have your help sorted in minutes"]}
+           />         
       </div>
-    </div>
-     </div>   
   </section>
-  
-  <section className= "content-section" >
-   <div className= "container-fluid">
-   <div className= "row row-eq-height content-header">
-       {renderFields()} 
-    
-   </div>   
-   </div>        
-  </section> 
-  
+  <section className= "content-section" >     
+   <div className= "row">
+       {renderFields()}     
+   </div>         
+  </section>   
 
    <section className ="testimonial-section">
    <div className="row">
-    <div className="col">
+    <div className="col mt-2 ">
        <h1> We are here to provide the best help to you at the best price</h1>
      </div>
    </div>
@@ -92,8 +85,6 @@ const MainBody = () => {
    </div>
   )
 }
-
-
 
 const mapStateToProps = (state) => {
    return ( { category: Object.values(state.categories)}        

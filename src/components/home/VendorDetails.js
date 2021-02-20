@@ -5,16 +5,20 @@ import SingleVendor from "../cards/SingleVendor";
 const VendorDetails= ({match}) => {
 
  const [vendor, setVendor] = useState("");
+ const [loading,setLoading] = useState(false);
+ const {id} = match.params;
  
- const vendorId= match.params.id;
-
  useEffect( () => {
      loadVendorDetails(); 
- },[vendorId]);
+ },[id]);
 
  const loadVendorDetails= () => {
-      getVendorCategory(vendorId)
-      .then ( (res) => setVendor(res.data))
+     setLoading(true);
+      getVendorCategory(id)
+      .then ( (res) => {
+               setVendor(res.data)
+               setLoading(false);
+            }) 
       .catch ( (err) => {
           console.log(err);
       });
@@ -23,9 +27,9 @@ const VendorDetails= ({match}) => {
  return (
      <div className= "container">
        <div className= "row pt4">
-           <SingleVendor vendor= {vendor} />
-       </div>
-         
+        { loading ? <h1>Loading...</h1>
+                :  <SingleVendor vendor= {vendor}  /> }          
+       </div>        
      </div>
  )
 }

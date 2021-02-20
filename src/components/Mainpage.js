@@ -5,7 +5,7 @@ function MainPage()
 {
     return(
      <div>
-    <Mainbody />
+       <Mainbody />
     </div>
     );
 }
