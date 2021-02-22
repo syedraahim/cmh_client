@@ -37,7 +37,7 @@ const MainBody = () => {
               <div className= "col col-md-4 main-class font-weight-bold d-flex justify-content-center" key= {categoryval._id}>         
                
                   <Card style={{ width: 400}}                   
-                  actions= {[ <Link to= {`/vendordetails/${categoryval.name}`} className= "font-weight-bold h5">
+                  actions= {[ <Link to= {`/vendordetails/${categoryval.slug}`} className= "font-weight-bold h5">
                        {categoryval.name}
                       </Link>                    
                  ]}

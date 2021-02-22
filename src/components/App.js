@@ -35,6 +35,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 // home page
 import VendorDetails from "./home/VendorDetails";
+import GetVendorsSubcat from "./home/GetVendorsSubcat";
 
 //login and registration
 import Login from "./login/Login";
@@ -110,7 +111,8 @@ const App = () => {
        {/* <Route path= "/" exact component= {GetAllVendors} />   */}
        <Route path= "/" exact component= {Mainpage} />      
        <Route path= "/vendor" exact component= {VendorDashboard} />
-       <Route path= "/allvendors" exact component= {GetAllVendors} />  
+       <Route path= "/allvendors" exact component= {GetAllVendors} /> 
+       <Route path= "/vendorcat/:slug"  exact component= {GetVendorsSubcat} />
 
         {/* admin routes   */}
        <AdminRoute path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />

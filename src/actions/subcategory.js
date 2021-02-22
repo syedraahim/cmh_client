@@ -36,3 +36,5 @@ export const addSubcategory =  async (values, authtoken) =>  {
      { headers: {authtoken} });
      history.push("/admin/subcategories/subcategorieslist");
    };
+
+   

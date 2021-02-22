@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {Card} from "antd";
 import {EyeOutlined, ShoppingCartOutlined} from "@ant-design/icons";
-import SubcategoriesDelete from "../admin/Subcategories/SubcategoriesDelete";
 
 const {Meta} = Card;
 const VendorCard= ({vendor}) => {

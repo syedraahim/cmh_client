@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {getVendors, getVendorsTotal} from "../../actions/vendor";
 import VendorCard from "../cards/VendorCard";
-import Jumbotron from "../cards/Jumbotron";
 import LoadingCard from "../cards/LoadingCard";
 import {Pagination} from "antd";
 
@@ -28,14 +27,7 @@ const GetAllVendors= () => {
 
     return (
     <div>
-        {/* {JSON.stringify(vendors)}  */}
-        {/* <div className= "jumbotron font-weight-bold h1 text-danger d-flex justify-content-center">
-          <Jumbotron
-             text= {["We will find the best helper for your needs",
-                     "Compare the price to find the most affordable helper",
-                     "So easy to use that you will have your help sorted in minutes"]}
-           />         
-      </div> */}
+        
         <div className= "container">
          
           { loading ? <LoadingCard  count= {4}/> 
@@ -57,8 +49,7 @@ const GetAllVendors= () => {
          <Pagination  current= {page}
                     total= {(vendorsTotal / 3) * 10}
                     onChange={ (value) => setPage(value)}
-          />
-         
+          />         
           </nav>
           
         </div>

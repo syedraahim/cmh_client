@@ -19,7 +19,7 @@ const ListSubcategories = (props) =>
              if (subcategoryval.category._id === props.categoryValue) {
              return(
               <div  key= {subcategoryval._id} className= "mb-1">
-                 <Link to= {`/vendorcat/${subcategoryval.name}`} >{subcategoryval.name} </Link>
+                 <Link to= {`/vendorcat/${subcategoryval.slug}`} >{subcategoryval.name} </Link>
                </div>
              ) }
            }
