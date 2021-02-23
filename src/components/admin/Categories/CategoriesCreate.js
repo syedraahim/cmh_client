@@ -43,8 +43,7 @@ const CategoriesCreate = () =>
   
    return(
     <div className= "row"> 
-
-    {console.log("Value for user", {user})};
+  
      <div className= "col col-md-3" >
         <AdminNav />
      </div> 

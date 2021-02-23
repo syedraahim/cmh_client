@@ -45,4 +45,8 @@ export const deleteVendor = async (id, authtoken) =>  {
     return await axios.get("http://localhost:5000/api/vendors/total"); 
   };
 
+  export const vendorRating=  async (id,rating, authtoken) =>  {
+    const res = await axios.post(`http://localhost:5000/api/vendor/rating/${id}`,{rating},
+    {headers: {authtoken}});    
+  };
 

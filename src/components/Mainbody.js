@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 import {fetchCategories} from "../actions/category";
 import {fetchSubcategories} from "../actions/subcategory";
 import ListSubcategories from "./utils/ListSubcategories";
+import {Carousel} from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import {EyeOutlined} from "@ant-design/icons";
 import {Avatar,Card} from "antd";
 import Jumbotron from "./cards/Jumbotron";
@@ -58,19 +60,23 @@ const MainBody = () => {
            ) 
           }
         }) 
-    ) } 
-   
+    ) }    
   
-   return (
-  <div>
+ return (
+ <div>
  <section className="feature-class" id="features">
- <div className= "jumbotron-fluid font-weight-bold h1 text-danger d-flex justify-content-center mt-3 mb-3">
-          <Jumbotron
-             text= {["We will find the best helper for your needs",
-                     "Compare the price to find the most affordable helper",
-                     "So easy to use that you will have your help sorted in minutes"]}
-           />         
-      </div>
+ <div className= "jumbotron-fluid font-weight-bold h1 text-danger d-flex justify-content-center mb-2 ">
+    <div className= "row">
+      <div className= "col col-md-12 mb-5" style={{ padding:10, height:120, width:550}}>      
+              <Carousel showArrows={false} showThumbs= {false} autoPlay={true} infiniteLoop={true} transitionTime={200}> 
+                 {categories && categories.map( (i) => (
+                      <img src= {i.imgURL} key={i._id} />                 
+                 )
+                 )}
+              </Carousel>             
+           </div>  
+      </div>     
+  </div>
   </section>
   <section className= "content-section" >     
    <div className= "row">
@@ -79,11 +85,15 @@ const MainBody = () => {
   </section>   
 
    <section className ="testimonial-section">
-   <div className="row">
-    <div className="col mt-2 ">
-       <h1> We are here to provide the best help to you at the best price</h1>
-     </div>
-   </div>
+   
+   <div className= "jumbotron-fluid font-weight-bold h1 text-danger d-flex justify-content-center mb-3">
+          <Jumbotron
+             text= {["We will find the best helper for your needs",
+                     "Compare the price to find the most affordable helper",
+                     "So easy to use that you will have your help sorted in minutes"]}
+           />         
+  </div>
+   
    </section>
    </div>
   )

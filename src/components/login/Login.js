@@ -17,7 +17,25 @@ const Login = ({history}) => {
   const dispatch= useDispatch();
   const {user} = useSelector( (state) => ({...state}));
 
+  
+    
+  useEffect( () => {
+     if (history.location.state) {
+       return;
+     } else {
+      if ( user && user.token) {
+          history.push("/");
+      }}
+  }, [user,history]);
+
   const roleBasedRedirect = (res) => {
+    
+    //check if user needs to be redirected to a different page
+    let userPage= history.location.state;
+    if (userPage) {
+      history.push(userPage.from);
+    }  else { 
+     //role based redirect 
      if (res.data.role ===  "admin") {
        history.push("/admin/dashboard");
      } 
@@ -26,15 +44,8 @@ const Login = ({history}) => {
      } else {
        history.push("/user/history");
      }
-     }
-  
-
-  useEffect( () => {
-      if ( user && user.token) {
-          history.push("/");
-      }
-  }, [user,history]);
-
+    }
+  }
  
 const handleSubmit= async (e) => {
     e.preventDefault();

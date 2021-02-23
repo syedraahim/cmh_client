@@ -1,50 +1,82 @@
 import _ from "lodash";
-import React, {Component} from "react";
-import { connect} from "react-redux";
+import React, {useState, useEffect} from "react";
+import { useSelector} from "react-redux";
+import {toast, ToastContainer} from "react-toastify";
 import { editQuestion, fetchQuestion} from "../../../actions/questions";
 import AdminMenu from "../AdminMenu";
 import QuestionsForm from "./QuestionsForm";
 
-class QuestionsEdit extends Component {
+const QuestionsEdit = ({match}) => {
 
-    componentDidMount() {
-        console.log("props in edit subcate", this.props);
-        this.props.fetchQuestion(this.props.match.params.id);
-    }
+    const {user} = useSelector( (state) => ({...state}));
+    const [question,setQuestion] = useState("");
+    const [options,setOptions] = useState([]);
+    const [loading,setLoading] = useState(false);
+    
+   useEffect( () => {
+      loadQuestion();
+   },[]);
 
-    addRoute() {
+   const loadQuestion= () => {
+       setLoading(true);
+       fetchQuestion(match.params.id)
+       .then ( (res) => {
+           setQuestion(res.data.question);
+           setOptions(res.data.options);
+           setLoading(false);
+       })
+       .catch ( (err) => {
+           console.log(err);
+           setLoading(false);
+           toast.error(`Could not find the question record:${err.message}`);
+       });
+   }
+    
+    const addRoute =() => {
         return("/admin/questions/questionscreate");
-       } 
+     } 
 
-    onSubmit = (formValues) => {
-        console.log("Form values from question edit",formValues);
-        this.props.editQuestion(this.props.match.params.id,formValues);
+    const handleSubmit = (e) => {
+       e.preventDefault();
+       setLoading(true);
+       editQuestion(match.params.id,
+                {question: question.question, options: question.options},
+                 user.token) 
+       .then ( (res) => {
+           setLoading(false);
+           setQuestion("");
+           setOptions("");
+           toast.success(`${res.data.question} has been updated successfully!!!!`);
+       })
+       .catch (err => {
+           console.log(err);
+           setLoading(false);
+           if(err.response===400) 
+              toast.error(err.response.data);
+           else
+              toast.error(err.response);
+       });
     }
-
-    render() {
         
-        if (!this.props.questions)  {
-            return (
-               <div>Loading....</div>
-            )} ;  
-        return(
+     return (
         <div>
            <AdminMenu 
-             addRoute= {this.addRoute()}
+             addRoute= {addRoute()}
            />
-           <h1 className="category-head font-weight-bold card-header">Edit Question</h1>
+           { loading ? <h2>Loading....</h2>
+                     : <h2 className="category-head font-weight-bold card-header">Edit Question</h2>
+           }
 
        <QuestionsForm  
-        initialValues =  { _.pick(this.props.questions, "question", "options")}
-        onSubmit= {this.onSubmit}             
+        // initialValues =  { _.pick(this.props.questions, "question", "options")}
+        handleSubmit= {handleSubmit}
+        question= {question} 
+        setQuestion= {setQuestion} 
+        options= {options} 
+        setOptions= {setOptions}          
         />          
        </div>        
        )
     }
-}
 
-const mapStateToProps = (state, ownProps) => {
-    return { questions: state.questions[ownProps.match.params.id]}
-}
-
-export default connect(mapStateToProps, {editQuestion, fetchQuestion}) (QuestionsEdit);
+export default QuestionsEdit;

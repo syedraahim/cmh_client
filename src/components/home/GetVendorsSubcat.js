@@ -47,7 +47,7 @@ const GetVendorsSubcat= ({match}) => {
                        We found {vendors.length} {subcat.name} in your area
                       </h4>
             }
-             <div className="row ml-2"> 
+             <div className="row ml-2" key={vendors._id}> 
              {vendors.map( (vendor) => (      
                  <VendorCard 
                      vendor= {vendor}

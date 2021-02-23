@@ -30,7 +30,8 @@ const SubcategoriesForm = ({handleSubmit, category, setCategory, name, setName})
                 <option key={catval._id} 
                         value={catval._id}
                         selected={catval._id===category}
-                        > {catval.name} </option> 
+                        > 
+                    {catval.name} </option> 
                ))}
              </select>
             </div>       

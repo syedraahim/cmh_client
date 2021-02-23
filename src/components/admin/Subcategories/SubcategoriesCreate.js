@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import AdminMenu from "../AdminMenu";
 import { addSubcategory } from "../../../actions/subcategory";
@@ -46,7 +46,7 @@ const  SubcategoriesCreate = () =>
              <AdminMenu 
                addRoute = {addRoute()}
              />
-             { (!loading) ? <h2>Loading....</h2>
+             { (loading) ? <h2>Loading....</h2>
                         : <h2 className="category-head font-weight-bold card-header"> Add New Sub Category</h2>
              }                 
             <div className = "card  mb-2" >
