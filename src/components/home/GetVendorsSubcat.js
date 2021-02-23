@@ -2,9 +2,9 @@ import React, {useState, useEffect} from "react";
 import {toast} from "react-toastify";
 import VendorCard from "../cards/VendorCard";
 import LoadingCard from "../cards/LoadingCard";
-import {fetchSubcategory} from "../../actions/subcategory";
-import {fetchCategorySubs} from "../../actions/category";
+import {fetchSubcategory,fetchSubcatVendors} from "../../actions/subcategory";
 import {Pagination} from "antd";
+
 
 const GetVendorsSubcat= ({match}) => {
     
@@ -27,7 +27,7 @@ const GetVendorsSubcat= ({match}) => {
 
     const loadVendorsSubcat = () => {
         setLoading(true);
-        fetchCategorySubs(match.params.slug)
+        fetchSubcatVendors(match.params.slug)
         .then ( (res) => {
             setVendors(res.data)
             setLoading(false);
@@ -53,7 +53,7 @@ const GetVendorsSubcat= ({match}) => {
                      vendor= {vendor}
                  />              
              ))}
-            </div>
+            </div>            
             
           <div className="row ">
             <nav className= "col col-md-4 offset-md-4 pt-5 p-3 d-flex justify-content-center">        

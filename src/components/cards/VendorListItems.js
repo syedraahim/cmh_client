@@ -40,7 +40,7 @@ const VendorListItems= ({vendor}) => {
                {subcategories.map( (s) => (                
                 <Link 
                   key= {s._id}
-                  to= {`/subcategories/${s._id}`}
+                  to= {`/vendorcat/${s.slug}`}
                   className= "label label-default label-pill mr-2 float-right"> 
                   {s.name} </Link>
                ))}

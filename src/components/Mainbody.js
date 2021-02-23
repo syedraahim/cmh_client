@@ -34,23 +34,26 @@ const MainBody = () => {
      categories && categories.map( categoryval => {    
         if (categoryval._id)  { 
            return (            
-              <div className= "col col-md-4 main-class font-weight-bold d-flex justify-content-center" key= {categoryval._id}>         
+              <div className= "col col-md-4 main-class font-weight-bold p-1" key= {categoryval._id}>         
                
-                  <Card style={{ width: 400}}                   
-                  actions= {[ <Link to= {`/vendordetails/${categoryval.slug}`} className= "font-weight-bold h5">
+                        
+                   <Link to= {`/vendordetails/${categoryval.slug}`} 
+                        className= "font-weight-bold h5  text-dark ml-2">
                        {categoryval.name}
-                      </Link>                    
-                 ]}
-                   > 
-                   <Card.Grid style={gridStyle}>                  
-                       <img src= { categoryval.imgURL && categoryval.imgURL} className= "d-flex justify-content-center ml-2"
-                     style= {{ height: "200px", width:"150px", objectFit: "none"}} /> 
-                   </Card.Grid>
-                   <Card.Grid style={gridStyle } hoverable={true}  className= "h6">
+                    </Link> 
+                        
+                 <div className= "btn btn-raised font-weight-bold float-right ">
                    <ListSubcategories 
                         categoryValue = {categoryval._id} />  
-                   </Card.Grid>                  
-                  </Card>                               
+                </div>  
+                <div className= "float-left ">
+                <Avatar                  
+                    src= {categoryval.imgURL}
+                    size= {100}
+                    className="category-img"
+                  />
+                </div>               
+                                             
                  </div>                                                 
            ) 
           }

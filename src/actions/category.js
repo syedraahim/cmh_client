@@ -49,6 +49,8 @@ export const deleteCategory = async (slug, authtoken) =>  {
    history.push("/admin/categories/categorieslist");
   };
 
-  export const fetchCategorySubs = async (slug) =>  {
-    return await axios.get(`http://localhost:5000/api/category/subcat/${slug}`);   
+  export const fetchCategorySubs = async (_id) =>  {
+    return await axios.get(`http://localhost:5000/api/category/subcat/${_id}`);   
   };
+
+ 

@@ -66,7 +66,7 @@ const VendorCreate = () => {
     setValues({ ...values,subcategories: [], category: e.target.value});
     fetchCategorySubs(e.target.value)
     .then ( (res) => {      
-      setSubOptions(res.data)
+      console.log(res.data)
     })
     .catch ( (err) => {
        console.log(err);

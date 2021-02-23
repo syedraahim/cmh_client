@@ -1,12 +1,5 @@
 import axios from "axios";
 import history from "../history";
-import {
-    CREATE_SUBCATEGORY,
-    FETCH_SUBCATEGORIES,
-    FETCH_SUBCATEGORY,
-    EDIT_SUBCATEGORY,
-    DELETE_SUBCATEGORY
-} from "../actions/types";
 
 //action creator for Subcategory Master
 export const addSubcategory =  async (values, authtoken) =>  {
@@ -37,4 +30,7 @@ export const addSubcategory =  async (values, authtoken) =>  {
      history.push("/admin/subcategories/subcategorieslist");
    };
 
+   export const fetchSubcatVendors= async (slug) => {
+    return await axios.get(`http://localhost:5000/api/subcategories/vendor/${slug}`);
+  }
    

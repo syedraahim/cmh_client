@@ -5,6 +5,7 @@ import {HeartOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import VendorListItems from "./VendorListItems";
+import StarRatings from  "react-star-ratings";
 
 const {TabPane} = Tabs;
 
@@ -26,6 +27,15 @@ const SingleVendor= ({vendor}) => {
             <div className= "col col-md-6 font-weight-bold h6">
            { vendor ?  <h1 className="bg-info p-3">{vendorInfoId.name}</h1>
                     : <h1>Loading...</h1>}
+           
+            <StarRatings 
+              starRatedColor= "red"
+              noOfStars= {5}
+              rating={2}
+              changeRating= {(newRating,name) => console.log('new rating',newRating,name)}
+              name={_id}
+              isSelectable={true}
+            />
              <Card
               actions= {[ <Link to= {`/vendor/${_id}`}>
                       <ShoppingCartOutlined  className= "text-success" /> <br />Select Vendor
