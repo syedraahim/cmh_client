@@ -14,7 +14,7 @@ const StarRatingModal= ({children}) => {
     let history = useHistory();
     let params= useParams();
 
-    console.log("params",params);
+    console.log("children",{children});
 
     const handleChange= () => {
         if (user && user.token) {

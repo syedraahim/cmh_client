@@ -68,12 +68,12 @@ const MainBody = () => {
  <div className= "jumbotron-fluid font-weight-bold h1 text-danger d-flex justify-content-center mb-2 ">
     <div className= "row">
       <div className= "col col-md-12 mb-5" style={{ padding:10, height:120, width:550}}>      
-              <Carousel showArrows={false} showThumbs= {false} autoPlay={true} infiniteLoop={true} transitionTime={200}> 
+              {/* <Carousel showArrows={false} showThumbs= {false} autoPlay={true} infiniteLoop={true} transitionTime={200}> 
                  {categories && categories.map( (i) => (
                       <img src= {i.imgURL} key={i._id} />                 
                  )
                  )}
-              </Carousel>             
+              </Carousel>              */}
            </div>  
       </div>     
   </div>

@@ -45,8 +45,15 @@ export const deleteVendor = async (id, authtoken) =>  {
     return await axios.get("http://localhost:5000/api/vendors/total"); 
   };
 
-  export const vendorRating=  async (id,rating, authtoken) =>  {
-    const res = await axios.post(`http://localhost:5000/api/vendor/rating/${id}`,{rating},
+  export const vendorRating=  async (id, star,authtoken) =>  {
+    const res = await axios.post(`http://localhost:5000/api/vendor/rating/${id}`,{star},
     {headers: {authtoken}});    
   };
+
+  export const getRelatedVendors = async(id) => {
+    const vendor= await axios.get(`http://localhost:5000/api/vendors/related/${id}`);
+    console.log("vendors from getRelatedVendors",vendor);
+    return(vendor); 
+  }
+
 

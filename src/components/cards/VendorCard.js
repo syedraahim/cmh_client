@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {Card} from "antd";
 import {EyeOutlined, ShoppingCartOutlined} from "@ant-design/icons";
+import {showAverageRating} from "../../actions/rating";
+
 
 const {Meta} = Card;
 const VendorCard= ({vendor}) => {
@@ -21,9 +23,14 @@ const VendorCard= ({vendor}) => {
      
      
      return (
+       <div>
+        { vendor && vendor.ratings && vendor.ratings.length > 0
+              ? showAverageRating(vendor)
+              : <div className= "d-flex justify-content-center mt-1 mb-3">"No rating yet"</div>
+        }
          <Card cover= {
             <img src= { images && images.length ? images[0].url : ""} 
-                 style= {{ height: "150px", objectFit: "cover"}}
+                 style= {{ height: "180px", objectFit: "cover"}}
             />
          }
          actions= {[ <Link to= {`/vendordetails/${_id}`}>
@@ -36,6 +43,7 @@ const VendorCard= ({vendor}) => {
          >
            <Meta title= {vendorInfoId.name} description= {subcats} />                                         
          </Card>
+       </div>
      )
 }
 

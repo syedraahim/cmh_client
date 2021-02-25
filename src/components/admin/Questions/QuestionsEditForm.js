@@ -60,8 +60,7 @@ const QuestionsEditForm= ({handleSubmit,question,setQuestion,options,setOptions}
             >
                 <Input style={{ width: '100%' }}/>               
           </Form.Item>
-           <MinusCircleOutlined onClick={() => remove(field.name)} />
-           
+           <MinusCircleOutlined onClick={() => remove(field.name)} />           
          </Form.Item>
          ))}
          <Form.Item>

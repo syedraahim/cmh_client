@@ -36,7 +36,7 @@ const VendorListItems= ({vendor}) => {
 
            {subcategories &&
             <li className="list-group-item">
-               Subcategories{" "} 
+               Sub Categories{" "} 
                {subcategories.map( (s) => (                
                 <Link 
                   key= {s._id}
@@ -47,10 +47,10 @@ const VendorListItems= ({vendor}) => {
             </li>
            }
 
-           <li className="list-group-item">
+           {/* <li className="list-group-item">
                Rating{" "} <span className= "label label-default label-pill float-right"> 
                     </span>
-           </li>
+           </li> */}
         </ul>
         )
       

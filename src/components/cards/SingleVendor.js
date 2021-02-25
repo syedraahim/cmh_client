@@ -7,10 +7,13 @@ import { Carousel } from 'react-responsive-carousel';
 import VendorListItems from "./VendorListItems";
 import StarRatings from  "react-star-ratings";
 import StarRatingModal from "../Modal/StarRatingModal";
+import {showAverageRating} from "../../actions/rating";
 
 const {TabPane} = Tabs;
 
 const SingleVendor= ({vendor, onRatingClick, rating}) => {
+   
+  console.log("Rating from single vendor",{rating});
 
     const {_id,vendorInfoId, images} = vendor;
     return (
@@ -28,7 +31,10 @@ const SingleVendor= ({vendor, onRatingClick, rating}) => {
             <div className= "col col-md-6 font-weight-bold h6">
            { vendor ?  <h1 className="bg-info p-3">{vendorInfoId.name}</h1>
                     : <h1>Loading...</h1>}           
-            
+            { vendor && vendor.ratings && vendor.ratings.length > 0
+              ? showAverageRating(vendor)
+              : <div className= "d-flex justify-content-center mt-1 mb-3">"No rating yet"</div>
+            }
              <Card
               actions= {[ <Link to= {`/vendor/${_id}`}>
                       <ShoppingCartOutlined  className= "text-success" /> <br />Select Vendor
@@ -51,7 +57,7 @@ const SingleVendor= ({vendor, onRatingClick, rating}) => {
             </Card>
                  
             </div>
-          <div classNam="row">
+          <div className="row">
             <Tabs type= "card">
               <TabPane tab= "More Details" key="1">
                   For any further queries, please call us on XXXX-XXX-XXXX
