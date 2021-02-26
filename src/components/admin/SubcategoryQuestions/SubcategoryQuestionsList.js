@@ -43,13 +43,13 @@ const SubcategoryQuestionList = () => {
 
                    {subquestionval.questions.map(questionval => {
                     return (                    
-                    <div className= " category text-align-center" >                     
-                        <p className= "font-weight-bold" key= {questionval. _id}>  {questionval.question}</p>  
+                    <div className= " category text-align-center" key= {questionval. _id}>                     
+                        <p className= "font-weight-bold" >  {questionval.question}</p>  
                         
                         {questionval.options.map(optionval => {
                         return(
-                     <div className= "options" >
-                          <p key= {optionval}>   {optionval}</p>
+                     <div className= "options" key= {optionval} >
+                          <p >   {optionval}</p>
                       </div>  
                         )}
                         )}                 
@@ -101,7 +101,7 @@ const SubcategoryQuestionList = () => {
                
          </div>               
           <form>
-            {JSON.stringify(subcatquestions)}
+            {/* {JSON.stringify(subcatquestions)} */}
               {renderList()}             
           </form>          
        </div> 

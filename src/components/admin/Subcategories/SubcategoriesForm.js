@@ -19,7 +19,7 @@ const SubcategoriesForm = ({handleSubmit, category, setCategory, name, setName})
     <form onSubmit= {handleSubmit}>  
       <div className="form-group row">
       <div className= "col col-md-12">
-                <label  className="admin-class">Select a Category</label>         
+            <label  className="admin-class">Select a Category</label>         
                 <select className="form-control"  
                    name="category"
                    onChange={(e) => setCategory(e.target.value)}

@@ -9,6 +9,7 @@ import firebase from 'firebase';
 import { LOGOUT } from "../actions/types";
 import UserHistory from "./user/UserHistory";
 import useSelection from "antd/lib/table/hooks/useSelection";
+import SearchBar from "./utils/SearchBar";
 
 const { SubMenu} = Menu;
 
@@ -95,18 +96,19 @@ const logout = () => {
             <Menu.Item>                
                 <Link to= "/admin/dashboard">Dashboard</Link> 
             </Menu.Item>
-            )}
-            
+            )}            
            
             <Menu.Item icon={<LogoutOutlined />} onClick= {logout}>Logout</Menu.Item>
                    
-        </SubMenu>
-          
+        </SubMenu>          
          }
-               
-        
-        
+         
+           <span className= "float-left p-1">
+           <SearchBar />
+         </span>  
       </Menu>
+            
+      
     </nav>
 
     <div className="row">

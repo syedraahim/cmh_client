@@ -1,144 +1,159 @@
-import React, {Component} from "react";
-import {reduxForm ,Field, FieldArray} from "redux-form";
-import {connect } from "react-redux";
-import {fetchCategories} from "../../../actions/category";
-import {fetchSubcategories} from "../../../actions/subcategory";
-import { fetchQuestionsName} from "../../../actions";
-import VendorField from "../../vendor/VendorField";
+import React, {useState, useEffect} from "react";
+import {useSelector } from "react-redux";
+import {fetchCategories,fetchCategorySubs} from "../../../actions/category";
+import { fetchQuestions} from "../../../actions/questions";
+import {Select,Form, Input, Button} from 'antd';
+import { MinusCircleOutlined, PlusOutlined} from '@ant-design/icons';
 
-class SubcategoryQuestionsForm extends Component {
+const {Option} = Select;
 
-  componentDidMount() {
-    console.log("this.props from subcat questions form ZZZ", this.props);
-    this.props.fetchCategories();
-    this.props.fetchSubcategories();
-    this.props.fetchQuestionsName();
-  }  
+const SubcategoryQuestionsForm = () => {
 
-  renderError(touched, error) {
-    if (touched && error) {
-      return (
-      <div className= "alert alter-danger mt-2">
-        <div className= "header">{error} </div>             
-      </div>
-      )}   
+  const {user} = useSelector( state => ({...state}));
+  const [categories, setCategories] = useState([]); 
+  const [subOptions, setSubOptions] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [ loading, setLoading] = useState(false);
+  const  [category,setCategory] = useState("");
+  const [subcategory,setSubcategory]= useState("");
+  const [question,setQuestion] = useState("");
+  const [fields, setFields]= useState([]);
+
+  useEffect( () => {
+     loadCategories();
+     loadQuestions();
+  },[]);
+
+  
+  const loadCategories= () => {
+     setLoading(true);
+     fetchCategories().then ( (res) => setCategories(res.data)); 
+     setLoading(false);    
+  } 
+
+  const handleCategoryChange= (e) => {
+      e.preventDefault();
+      setCategory(e.target.value);
+      fetchCategorySubs(e.target.value)
+       .then ( (res) => setSubOptions(res.data)
+       )
+      .catch ( (err) => {
+         console.log(err);
+    })
+    // setShowSubs(true);
   }
 
-  onSubmit = (formValues) => {
-    console.log("Props from on Submit SCQ FORM", this.props);
-    this.props.onSubmit(formValues);
- }
+  const loadQuestions= () => {
+     setLoading(true);
+     fetchQuestions().then( (res) => setQuestions(res.data));
+     setLoading(false);
+  }  
 
-
-    renderFields() {
-      if (!this.props.catValues )  {        
-        return (
-           <div>Loading Categories ....</div>
-      )} 
-       
-      return(
-        <div>
-          <div className= "form-group" >
-          <label className= "font-weight-bold mt-2">Select a Category </label>
-          <Field 
-           name= "category"
-           className= "form-control"
-           component= "select"   
-          //  onChange= {(state,val, prevVal) => console.log(state,val, prevVal)} 
-           >   
-          <option value="">Select a Category</option>          
-        
-          { this.props.catValues && this.props.catValues.map( categoryVal => {
-               return( <option key={categoryVal.name} value= {categoryVal.name}>{categoryVal.name}</option>) }
-          )}  
-
-          </Field> 
-          <div>
-            <label className= "font-weight-bold mt-2"> Select a Sub Category</label>
-          <Field 
-           name= "subcategory"
-           className= "form-control"
-           component= "select"
-          >
-          <option value="">Select a Sub Category</option>
-           
-           { this.props.subcatValues && this.props.subcatValues.map( subcatVal => {
-             return( <option key={subcatVal.name} value= {subcatVal.name}>{subcatVal.name}</option>)
-             }) 
-            }              
-          </Field>
-          </div>         
-        </div>
-        </div>
-      )
-    }
-     
+  const handleSubmit = (formValues) => {
+    console.log(formValues);   
+  }         
     
-      renderQuestions = ({fields}) => (  
-
-             
-        
-       <ul className= "list-items">
-        <li>
-          <button type= "button" className= "btn btn-primary font-weight-bold mb-2"
-                  onClick = { () => fields.push()}
-          >Add Questions</button>
-        </li>
-        {fields.map( (question,index) => (
-        <li key= {index} >
-        <button className="btn btn-danger float-right fa fa-trash-o question-delete"
-          type="button"
-          title="Remove Question"
-          onClick={() => fields.remove(index)}
-         />
+  const renderQuestions = () => {              
+    return (
+      <div>
+      {fields.map( (question,index) => {
+       return (
        <div className= "row form-group"> 
         <div className= "col col-md-12 mt-0">
-        <Field
+        <select
           name={question}
-          type="text"
-          component="select"
           className="form-control"
+          value={`question${index+1}`}
           label={`question #${index + 1}`}
-        >        
-              
+        >              
          <option value="">Select a Question</option>
-           {this.props.questionsValues[0] && this.props.questionsValues[0].map( questionVal => {
-            {console.log("Questionval", questionVal.question)}
-           return( <option key={questionVal.question} value= {questionVal.question}>{questionVal.question}</option>)
-         })
-         }  
-         
-        </Field>
+           {questions && questions.map( questionVal => {
+            return( <option key={questionVal._id} 
+                          value= {questionVal._id}>{questionVal.question}
+                    </option>)
+         }) }  
+         </select> 
        </div>
        </div>
-      </li>        
-        ) )}
-       </ul>          
-       )      
+       )
+    })
+  }
+  </div>
+  )}
+  
       
-
-    render() {
-        
         return(
             <div>
                 <section className= "question-center mb-2">
+                
                     <div className= "card" >
                     <div className= "card-body">
-                    <form onSubmit = { this.props.handleSubmit(this.onSubmit)} >
-                        {this.renderFields()}
+                    <form onSubmit = {handleSubmit} >
+                       <div className= "row">
+                         <div className= " col col-md-12">
+                         <label className= "font-weight-bold h6 mt-2">Select a Category </label>
+                         <select
+                              name= "category"
+                              className= "form-control"
+                             onChange= { handleCategoryChange}
+                          >
+                        <option value="">Select a Category</option>          
+        
+                       { categories && categories.map( categoryVal => {
+                         return( <option key={categoryVal._id} 
+                               value= {categoryVal._id}
+                        >{categoryVal.name}
+                       </option>) }
+                        )}  
+                     </select> 
+                       </div>
+                      
+                      <div className= "col col-md-12">
+                      <label className= "admin-class mt-1 mb-1">Select a Sub category</label>
+                      
+                      <select 
+                           name= "subcategory"   
+                           className= "form-control"
+                           onChange= { subcategory => setSubcategory(subcategory)}
+                       > 
+                      <option value="">Select a Sub Category</option>                  
+                     { subOptions && subOptions.map( (s) => {
+                     return (  <option key= {s._id} value= {s._id}>
+                            {s.name}
+                         </option> ) }
+                     )}
+                   </select>                  
+                   </div>
+                  </div>
 
-                
-                        <FieldArray
-                           name= "questions"        
-                           component=  {this.renderQuestions}
-                         />    
-                     <div className= "d-flex justify-content-center mt-2" >         
+                  {renderQuestions()}
+                  {/* <div className="col col-md-12">
+                      <button className= "btn btn-warning mt-2">Add a question</button>
+                  </div>
+                  <div className= "col col-md-12 mt-2">
+                   <select
+                              name= "question"
+                              className= "form-control"
+                              onChange= {question => setQuestion(question)}
+                   >                                 
+                  <option value="">Select a Question</option>
+                   {questions && questions.map( (q) => {
+                    return( <option key={q._id} value= {q._id}>
+                                {q.question}
+                            </option> ) }
+                   ) }  
+                  </select> 
+                  </div> */}
+                  <div className= "d-flex justify-content-center mt-2" >         
                        <button type= "Submit" className= "btn btn-primary font-weight-bold"> Submit</button>
-                     </div>   
+                  </div>
+                
+                           
+                    
                     </form> 
                     </div>
                       
-                    </div>
+                    </div> 
                    
                     
                 </section>
@@ -146,22 +161,8 @@ class SubcategoryQuestionsForm extends Component {
         )
     }
 
-}
 
-const validate = (formValues) => {
 
-    const errors= {}
-
-    if (!formValues.category) {
-        errors.category= "Please select a valid category";
-    }
-    if (!formValues.subcategory) {
-        errors.subcategory= "Please select a valid subcategory";
-    }
-    if (!formValues.questions) {
-        errors.questions= "Please select atleast 1 valid question";
-    }
-}
 
 const mapStateToProps = (state) => {
     console.log("state from mapstate in subcat ques YYY",state.questions);
@@ -170,11 +171,6 @@ const mapStateToProps = (state) => {
                 questionsValues: Object.values(state.questions) }            
       }  
 
-const formWrapped = reduxForm(
-                     {form: "subcatQuestionsForm",
-                      validate })
-                     (SubcategoryQuestionsForm);
 
-export default connect( mapStateToProps, {fetchCategories, fetchSubcategories, fetchQuestionsName})
-                      (formWrapped);
+export default SubcategoryQuestionsForm;
 

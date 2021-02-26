@@ -7,6 +7,11 @@ import { addSubcatQuestion } from "../../../actions/subcatquestions";
 
 const SubcategoryQuestionsCreate = () => {
 
+    const [subquestions,setSubquestions] = useState("");
+    const [loader,setLoader] = useState(false);
+
+
+
    const addRoute= () => {
         return("/admin/subcatquestions/subcatquestionscreate");
       }
@@ -20,11 +25,11 @@ const SubcategoryQuestionsCreate = () => {
         return (
             <div>
                <AdminMenu 
-                addRoute= {this.addRoute()}
+                addRoute= {addRoute()}
                />
-               <h1 className="category-head font-weight-bold card-header"> Add New Subcategory Questions</h1> 
+               <h2 className="category-head font-weight-bold card-header"> Add New Subcategory Questions</h2> 
                <SubcategoryQuestionsForm 
-                   onSubmit= {this.onSubmit}
+                   onSubmit= {onSubmit}
                />
             </div>
         )
@@ -32,11 +37,9 @@ const SubcategoryQuestionsCreate = () => {
 
 
 const mapStateToProps = (state) => {
-    console.log("State from MSP in subcat create",state.form.subcatQuestionsForm);
-    return  { formValues: state.form.subcatQuestionsForm }   
+       return  { formValues: state.form.subcatQuestionsForm }   
 }
 
-export default connect(mapStateToProps, {addSubcatQuestion} )
-                                (SubcategoryQuestionsCreate);
+export default SubcategoryQuestionsCreate;
 
 
