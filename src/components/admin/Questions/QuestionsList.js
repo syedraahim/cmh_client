@@ -64,9 +64,7 @@ const QuestionsList = () =>
     
     return (
      <div> 
-      { (loading) ? <h2>Loading....</h2>      
-                   :<h2 className= "font-weight-bold">List Questions </h2> 
-      } 
+      
       <div className= "row">
        <div className= "col col-md-2">
          <AdminNav />
@@ -75,6 +73,9 @@ const QuestionsList = () =>
        <AdminMenu
             addRoute = {addRoute()}
            />
+        { (loading) ? <h2>Loading....</h2>      
+                   :<h2 className= "font-weight-bold">List Questions </h2> 
+      } 
        <div className= "container mt-2" > 
        <div className = "row p-3 bg-light ">
           <div className= "col col-md-6 ">

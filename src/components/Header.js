@@ -2,14 +2,19 @@ import React, {useState} from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import {Menu} from 'antd';
-import { HomeOutlined, LoginOutlined, UserAddOutlined,SettingOutlined,LogoutOutlined } from '@ant-design/icons';
+import { HomeOutlined,
+         LoginOutlined, 
+         UserAddOutlined,
+         SettingOutlined,
+         LogoutOutlined,
+        ShoppingOutlined } from '@ant-design/icons';
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "./common/cmh_new.png";
 import firebase from 'firebase';
 import { LOGOUT } from "../actions/types";
 import UserHistory from "./user/UserHistory";
 import useSelection from "antd/lib/table/hooks/useSelection";
-import SearchBar from "./utils/SearchBar";
+import SearchBar from "./utils/Search";
 
 const { SubMenu} = Menu;
 
@@ -62,8 +67,12 @@ const logout = () => {
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"
                                   className= "font-weight-bold menu fontname">
 
-        <Menu.Item  icon={<HomeOutlined />} >
+        <Menu.Item key= "home"  icon={<HomeOutlined />} >
           <Link to= "/">Home </Link>
+        </Menu.Item> 
+
+        <Menu.Item key="shop" icon={<ShoppingOutlined />} >
+          <Link to= "/shop">Shop</Link>
         </Menu.Item> 
                 
         { !user && 

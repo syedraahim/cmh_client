@@ -1,9 +1,13 @@
 import React from "react";
 import UserNav from "../navigation/UserNav";
+import ConnectNav from "../navigation/ConnectNav";
 
 const UserHistory = () => {
    return(
     <div className= "container-fluid">
+       <div className= "container-fluid bg-secondary p-5">
+          <ConnectNav />
+      </div>
         <div className= "row ml-0 text-align-top">
            <div className= "col-md-2">
                < UserNav />   

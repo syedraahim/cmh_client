@@ -80,7 +80,7 @@ const SubcategoryQuestionList = () => {
              <div className= "col col-md-2">
                 <AdminNav />
              </div>
-             <div className= "col col-md-10">
+             <div className= "col col-md-10 category">
                <AdminMenu 
                    addRoute= {addRoute}
                />   

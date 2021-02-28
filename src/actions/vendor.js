@@ -12,6 +12,10 @@ export const getAllVendorCategories = async(page) => {
   return await axios.get(`http://localhost:5000/api/vendors`); 
 }
 
+export const getVendorsByCount = async (count) => {
+  return await axios.get(`http://localhost:5000/api/vendors/:count`);
+}
+
 export const getVendorCategoriesUser = async(userid,page) => {
   console.log("user from actions",userid );
   return await axios.get(`http://localhost:5000/api/vendors/${userid}`,{page}); 
@@ -54,6 +58,10 @@ export const deleteVendor = async (id, authtoken) =>  {
     const vendor= await axios.get(`http://localhost:5000/api/vendors/related/${id}`);
     console.log("vendors from getRelatedVendors",vendor);
     return(vendor); 
+  }
+
+  export const getVendorsByFilter = async (arg) => {
+    return await axios.post(`http://localhost:5000/api/search/filters`,arg);
   }
 
 

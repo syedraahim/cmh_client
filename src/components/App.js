@@ -33,6 +33,7 @@ import SubcategoryQuestionsList from "./admin/SubcategoryQuestions/SubcategoryQu
 
 import Header from "./Header";
 import Footer from "./Footer";
+import Shop from "./utils/Shop.js"
 // home page
 import VendorDetails from "./home/VendorDetails";
 import GetVendorsSubcat from "./home/GetVendorsSubcat";
@@ -160,6 +161,7 @@ const App = () => {
 
        <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
        <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
+       <Route path= "/shop" exact component= {Shop} />
 
        {/* <Footer /> */}
      </Router>
