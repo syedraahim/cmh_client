@@ -6,7 +6,6 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 const {Meta} = Card;
 
 const AdminVendorCard = ({cat}) => {
-    console.log("values from CAT", {cat})
     const {vendorInfoId, description, category, subcategories,images,_id} = cat;
   return (
       <Card  cover= {

@@ -8,9 +8,8 @@ import {showAverageRating} from "../../actions/rating";
 const {Meta} = Card;
 const VendorCard= ({vendor}) => {
 
-   const [subcats, setSubcats] = useState([]);
-    console.log("Values from VENDOR CARD", {vendor});
-    const {_id,vendorInfoId, images, description, subcategories} = vendor;
+   const [subcats, setSubcats] = useState([]);   
+    const {_id,vendorInfoId, images, description, subcategories,price,pricetype} = vendor;
 
     useEffect( () => {
       fetchSubcats();
@@ -41,7 +40,7 @@ const VendorCard= ({vendor}) => {
                       </Link>
                  ]}
          >
-           <Meta title= {vendorInfoId.name} description= {subcats} />                                         
+           <Meta title= {`${vendorInfoId.name}-£${price} ${pricetype}`} description= {subcats} />                                         
          </Card>
        </div>
      )

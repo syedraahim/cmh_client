@@ -143,6 +143,7 @@ const App = () => {
         {/* vendor routes */}
        <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
        <UserRoute path= "/vendor/vendoredit/:id" exact component= {VendorEdit} />
+
       {/* user routes */}
        <UserRoute path= "/user/history" exact component= {UserHistory} />
        <UserRoute path= "/user/userpassword" exact component = {UserPassword} />

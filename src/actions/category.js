@@ -12,7 +12,8 @@ import { CREATE_CATEGORY,
 //action creators for Categories master
 
 export const fetchCategories =  async () =>  {
-    return await axios.get("http://localhost:5000/api/categories");     
+    return await axios.get("http://localhost:5000/api/categories");  
+    console.log("Category values") ;  
    };
 
 

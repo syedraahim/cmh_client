@@ -7,8 +7,7 @@ export const addVendor =  async (formvalues, authtoken) =>  {
     history.push("/vendor/vendorcatlist");
   };
 
-export const getAllVendorCategories = async(page) => {
-  console.log("value of page", page);
+export const getAllVendorCategories = async(page) => { 
   return await axios.get(`http://localhost:5000/api/vendors`); 
 }
 
