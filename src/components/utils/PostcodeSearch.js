@@ -1,82 +1,84 @@
-import React,{useState,useEffect} from "react";
+import React,{Component} from "react";
+import {Map, Marker, GoogleApiWrapper} from "google-maps-react";
+import PlacesAutocomplete, {geocodeByAddress, getLatLng,} from 'react-places-autocomplete';
 import {useHistory} from "react-router-dom";
-import usePlacesAutocomplete from '@atomap/use-places-autocomplete';
 import {DatePicker, Select} from "antd";
 import {FontSizeOutlined, SearchOutlined} from "@ant-design/icons";
 import moment from "moment";
+import keys from "../../config/keys";
 
-const {RangePicker} = DatePicker;
-const {Option} = Select;
-const GOOGLE_MAP_API_KEY = '<YOUR_GOOGLE_MAP_API_KEY>';
-
-const PostcodeSearch= () => {
-
-    const [ selectedPrediction, setSelectedPrediction] = useState(null);
-    const [searchValue, setSearchValue]= useState("");
-    const [ subcat, setSubcat] = useState("");
-    const history = useHistory();
-
-    const {predictions, error} = usePlacesAutocomplete(searchValue);
-
-    if (error) {
-        console.error(error);
-    }
-
-    const handleSelect= (e,prediction) => {
-        e.preventDefault();
-        setSelectedPrediction(prediction);      
-    }
-
-    // const handleSubmit= () => {
-    //     history.push(`/search-result?location=${location}&subcat=${subcat}`)
-    // }
-    return (
-      <div className="d-flex pb-4">
-         <div className= "w-100 mr-2">
-           <input
-              name="predictionSearch"
-              placeholder= "Enter your location"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              style= {{height:"50px", width:"600px", fontSize:"20px"}}
-           />
+export class PostcodeSearch extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { address: '' };
+     }
+   
+    handleChange = address => {
+        this.setState({ address });
+      };
+     
+      handleSelect = address => {
+        geocodeByAddress(address)
+          .then(results => getLatLng(results[0]))
+          .then(latLng => {
+              console.log('Success', latLng);
+              this.setState({address})
+          })
+          .catch(error => console.error('Error', error));
+      };
+   
+    render() {
+      return (
+        <div>
+          <PlacesAutocomplete
+            value={this.state.address}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+         >          
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>           
+            <input
+              {...getInputProps({
+                placeholder: 'Location ...',
+                className: 'location-search-input mt-3 mb-3 font-weight-bold h6',
+                style: { height:"50px", width:"600px"}
+              })}
+            />
+            <div className="autocomplete-dropdown-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
+            </div>
+            {/* <div>
+                <select
+                 />
+                 <option>Select a category</option>
+            </div> */}
           </div>
-          <div className= "w-100 ml-2">
-           <select
-              name="subcat"
-              placeholder= "Category"
-              value={subcat}
-              onChange={(e) => setSubcat(e.target.value)}
-              style= {{height:"50px", width:"600px", fontSize:"20px"}}
-           >          
-           <option>Select a Category</option>
-           </select>
-           </div>
-           <div className= "btn btn-primary ml-2">
-             <SearchOutlined />
-           </div>
-           
-          <img
-          src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
-          alt="Powered by Google"
-          className= "ml-3"
-          />
-          <ul>
-            {predictions?.map((prediction) => (
-            <li key={prediction?.place_id}>
-              <button
-                onClick={(e) => handleSelect(e, prediction)}
-                onKeyDown={(e) => handleSelect(e, prediction)}
-              >
-                {prediction?.structured_formatting?.main_text || 'Not found'}
-              </button>
-            </li>
-          ))}
-        </ul>
-          
-         
+        )}
+      </PlacesAutocomplete>        
       </div>
-    );
-}
+      )
+    }
+  }
 
-export default PostcodeSearch;
+  export default GoogleApiWrapper({
+    apiKey: keys.GOOGLE_MAPS_API_KEY
+  })(PostcodeSearch);

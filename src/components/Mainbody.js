@@ -34,7 +34,7 @@ const MainBody = () => {
      categories && categories.map( categoryval => {    
         if (categoryval._id)  { 
            return (            
-              <div className= "col col-md-4 main-class font-weight-bold p-1 " key= {categoryval._id}>         
+              <div className= "col col-md-4 main-class font-weight-bold p-1 d-flex justify-content-right " key= {categoryval._id}>         
                
                       
                    <Link to= {`/vendordetails/${categoryval.slug}`} 
@@ -42,11 +42,11 @@ const MainBody = () => {
                        {categoryval.name}
                     </Link> 
                         
-                 <div className= "btn btn-raised font-weight-bold ">
+                 <div className= "btn btn-raised font-weight-bold mt-4">
                    <ListSubcategories 
                         categoryValue = {categoryval._id} />  
                 </div>  
-                <div className= "text-align-left">
+                <div className= "ml-4">
                 <Avatar                  
                     src= {categoryval.imgURL}
                     size= {100}
@@ -63,7 +63,7 @@ const MainBody = () => {
  return (
  <div>
  <section className="feature-class" id="features">
- <div className= "font-weight-bold ml-5 mt-4 mr-2 d-flex">           
+ <div className= "font-weight-bold ml-5 mt-5 mb-3 mr-2 d-flex justify-content-center">           
              <PostcodeSearch />
  </div>  
         

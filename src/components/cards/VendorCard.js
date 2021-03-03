@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
-import {Card} from "antd";
+import {Card, Tooltip} from "antd";
 import {EyeOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import {showAverageRating} from "../../actions/rating";
-
+import _ from "lodash";
 
 const {Meta} = Card;
 const VendorCard= ({vendor}) => {
 
+  const {user, cart} = useSelector((state) => ({...state}));
+
    const [subcats, setSubcats] = useState([]);   
-    const {_id,vendorInfoId, images, description, subcategories,price,pricetype} = vendor;
+   const [tooltip, setTooltip] = useState('Click to add');
+   const {_id,vendorInfoId, images, description, subcategories,price,pricetype} = vendor;
+
+   const dispatch= useDispatch();
 
     useEffect( () => {
       fetchSubcats();
@@ -20,7 +26,29 @@ const VendorCard= ({vendor}) => {
          })
     }
      
-     
+    const handleAddToCart= () => {
+      let cart = [];
+      //check if the cart already has an item
+      if ( typeof window !== "undefined") {
+        if (localStorage.getItem("cart")) {
+          cart= JSON.parse(localStorage.getItem("cart"))
+        }
+        cart.push({
+          ...vendor,
+          count: 1
+        })
+        let unique=_.uniqWith(cart,_.isEqual);
+        console.log(unique);
+        localStorage.setItem("cart",JSON.stringify(unique));
+        setTooltip("Added");
+
+        //add to redux store
+        dispatch({
+          type: "ADD_TO_CART",
+          payload:unique
+        });
+      }
+    } 
      return (
        <div>
         { vendor && vendor.ratings && vendor.ratings.length > 0
@@ -35,9 +63,11 @@ const VendorCard= ({vendor}) => {
          actions= {[ <Link to= {`/vendordetails/${_id}`}>
                       <EyeOutlined  className= "text-warning" /> <br />View Vendor Details
                       </Link>,
-                     <Link to= {`/vendor/vendorcatdelete/${_id}`}>
+                    <Tooltip title= {tooltip}>
+                     <a onClick= {handleAddToCart}>
                       <ShoppingCartOutlined  className= "text-info" /><br />Select Vendor
-                      </Link>
+                      </a>
+                    </Tooltip>
                  ]}
          >
            <Meta title= {`${vendorInfoId.name}-£${price} ${pricetype}`} description= {subcats} />                                         

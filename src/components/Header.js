@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {Link, useHistory} from "react-router-dom";
-import {Menu} from 'antd';
+import {Menu,Badge} from 'antd';
 import { HomeOutlined,
          LoginOutlined, 
          UserAddOutlined,
          SettingOutlined,
          LogoutOutlined,
-        ShoppingOutlined } from '@ant-design/icons';
+         ShoppingOutlined,
+         ShoppingCartOutlined } from '@ant-design/icons';
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "./common/cmh_new.png";
 import firebase from 'firebase';
@@ -24,7 +25,7 @@ const [current,setCurrent] = useState('home');
 
 const dispatch = useDispatch();
 const history = useHistory();
-const {user}= useSelector( (stateVal) => ({...stateVal}));
+const {user, cart}= useSelector( (stateVal) => ({...stateVal}));
 
 const handleClick = (e) => {
    setCurrent(e.key);
@@ -73,6 +74,14 @@ const logout = () => {
 
         <Menu.Item key="shop" icon={<ShoppingOutlined />} >
           <Link to= "/shop">Shop</Link>
+        </Menu.Item> 
+
+        <Menu.Item key="cart" icon={<ShoppingCartOutlined />} >
+          <Link to= "/cart">
+          <Badge count= {cart.length} offset={[9,0]}>
+           Cart
+          </Badge>
+        </Link>
         </Menu.Item> 
                 
         { !user && 

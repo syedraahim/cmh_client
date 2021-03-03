@@ -8,12 +8,14 @@ import questionReducer from "./questionReducer";
 import subcatQuestionReducer from "./subcatQuestionReducer";
 import alertReducer from "./alertReducer";
 import userReducer from "./userReducer";
+import cartReducer from "./cartReducer";
 import { serachReducer } from "./searchReducer";
 
 export default combineReducers(
                { alert: alertReducer,
                 auth: authReducer, 
-                user: userReducer,   
+                user: userReducer,  
+                cart: cartReducer, 
                 search: serachReducer,           
                 form: formReducer,
                 categories: categoryReducer,
