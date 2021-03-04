@@ -354,4 +354,8 @@ sidenavbar {
   grid-row:unset;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 

@@ -23,7 +23,7 @@ export class PostcodeSearch extends Component {
           .then(latLng => {
               console.log('Success', latLng);
               this.setState({address})
-          })
+          })         
           .catch(error => console.error('Error', error));
       };
    
@@ -33,7 +33,7 @@ export class PostcodeSearch extends Component {
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
-            onSelect={this.handleSelect}
+            onSelect={this.handleSelect}          
          >          
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>           
@@ -80,5 +80,5 @@ export class PostcodeSearch extends Component {
   }
 
   export default GoogleApiWrapper({
-    apiKey: keys.GOOGLE_MAPS_API_KEY
+    apiKey: keys.GOOGLE_MAPS_API_KEY          
   })(PostcodeSearch);

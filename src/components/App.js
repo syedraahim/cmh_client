@@ -35,6 +35,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Shop from "./utils/Shop.js";
 import Cart from "./Cart";
+import SideDrawer from "./drawer/SideDrawer";
 // home page
 import VendorDetails from "./home/VendorDetails";
 import GetVendorsSubcat from "./home/GetVendorsSubcat";
@@ -101,6 +102,7 @@ const App = () => {
      <div className="App">
      <Router history = {history}>
        <Header />
+       <SideDrawer />
        <ToastContainer />
        {/* login and registration routes */}
        <Switch>
@@ -165,7 +167,7 @@ const App = () => {
        <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
        <Route path= "/shop" exact component= {Shop} />
        <Route path="/cart" exact component= {Cart} />
-
+      
        {/* <Footer /> */}
      </Router>
     </div>

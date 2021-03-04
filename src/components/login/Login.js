@@ -17,8 +17,7 @@ const Login = ({history}) => {
   const dispatch= useDispatch();
   const {user} = useSelector( (state) => ({...state}));
 
-  
-    
+      
   useEffect( () => {
      if (history.location.state) {
        return;

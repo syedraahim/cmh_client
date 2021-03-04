@@ -10,12 +10,14 @@ import alertReducer from "./alertReducer";
 import userReducer from "./userReducer";
 import cartReducer from "./cartReducer";
 import { serachReducer } from "./searchReducer";
+import drawerReducer from "./drawerReducer";
 
 export default combineReducers(
                { alert: alertReducer,
                 auth: authReducer, 
                 user: userReducer,  
                 cart: cartReducer, 
+                drawer: drawerReducer,
                 search: serachReducer,           
                 form: formReducer,
                 categories: categoryReducer,
