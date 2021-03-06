@@ -1,11 +1,11 @@
-import { CarTwoTone } from "@ant-design/icons";
 import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import { getVendorsTotal } from "../actions/vendor";
 import VendorCardCheckout from "./cards/VendorCardCheckout";
+import {userCart} from "../actions/user";
 
-const Cart= () => {
+const Cart= ({history}) => {
 
   const {user,cart} = useSelector( (state) => ({...state}));
   const dispatch = useDispatch();
@@ -17,9 +17,13 @@ const Cart= () => {
   }
 
   const saveOrderToDB= () => {
-
-  }
-
+      userCart(cart,user.token)
+      .then ( res => {
+         console.log("Cart response",res)
+         if (res.data.ok) history.push("/checkout");
+      })
+      .catch ((err) => console.log(err));
+      }
   const showCartItems= () => (
       <table className= "table table-bordered">
         <thead className= "thead-light">

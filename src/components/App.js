@@ -36,6 +36,7 @@ import Footer from "./Footer";
 import Shop from "./utils/Shop.js";
 import Cart from "./Cart";
 import SideDrawer from "./drawer/SideDrawer";
+import Checkout from "./pages/Checkout";
 // home page
 import VendorDetails from "./home/VendorDetails";
 import GetVendorsSubcat from "./home/GetVendorsSubcat";
@@ -167,6 +168,7 @@ const App = () => {
        <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
        <Route path= "/shop" exact component= {Shop} />
        <Route path="/cart" exact component= {Cart} />
+       <UserRoute path="/checkout" exact component={Checkout} />
       
        {/* <Footer /> */}
      </Router>
