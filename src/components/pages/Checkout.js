@@ -1,11 +1,18 @@
 import react,{useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {getuserCart} from "../../actions/user";
+import {toast} from "react-toastify";
+import {emptyUserCart, getuserCart, saveUserAddress} from "../../actions/user";
+import {fetchVendorInfoById} from "../../actions/vendorInfo";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Checkout= () => {
 
   const [ vendors, setVendors] = useState([]);
   const [total,setTotal] = useState(0);
+  const [name, setName] = useState([]);
+  const [address, setAddress]= useState("");
+  const [addressSaved, setAddressSaved] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -16,11 +23,38 @@ const Checkout= () => {
     .then( res => {
         setVendors(res.data.vendors);
         setTotal(res.data.cartTotal);
-    }) 
+    }); 
   },[]);
 
+  const getVendorName= (id) =>
+    fetchVendorInfoById(id).then (res=>setName(res.data.name));
+    
+   const emptyCart= () => {
+     //remove from local storage
+     if (typeof window !== "undefined") {
+       localStorage.removeItem("cart")
+     }
+    //remove from redux 
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: []
+    });
+    // remove from backend
+    emptyUserCart(user.token).then( res => {
+      setVendors([]);
+      setTotal(0);
+      toast.success("Cart is empty. Continue shopping...");
+    })
+   } 
   const saveAddressToDb= () => {
-
+    console.log(address);
+    saveUserAddress(address, user.token)
+    .then ( res => {
+        if (res.data.ok) {
+          setAddressSaved(true);
+          toast.success("Address saved !!!!");
+        }
+    })
   }
 
   return (
@@ -29,12 +63,13 @@ const Checkout= () => {
         <h4>Delivery Address</h4>
         <br />
         <br />
-        <textarea>
-            Area for delivery address
-        </textarea>
-        <button className="btn btn-primary"
+        <ReactQuill theme="snow"
+                    value= {address}
+                    onChange= {setAddress} />
+           
+        <br />
+        <button className="btn btn-primary mt-2 ml-2"
                  onClick= {saveAddressToDb}>Save
-
         </button>
       </div>
       <div className= "col col-md-6">
@@ -46,20 +81,25 @@ const Checkout= () => {
          <h4>Selected Helpers</h4>
          {vendors.map((v, i) => (
            <div key= {i}>
-              <p>{v.vendor.vendorInfoId.name}</p>
+             <p> {v.vendor.vendorInfoId}  X {v.count} = {v.vendor.price}</p> 
+          
+            
            </div>
          ))}
          <hr />
-         <p>Cart Total: {total}</p>
+         <p className= "font-weight-bold">Cart Total: {total}</p>
 
          <div className="row">
              <div className="col col-md-6"> 
-               <button className="btn btn-primary">Place Order</button>
+               <button className="btn btn-primary"
+                      disabled= {!addressSaved || !vendors.length}>Place Order</button>
              </div>
              <div className="col col-md-6"> 
-               <button className="btn btn-primary">Empty Cart</button>
-             </div>
-             
+               <button className="btn btn-primary"
+                       disabled= {!vendors.length}
+                       onClick= {emptyCart}
+               >Empty Cart</button>
+             </div>             
              
          </div>
       </div>

@@ -17,11 +17,8 @@ export const fetchVendorInfo = async (email) =>  {
   };
 
  export const editVendorInfo = async (email, formvalues, authtoken)  => {
-    console.log("authtoken", authtoken);
-    console.log("formvalues from edit vendor", formvalues);
     const res= await axios.put(`http://localhost:5000/api/vendorinfo/${email}`,formvalues,
-     {headers: {authtoken }});
-     console.log("Response from edit",res);
+     {headers: {authtoken }});    
      history.push("/vendor/dashboard"); 
  };  
 
@@ -30,4 +27,9 @@ export const fetchVendorInfo = async (email) =>  {
      {headers: {authtoken}});
      history.push("/admin/vendors/vendorinfolist");
  };
+
+ export const fetchVendorInfoById = async(id) => {
+    console.log("Response from InfoId",id);
+    return await axios.get(`http://localhost:5000/api/vendorinfo/${id}`);
+ }
 

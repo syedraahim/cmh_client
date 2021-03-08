@@ -48,6 +48,9 @@ const loadSubcategories= () => ( fetchSubcategories().then( res => setSubcategor
 useEffect( () => {
     const delay= setTimeout( () => {
         loadVendorsByFilter({query: text}); 
+        if ( !text) {
+            loadVendors();
+        }
     },300);
     return () => clearTimeout(delay);
 },[text]);

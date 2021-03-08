@@ -12,3 +12,13 @@ export const getuserCart= async (authtoken) => {
     console.log("CART FROM GET",cart);
     return(cart);   
 }
+
+export const emptyUserCart= async (authtoken) => {
+  await axios.delete("http://localhost:5000/user/cart", {headers: {authtoken}});
+}
+
+export const saveUserAddress= async (address,authtoken) => {
+  return await axios.post("http://localhost:5000/user/address", {address},
+    {headers: {authtoken}});    
+}
+

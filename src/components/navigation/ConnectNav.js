@@ -18,12 +18,12 @@ const ConnectNav= () => {
           </Card>
           { user &&
            user.stripe_seller &&
-           user.stripe_seller.charges_enabled} && (
+           user.stripe_seller.charges_enabled && (
             <>
             <div>Pending Balance</div>
             <div>Payout Settings</div>
             </>
-           )           
+           ) }          
         </div>
     )
 }
