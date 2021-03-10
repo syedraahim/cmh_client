@@ -358,4 +358,8 @@ sidenavbar {
   cursor: pointer;
 }
 
+.ant-select-multiple .ant-select-selection-item-content {
+  font-size:large;
+}
+
 

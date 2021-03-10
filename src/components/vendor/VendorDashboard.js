@@ -16,13 +16,13 @@ const VendorDashboard = () => {
         try {
           const res= await createConnectAccount(user.token);
           console.log("RES",res);
+          window.location.href=res.data;
+          setLoading(false);
         } catch (err) {
             console.log(err);
             toast.error("Stripe connect failed. Please try again");
             setLoading(false);
         }
-
-
     }
 
     const connectedVendor= () => (
@@ -68,8 +68,7 @@ const VendorDashboard = () => {
      ? connectedVendor()
      : notConnectedVendor()
     }
-    {/* <pre>{ JSON.stringify(user,null,4)} </pre>   */}
-    
+        
     </>
     )
 }

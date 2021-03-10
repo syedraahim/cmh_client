@@ -54,6 +54,7 @@ const handleSubmit= async (e) => {
      
       const {user} = result;
       const idTokenResult = await user.getIdTokenResult();
+     
       createOrUpdateUser(idTokenResult.token)     
           .then ( (res) =>  { dispatch  ({
                  type: LOGGED_IN_USER,
@@ -65,6 +66,7 @@ const handleSubmit= async (e) => {
                 _id: res.data._id
               }
           });
+          window.localStorage.setItem("user",JSON.stringify(res.data));
            roleBasedRedirect(res);
          }) 
           .catch ( (err) => console.log(err))           
@@ -83,7 +85,7 @@ const handleSubmit= async (e) => {
         const {user} = result;
         console.log("user from google", result.user);
         const idTokenResult = await user.getIdTokenResult();
-
+      
        createOrUpdateUser(idTokenResult.token)
        .then ( (res) => { dispatch ({
          type: LOGGED_IN_USER,
@@ -95,6 +97,7 @@ const handleSubmit= async (e) => {
          _id: res.data._id
         }
      })
+     window.localStorage.setItem("user",JSON.stringify(res.data));
      roleBasedRedirect(res);
      
     }).catch( (err) => {
@@ -120,6 +123,7 @@ const handleSubmit= async (e) => {
          _id: res.data._id
         }
      })
+      window.localStorage.setItem("user",JSON.stringify(res.data));
        roleBasedRedirect(res);
     }).catch( (err) => {
       console.log(err)

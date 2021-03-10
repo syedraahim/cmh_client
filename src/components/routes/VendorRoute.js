@@ -8,18 +8,18 @@ const VendorRoute = ({ children, ...rest }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
 
-  const [admin, setAdmin] = useState(false);
+  const [vendor, setVendor] = useState(false);
 
   useEffect( () => {
       if (user && user.token) {
           adminUser(user.token)
       .then ( res => {
-          console.log("Admin user Route",res);
-          setAdmin(true);
+          console.log("Vendor user Route",res);
+          setVendor(true);
       })
       .catch ( (err) => {
-         console.log("Admin route error",err);
-         setAdmin(false);
+         console.log("Vendor route error",err);
+         setVendor(false);
       })
       }
 

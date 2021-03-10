@@ -22,3 +22,8 @@ export const saveUserAddress= async (address,authtoken) => {
     {headers: {authtoken}});    
 }
 
+//update user in local storage for stripe
+// export const updateUserInLocalStorage= (user,next) => {
+
+// }
+

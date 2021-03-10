@@ -69,6 +69,8 @@ import VendorCatList from "./admin/Vendors/VendorCatList";
 import VendorCatDelete from "./admin/Vendors/VendorCatDelete";
 import VendorListUser from "./vendor/VendorProducts/VendorListUser";
 
+import StripeCallback from "./stripe/StripeCallback";
+
 import { LOGGED_IN_USER } from "../actions/types";
 import {currentUser, admintUser} from "../actions/auth";
 
@@ -169,6 +171,9 @@ const App = () => {
        <Route path= "/shop" exact component= {Shop} />
        <Route path="/cart" exact component= {Cart} />
        <UserRoute path="/checkout" exact component={Checkout} />
+
+      {/* Route for vendor stripe callback */}
+       <Route path="/stripe/callback" component={StripeCallback} />
       
        {/* <Footer /> */}
      </Router>
