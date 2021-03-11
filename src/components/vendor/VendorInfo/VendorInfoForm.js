@@ -1,4 +1,5 @@
 import React from "react";
+import PostcodeSearch from "../../utils/PostcodeSearch";
 
 const VendorForm = ( {handleSubmit, 
                      handleChange,                     
@@ -18,6 +19,10 @@ const VendorForm = ( {handleSubmit,
                     }) =>  {
 
     const renderFields= () => {
+
+      const handlePostcodeChange= () => {
+
+      }
         return (
             <form onSubmit= {handleSubmit}>
             <section >
@@ -41,13 +46,20 @@ const VendorForm = ( {handleSubmit,
                  />
                                 
                 <label className= "admin-class">Postcode</label>
-                <input
+                <PostcodeSearch 
+                   className="form-control"
+                   name="postcode"
+                   value= {postcode}
+                   onChange= {handlePostcodeChange}
+                />
+
+                {/* <input
                   type= "text"
                   name= "postcode"
                   className= "form-control"
                   value= {postcode}
                   onChange= {handleChange}
-                 />
+                 /> */}
                 <label className= "admin-class">House No</label>
                 <input
                   type= "text"

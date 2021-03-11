@@ -26,6 +26,10 @@ export class PostcodeSearch extends Component {
           })         
           .catch(error => console.error('Error', error));
       };
+
+    searchOptions = {
+        componentRestrictions: { country: ['gb'] }       
+      }
    
     render() {
       return (
@@ -33,7 +37,8 @@ export class PostcodeSearch extends Component {
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
-            onSelect={this.handleSelect}          
+            onSelect={this.handleSelect} 
+            searchOptions={this.searchOptions}                 
          >          
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>           
@@ -80,5 +85,6 @@ export class PostcodeSearch extends Component {
   }
 
   export default GoogleApiWrapper({
-    apiKey: keys.GOOGLE_MAPS_API_KEY          
+    apiKey: keys.GOOGLE_MAPS_API_KEY ,
+
   })(PostcodeSearch);

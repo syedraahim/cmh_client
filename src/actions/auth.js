@@ -30,3 +30,4 @@ export const updateUserInLocalStorage= (token,next) => {
     next();
   }
 }
+
