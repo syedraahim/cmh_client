@@ -3,7 +3,18 @@ import {
     LOGOUT
 } from "../actions/types";
 
-const userReducer= (state = null, action) => {
+let userState;
+
+if (window.localStorage.getItem("user")) {
+    userState= JSON.parse(window.localStorage.getItem("user"));
+    console.log("USER STATE from REDUCER",JSON.stringify(userState));
+} else {
+    userState=null;
+}
+
+
+
+const userReducer= (state = userState, action) => {
 switch(action.type) {
     case LOGGED_IN_USER:
         return action.payload;

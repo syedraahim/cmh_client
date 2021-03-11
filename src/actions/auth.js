@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 export const createOrUpdateUser = async (authtoken) => {
-    return  await axios.post( "http://localhost:5000/api/auth/createupdateuser", {},
-     {headers: {authtoken} });           
+    const res= await axios.post( "http://localhost:5000/api/auth/createupdateuser", {},
+     {headers: {authtoken} });   
+    console.log("RES from CREATEUPDATE ACTION",res) ;
+    return res;
    }
 
 export const currentUser = async (authtoken) => {

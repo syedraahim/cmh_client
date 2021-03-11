@@ -91,7 +91,11 @@ const App = () => {
                  email: res.data.email,
                  token: idTokenResult.token,
                  role: res.data.role,
-                _id: res.data._id
+                _id: res.data._id,
+                address:res.data.address,
+                stripe_account_id:res.data.stripe_account_id,
+                stripe_seller: res.data.stripe_seller,
+                stripeSession: res.data.stripeSession
               }
           })) 
           .catch ( (err) => console.log(err));        
@@ -173,7 +177,7 @@ const App = () => {
        <UserRoute path="/checkout" exact component={Checkout} />
 
       {/* Route for vendor stripe callback */}
-       <Route path="/stripe/callback" component={StripeCallback} />
+       <UserRoute path="/stripe/callback" component={StripeCallback} />
       
        {/* <Footer /> */}
      </Router>

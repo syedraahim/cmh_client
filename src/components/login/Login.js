@@ -63,11 +63,24 @@ const handleSubmit= async (e) => {
                  email: res.data.email,
                  token: idTokenResult.token,
                  role: res.data.role,
-                _id: res.data._id
+                _id: res.data._id,
+                address: res.data.address,
+                stripe_account_id:res.data.stripe_account_id,
+                stripe_seller: res.data.stripe_seller,
+                stripeSession: res.data.stripeSession,
               }
           });
-          window.localStorage.setItem("user",JSON.stringify(res.data));
-           roleBasedRedirect(res);
+          var userval= {name:res.data.name, 
+                        email: res.data.email,
+                        token: idTokenResult.token,
+                         _id:res.data._id,
+                         role:res.data.role,
+                         address:res.data.address,
+                         stripe_account_id:res.data.stripe_account_id,
+                         stripe_seller: res.data.stripe_seller,
+                         stripeSession: res.data.stripeSession, }
+          window.localStorage.setItem("user",JSON.stringify(userval));
+          roleBasedRedirect(res);
          }) 
           .catch ( (err) => console.log(err))           
           // history.push("/");
@@ -94,10 +107,26 @@ const handleSubmit= async (e) => {
           email: res.data.email,
           token: idTokenResult.token,
           role: res.data.role,
-         _id: res.data._id
+         _id: res.data._id,
+         address: res.data.address,
+         stripe_account_id:res.data.stripe_account_id,
+         stripe_seller: res.data.stripe_seller,
+         stripeSession: res.data.stripeSession,
         }
      })
-     window.localStorage.setItem("user",JSON.stringify(res.data));
+     var userval= {
+       name:res.data.name, 
+       email: res.data.email,
+       token: idTokenResult.token,
+       _id:res.data._id,
+       role:res.data.role,
+       address:res.data.address,
+       stripe_account_id:res.data.stripe_account_id,
+       stripe_seller: res.data.stripe_seller,
+       stripeSession: res.data.stripeSession
+       }
+      window.localStorage.setItem("user",JSON.stringify(userval));
+   
      roleBasedRedirect(res);
      
     }).catch( (err) => {
@@ -120,10 +149,25 @@ const handleSubmit= async (e) => {
           email: res.data.email,
           token: idTokenResult.token,
           role: res.data.role,
-         _id: res.data._id
+         _id: res.data._id,
+         address: res.data.address,
+         stripe_account_id:res.data.stripe_account_id,
+         stripe_seller: res.data.stripe_seller,
+         stripeSession: res.data.stripeSession,
         }
      })
-      window.localStorage.setItem("user",JSON.stringify(res.data));
+     let userval= {
+        name:res.data.name, 
+      email: res.data.email,
+      token: idTokenResult.token,
+       _id:res.data._id,
+       role:res.data.role,
+       address:res.data.address,
+       stripe_account_id:res.data.stripe_account_id,
+       stripe_seller: res.data.stripe_seller,
+       stripeSession: res.data.stripeSession
+       }
+       window.localStorage.setItem("user",JSON.stringify(userval));
        roleBasedRedirect(res);
     }).catch( (err) => {
       console.log(err)
