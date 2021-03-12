@@ -19,11 +19,14 @@ export class PostcodeSearch extends Component {
      
       handleSelect = address => {
         geocodeByAddress(address)
-          .then(results => getLatLng(results[0]))
+          .then(results =>
+          { getLatLng(results[0])
           .then(latLng => {
               console.log('Success', latLng);
               this.setState({address})
-          })         
+              console.log("Results", results);
+          })  
+        })       
           .catch(error => console.error('Error', error));
       };
 
@@ -85,6 +88,5 @@ export class PostcodeSearch extends Component {
   }
 
   export default GoogleApiWrapper({
-    apiKey: keys.GOOGLE_MAPS_API_KEY ,
-
+    apiKey: keys.GOOGLE_MAPS_API_KEY 
   })(PostcodeSearch);

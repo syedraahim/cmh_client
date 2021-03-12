@@ -6,7 +6,7 @@ import {fetchVendorInfoById} from "../../actions/vendorInfo";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const Checkout= () => {
+const Checkout= ({history}) => {
 
   const [ vendors, setVendors] = useState([]);
   const [total,setTotal] = useState(0);
@@ -92,7 +92,9 @@ const Checkout= () => {
          <div className="row">
              <div className="col col-md-6"> 
                <button className="btn btn-primary"
-                      disabled= {!addressSaved || !vendors.length}>Place Order</button>
+                      disabled= {!addressSaved || !vendors.length}
+                      onClick= {() => history.push("/payment")}
+                >Place Order</button>
              </div>
              <div className="col col-md-6"> 
                <button className="btn btn-primary"

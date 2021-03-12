@@ -1,5 +1,6 @@
 import React from "react";
 import PostcodeSearch from "../../utils/PostcodeSearch";
+import {DatePicker} from "antd";
 
 const VendorForm = ( {handleSubmit, 
                      handleChange,                     
@@ -20,8 +21,8 @@ const VendorForm = ( {handleSubmit,
 
     const renderFields= () => {
 
-      const handlePostcodeChange= () => {
-
+      const handlePostcodeChange= (props) => {
+          console.log("Props from vendor autocomplete", props);
       }
         return (
             <form onSubmit= {handleSubmit}>
@@ -50,7 +51,7 @@ const VendorForm = ( {handleSubmit,
                    className="form-control"
                    name="postcode"
                    value= {postcode}
-                   onChange= {handlePostcodeChange}
+                   onChange= {() => handlePostcodeChange}
                 />
 
                 {/* <input

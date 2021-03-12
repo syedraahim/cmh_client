@@ -32,3 +32,9 @@ export const payoutSettings= async (authtoken) => {
      {headers: {authtoken}});  
   return res;
  }
+
+ export const createPaymentIntent= async(authtoken) => {
+  const res= await axios.post("http://localhost:5000/api/create-payment-intent",{},
+  {headers: {authtoken}});  
+return res;
+ }
