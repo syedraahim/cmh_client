@@ -45,3 +45,13 @@ export const saveUserAddress= async (address,authtoken) => {
     }
  }
 
+ export const createOrder= async (stripeResponse, authtoken) => {
+    return await axios.post("http://localhost:5000/user/order", {stripeResponse},
+     {headers: {authtoken}});
+ }
+
+ export const getUserOrders= async (authtoken) => {
+   return await axios.get("http://localhost:5000/user/order",
+    {headers: {authtoken}});
+ }
+

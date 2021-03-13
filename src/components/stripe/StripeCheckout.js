@@ -6,6 +6,7 @@ import {Card} from "antd";
 import {PoundOutlined, CheckOutlined} from "@ant-design/icons";
 
 import {createPaymentIntent} from "../../actions/stripe";
+import {createOrder, emptyUserCart} from "../../actions/user";
 
 const StripeCheckout= ({history}) => {
 
@@ -49,6 +50,21 @@ const StripeCheckout= ({history}) => {
                setError(`Payment failed ${payload.error.message}`);
                setProcessing(false);                  
          } else {
+             //create order and save to the database for admin to process
+              createOrder(payload,user.token)
+              .then ((res) => {
+                if (res.data.ok) {
+                  //empty cart from local storage
+                   if ( typeof window !== "undefined") localStorage.removeItem("cart");
+                   //empty cart from redux store
+                   dispatch({
+                     type: "ADD_TO_CART",
+                     payload: []
+                   });
+                   emptyUserCart(user.token);
+                }
+              });
+              
                console.log(JSON.stringify(payload));
                setError(null);
                setProcessing(false);
