@@ -5,7 +5,7 @@ import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import {auth} from "../firebase";
-import {useDispatch} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 
 import * as actions from "../actions";
 import history from "../history";
@@ -79,6 +79,8 @@ const App = () => {
 
   const dispatch= useDispatch();
 
+  const {user} = useSelector( state => ({...state}));
+
    useEffect(() => {
      const unsubscribe= auth.onAuthStateChanged( async (user) => 
      {
@@ -108,6 +110,8 @@ const App = () => {
       
   return (
      <div className="App">
+
+    {(user && user.role=== "admin") ?
      <Router history = {history}>
        <Header />
        <SideDrawer />
@@ -120,13 +124,19 @@ const App = () => {
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        {/* Home page routes */}
-       {/* <Route path= "/" exact component= {GetAllVendors} />   */}
        <Route path= "/" exact component= {Mainpage} />      
        <Route path= "/vendor" exact component= {VendorDashboard} />
        <Route path= "/allvendors" exact component= {GetAllVendors} /> 
        <Route path= "/vendorcat/:slug"  exact component= {GetVendorsSubcat} />
 
+       <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
+       <Route path= "/shop" exact component= {Shop} />
+       <Route path="/cart" exact component= {Cart} />
+
+        {/* if {user && user.role==="admin"}
+        ( */}
         {/* admin routes   */}
+       <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
        <AdminRoute path= "/admin/categories/categoriescreate" exact component= {CategoriesCreate} />
        <AdminRoute path= "/admin/categories/categorieslist" exact component= {CategoriesList} />
        <AdminRoute path= "/admin/categories/categoriesedit/:slug" exact component= {CategoriesEdit} />
@@ -140,18 +150,38 @@ const App = () => {
        <AdminRoute path= "/admin/questions/questionscreate" exact component= {QuestionsCreate} />
        <AdminRoute path= "/admin/questions/questionslist"  component= {QuestionsList} /> 
        <AdminRoute path= "/admin/questions/questionsedit/:id"  component= {QuestionsEdit} />
-       <AdminRoute path= "/admin/questions/questionsdelete/:id" component= {QuestionsDelete} />        
-
-       <Route path= "/admin/subcatquestions/subcatquestionscreate"  component= {SubcategoryQuestionsCreate} />
-       <Route path= "/admin/subcatquestions/subcatquestionsedit/:id" component= {SubcategoryQuestionsEdit} />
-       <Route path= "/admin/subcatquestions/subcatquestionsdelete/:id"  component= {SubcategoryQuestionsDelete} />
-       <Route path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
-       <Route path= "/admin/vendor" exact component= {Vendor} /> 
-
+       <AdminRoute path= "/admin/questions/questionsdelete/:id" component= {QuestionsDelete} />  
        <AdminRoute path= "/vendor/vendorsinfolist" exact component={VendorsInfoList} /> 
        <AdminRoute path= "/vendor/vendorcatlist" exact component={VendorCatList} />   
 
-        {/* vendor routes */}
+       <AdminRoute path= "/admin/subcatquestions/subcatquestionscreate"  component= {SubcategoryQuestionsCreate} />
+       <AdminRoute path= "/admin/subcatquestions/subcatquestionsedit/:id" component= {SubcategoryQuestionsEdit} />
+       <AdminRoute path= "/admin/subcatquestions/subcatquestionsdelete/:id"  component= {SubcategoryQuestionsDelete} />
+       <AdminRoute path= "/admin/subcatquestions/subcatquestionslist" exact component= {SubcategoryQuestionsList} />
+       <AdminRoute path= "/admin/vendor" exact component= {Vendor} /> 
+    </Router>
+    :
+     <Router history = {history} >   
+     <Header />
+       <SideDrawer />
+       <ToastContainer />
+       {/* login and registration routes */}
+       <Switch>
+        <Route  path= "/login" exact component= {Login} />
+        <Route path= "/register" exact component= {Register} />
+        <Route path= "/registercomplete" exact component= {RegisterComplete} />
+        <Route path= "/forgot/password" exact component= {ForgotPassword} />
+       </Switch>
+       {/* Home page routes */}
+       <Route path= "/" exact component= {Mainpage} />      
+       <Route path= "/vendor" exact component= {VendorDashboard} />
+       <Route path= "/allvendors" exact component= {GetAllVendors} /> 
+       <Route path= "/vendorcat/:slug"  exact component= {GetVendorsSubcat} />
+
+       <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
+       <Route path= "/shop" exact component= {Shop} />
+       <Route path="/cart" exact component= {Cart} />
+      {/* vendor routes */}
        <UserRoute path= "/vendor/vendorcreate" exact component= {VendorCreate} />
        <UserRoute path= "/vendor/vendoredit/:id" exact component= {VendorEdit} />
 
@@ -164,27 +194,23 @@ const App = () => {
        <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />
        <UserRoute path= "/vendor/vendorcatdelete/:id" exact component= {VendorCatDelete} />      
        <UserRoute path= "/vendor/vendorcatlistuser/:userid" exact component= {VendorListUser} />
-     
-       
+           
        <Switch>
          <UserRoute path= "/vendor/vendorinfocreate" exact component= {VendorInfoCreate} />
          <UserRoute path= "/vendor/vendorinfoedit/:email" exact component= {VendorInfoEdit} />
-       </Switch>
-
-       <AdminRoute path= "/admin/dashboard" exact component= {AdminDashboard} />
-       <Route path= "/vendordetails/:id" exact component= {VendorDetails} />
-       <Route path= "/shop" exact component= {Shop} />
-       <Route path="/cart" exact component= {Cart} />
+       </Switch>      
+       
        <UserRoute path="/checkout" exact component={Checkout} />
        <UserRoute path="/payment" exact component={Payment} />
 
       {/* Route for vendor stripe callback */}
        <UserRoute path="/stripe/callback" component={StripeCallback} />
-      
+       {/* ) */}
        {/* <Footer /> */}
      </Router>
+    }
     </div>
-  );
+  ) 
 }
 
 

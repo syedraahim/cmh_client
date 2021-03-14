@@ -51,6 +51,7 @@ const GetVendorsSubcat= ({match}) => {
              {vendors.map( (vendor) => (      
                  <VendorCard 
                      vendor= {vendor}
+                     key={vendor._id}
                  />              
              ))}
             </div>            

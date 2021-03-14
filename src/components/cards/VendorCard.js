@@ -22,7 +22,10 @@ const VendorCard= ({vendor}) => {
     },[]);
 
     const fetchSubcats= () => {
-        subcategories.map( (sub) => { setSubcats(sub.name||",")           
+        subcategories.map( (sub) => { 
+          <div key={sub._id}>
+          setSubcats(sub.name||",") 
+          </div>          
          })
     }
      

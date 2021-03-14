@@ -38,7 +38,7 @@ const Cart= ({history}) => {
          </tr>
         </thead>
         {cart.map( (v) => (
-            <VendorCardCheckout key={cart._id} v = {v} />
+            <VendorCardCheckout key={v._id} v = {v} />
         ))}
       </table>
   )

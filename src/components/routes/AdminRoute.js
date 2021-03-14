@@ -7,30 +7,27 @@ import {adminUser} from "../../actions/auth";
 const AdminRoute = ({ children, ...rest }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
-
+  console.log("User Role",user)
+//   debugger
   const [admin, setAdmin] = useState(false);
 
   useEffect( () => {
       if (user && user.token) {
           adminUser(user.token)
-      .then ( res => {
-          console.log("Admin user Route",res);
-          setAdmin(true);
+          .then ( res => {
+             console.log("Admin route response",res);
+              setAdmin(true);
       })
       .catch ( (err) => {
-         console.log("Admin route error",err);
-         setAdmin(false);
+          console.log("Admin route err",err);
+          setAdmin(false);
       })
       }
-
   }, [user]);
 
-  return admin ? (
-    <Route {...rest} render={() => children} />
-  ) : (
-     <Redirect  to= "/" />
+  return admin ? <Route {...rest}  />  : <Redirect  to= "/" />
     // <CounterToRedirect />
-  );
-};
+  
+}
 
 export default AdminRoute;

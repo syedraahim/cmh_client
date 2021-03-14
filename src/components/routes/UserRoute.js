@@ -6,8 +6,11 @@ import CounterToRedirect from "./CounterToRedirect";
 const UserRoute = ({ children, ...rest }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
+  // debugger
   return user && user.token ? (
-    <Route {...rest} render={() => children} />
+    <Route {...rest} 
+    // render={() => children}
+     />
   ) : (
      <Redirect  to= "/" />
     // <CounterToRedirect />

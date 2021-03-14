@@ -32,9 +32,9 @@ const QuestionsList = () =>
         return (   
           questions && questions.map( questionVal => {        
           return (         
-            <div className= "row mt-1">                    
+            <div className= "row mt-1" key= {questionVal._id}>                    
             <div className= "col col-md-6 question" >
-             <p key= {questionVal._id}>  {questionVal.question}</p>  
+             <p > {questionVal.question}</p>  
             </div>
             <div className= "col col-md-3 question" > 
               {questionVal.options && questionVal.options.map( optionVal => {

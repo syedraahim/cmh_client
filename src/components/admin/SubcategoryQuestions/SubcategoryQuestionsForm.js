@@ -58,7 +58,7 @@ const SubcategoryQuestionsForm = () => {
       <div>
       {fields.map( (question,index) => {
        return (
-       <div className= "row form-group"> 
+       <div className= "row form-group" key={index}> 
         <div className= "col col-md-12 mt-0">
         <select
           name={question}

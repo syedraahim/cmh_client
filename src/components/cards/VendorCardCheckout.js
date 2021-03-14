@@ -19,7 +19,7 @@ const dispatch= useDispatch();
 
          cart.map( (vendor,i) => {
             if (vendor._id === v._id)
-             cart[i].count= count
+             cart[i].count= count            
          });
          localStorage.setItem("cart", JSON.stringify(cart));
          dispatch({ 

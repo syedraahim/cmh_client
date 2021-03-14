@@ -69,7 +69,7 @@ const VendorDetails= ({match}) => {
          <hr />
          <div className= "row pb-5 ">
          {related.length 
-           ? related.map( (r) => <div className= "col col-md-4" > <VendorCard  vendor= {r}/> </div>)
+           ? related.map( (r) => <div className= "col col-md-4" key={r._id}> <VendorCard  vendor= {r}/> </div>)
            : <div className= "text-"> </div>
            }
              
