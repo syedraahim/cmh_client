@@ -34,7 +34,10 @@ const MainBody = () => {
      categories && categories.map( categoryval => {    
         if (categoryval._id)  { 
            return (            
-              <div className= "col col-md-4 main-class font-weight-bold p-1 d-flex justify-content-right " key= {categoryval._id}>         
+              <div className= "col col-md-4 main-class font-weight-bold p-1 d-flex justify-content-right "
+                   key= {categoryval._id}
+                   style ={{'flexDirection' : 'row'}}
+                   >         
                
                       
                    <Link to= {`/vendordetails/${categoryval.slug}`} 
@@ -63,7 +66,8 @@ const MainBody = () => {
  return (
  <div>
  <section className="feature-class" id="features">
- <div className= "font-weight-bold ml-5 mt-5 mb-3 mr-2 d-flex justify-content-center">           
+ <div className= "font-weight-bold ml-5 mt-5 mb-3 mr-2 d-flex justify-content-center"
+      >           
              <PostcodeSearch />
  </div>  
         

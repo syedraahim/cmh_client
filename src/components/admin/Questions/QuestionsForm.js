@@ -45,9 +45,9 @@ const QuestionsForm= ({handleSubmit,question,setQuestion,options,setOptions}) =>
       <Form.List name="options" >
        { (fields, {add,remove}) => (
         <>
-         { fields.map( field => (    
+         { fields.map( (field,index)  => (    
          <Form.Item           
-           key= {field.key}          >      
+           key= {index}          >      
           <Form.Item
                   {...field}
                   label="Option"

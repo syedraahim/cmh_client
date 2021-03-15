@@ -6,7 +6,7 @@ import {ToolOutlined} from "@ant-design/icons";
 import {toast} from "react-toastify";
 import {createConnectAccount} from "../../actions/stripe";
 
-const VendorDashboard = () => {
+const VendorDashboard = ({history}) => {
 
     const {user} = useSelector( (state) => ({...state}));
     const [loading, setLoading] = useState(false);
@@ -32,6 +32,7 @@ const VendorDashboard = () => {
         </div> 
        <div className= "col">
             <h2 className= "font-weight-bold "> Your Current Categories</h2>
+            {history.push(`/vendor/vendorcatlistuser/${user._id}`) }
         </div>
      </div>
     )

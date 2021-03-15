@@ -5,6 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
     "@atomap/use-places-autocomplete": "^1.0.4",
+    "@david.kucsai/react-pdf-table": "^0.3.0",
+    "@react-pdf/renderer": "^1.6.13",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.1",
     "@testing-library/jest-dom": "^5.11.6",
@@ -24,6 +26,7 @@
     "react-dom": "^17.0.1",
     "react-image-file-resizer": "^0.4.1",
     "react-modal-image": "^2.5.0",
+    "react-pdf": "^5.2.0",
     "react-places-autocomplete": "^7.3.0",
     "react-quill": "^1.3.5",
     "react-redux": "^7.2.2",

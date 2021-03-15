@@ -1,45 +1,23 @@
 import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
-import {SearchOutlined} from "@ant-design/icons";
 
- const SearchBar = () =>
- {
-  const dispatch = useDispatch();
-  const {search} = useSelector( state => ({...state}));
-  console.log("Search", {search})
-   const {text} = search;
-  const history = useHistory();
+const SearchBar = ({keyword, setKeyword}) =>
+{
 
+  const handleSearch = (e) => {
+   e.preventDefault();
+   setKeyword(e.target.value.toLowerCase());
+   }
   
-   const handleSearch = (e) => {
-     dispatch({
-       type: "SEARCH_QUERY",
-       payload: {text: e.target.value}
-     })
-    }
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      history.push(`/shop?${text}`)
-    }
-
    return (
-       <form className= "form-inline my-2 my-lg-0"
-             onSubmit= {handleSubmit}
-      >
-          <input
-             type= "search"
-             placeholder= "Search"
-             value= {text}
-             className= "form-control mr-sm-2" 
-             onChange= {handleSearch}           
-           />
-          <SearchOutlined onClick={handleSubmit} 
-                          className= "float-center"
-                          style= {{ cursor: 'pointer'}}
-          />
-       </form>
+    <div className= "pt-4 ">
+       <input
+          type= "search"
+          placeholder= "Enter a keyword"
+          value= {keyword}
+          className= "form-control mb-4"
+          onChange= {handleSearch}
+        />
+          </div>
    )
 }
 export default SearchBar;

@@ -80,7 +80,7 @@ const App = () => {
   const dispatch= useDispatch();
 
   const {user} = useSelector( state => ({...state}));
-
+ 
    useEffect(() => {
      const unsubscribe= auth.onAuthStateChanged( async (user) => 
      {
@@ -96,6 +96,7 @@ const App = () => {
                  role: res.data.role,
                 _id: res.data._id,
                 address:res.data.address,
+                createdAt: res.data.createdAt,
                 stripe_account_id:res.data.stripe_account_id,
                 stripe_seller: res.data.stripe_seller,
                 stripeSession: res.data.stripeSession

@@ -81,7 +81,7 @@ const Checkout= ({history}) => {
          <h4>Selected Helpers</h4>
          {vendors.map((v, i) => (
            <div key= {i}>
-             <p> {v.vendor.vendorInfoId}  X {v.count} = {v.vendor.price}</p> 
+             <b className="d-flex content-align-center"> {v.vendor.vendorInfoId.name} [{v.vendor.subcategories[0].name}] X {v.count} = {v.vendor.price}</b> 
           
             
            </div>
