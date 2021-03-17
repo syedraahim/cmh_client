@@ -30,9 +30,9 @@ const VendorDashboard = ({history}) => {
         <div className= "col-md-3 mt-2 ">
             <VendorNav />   
         </div> 
-       <div className= "col">
+       <div className= "col ">
             <h2 className= "font-weight-bold "> Your Current Categories</h2>
-            {history.push(`/vendor/vendorcatlistuser/${user._id}`) }
+            {/* {history.push(`/vendor/vendorcatlistuser/${user._id}`) } */}
         </div>
      </div>
     )

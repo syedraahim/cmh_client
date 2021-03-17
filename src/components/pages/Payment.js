@@ -13,12 +13,11 @@ const Payment= () => {
 
         <div className= "container p-5">
           <h4>Complete your payment</h4>
-         <Elements stripe={promise}>
+        
           <div className= "col col-md-8 offset-md-2">
             <StripeCheckout />
          </div>
-         </Elements>
-          
+                  
         </div>
     )
 }

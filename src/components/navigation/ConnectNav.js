@@ -38,14 +38,15 @@ const ConnectNav= () => {
     }
 
     return (
-        <div className= "d-flex justify-content-around">
-          
-          <Card>
+        
+        <div className= "d-flex justify-content-around">         
+         <Card>
               <Meta avatar= {<Avatar>{user.name[0]}</Avatar>}
                     title={user.name} 
                     description={`Joined on ${moment(user.createdAt).fromNow()}`}
               />              
           </Card>
+         
           {user &&
            user.stripe_seller &&
            user.stripe_seller.charges_enabled && (
@@ -67,8 +68,9 @@ const ConnectNav= () => {
                 </Card>
             </Ribbon>
             </>
-           ) }          
+           ) }               
         </div>
+        
     )
 }
 

@@ -1,19 +1,17 @@
 import react,{useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {emptyUserCart, getuserCart, saveUserAddress} from "../../actions/user";
-import {fetchVendorInfoById} from "../../actions/vendorInfo";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import {emptyUserCart, getuserCart} from "../../actions/user";
+import {loadStripe} from "@stripe/stripe-js";
+import keys from "../../config/keys";
+import { getSessionId} from "../../actions/stripe";
 
 const Checkout= ({history}) => {
 
   const [ vendors, setVendors] = useState([]);
   const [total,setTotal] = useState(0);
   const [name, setName] = useState([]);
-  const [address, setAddress]= useState("");
-  const [addressSaved, setAddressSaved] = useState(false);
-
+  
   const dispatch = useDispatch();
 
   const {user} = useSelector( (state) => ({...state}));
@@ -26,9 +24,7 @@ const Checkout= ({history}) => {
     }); 
   },[]);
 
-  const getVendorName= (id) =>
-    fetchVendorInfoById(id).then (res=>setName(res.data.name));
-    
+     
    const emptyCart= () => {
      //remove from local storage
      if (typeof window !== "undefined") {
@@ -46,33 +42,21 @@ const Checkout= ({history}) => {
       toast.success("Cart is empty. Continue shopping...");
     })
    } 
-  const saveAddressToDb= () => {
-    console.log(address);
-    saveUserAddress(address, user.token)
-    .then ( res => {
-        if (res.data.ok) {
-          setAddressSaved(true);
-          toast.success("Address saved !!!!");
-        }
-    })
-  }
 
+   const handleSubmit= async (e) => {
+       e.preventDefault();
+       console.log("FROM CHECKOUT",user.token, vendors[0].vendor.userId);
+       const res= await getSessionId(user.token,vendors[0].vendor.userId);
+       console.log("SESSION ID",res.data.sessionId);
+       const stripe= await loadStripe(keys.REACT_APP_STRIPE_KEY);
+       stripe.redirectToCheckout({
+           sessionId: res.data.sessionId
+       }).then( (result) => console.log("RESULT",result));
+   }
+ 
   return (
-    <div className="row">
-      <div className= "col col-md-6">
-        <h4>Delivery Address</h4>
-        <br />
-        <br />
-        <ReactQuill theme="snow"
-                    value= {address}
-                    onChange= {setAddress} />
-           
-        <br />
-        <button className="btn btn-primary mt-2 ml-2"
-                 onClick= {saveAddressToDb}>Save
-        </button>
-      </div>
-      <div className= "col col-md-6">
+    <div className="row d-flex justify-content-center">
+       <div className= "col col-md-6 ">
          <h4>Order Summary</h4>
            
          <hr />
@@ -81,22 +65,21 @@ const Checkout= ({history}) => {
          <h4>Selected Helpers</h4>
          {vendors.map((v, i) => (
            <div key= {i}>
-             <b className="d-flex content-align-center"> {v.vendor.vendorInfoId.name} [{v.vendor.subcategories[0].name}] X {v.count} = {v.vendor.price}</b> 
-          
-            
+             <b className="d-flex content-align-center h6"> {v.vendor.vendorInfoId.name} [{v.vendor.subcategories[0].name}] X {v.count} = {v.vendor.price}</b> 
+                 
            </div>
          ))}
          <hr />
-         <p className= "font-weight-bold">Cart Total: {total}</p>
+         <p className= "font-weight-bold h6">Cart Total: {total}</p>
 
          <div className="row">
-             <div className="col col-md-6"> 
-               <button className="btn btn-primary"
-                      disabled= {!addressSaved || !vendors.length}
-                      onClick= {() => history.push("/payment")}
+             <div className="col col-md-6 mt-2"> 
+               <button className="btn btn-primary mt-3"
+                      disabled= { !vendors.length}
+                      onClick= {handleSubmit}
                 >Place Order</button>
              </div>
-             <div className="col col-md-6"> 
+             <div className="col col-md-6 mt-4"> 
                <button className="btn btn-primary"
                        disabled= {!vendors.length}
                        onClick= {emptyCart}

@@ -6,7 +6,7 @@ import ListSubcategories from "./utils/ListSubcategories";
 import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import PostcodeSearch from "./utils/PostcodeSearch";
-import {Avatar,Card} from "antd";
+import {Avatar,Card, Col,Row} from "antd";
 import Jumbotron from "./cards/Jumbotron";
 
 const {Meta} = Card;
@@ -34,30 +34,32 @@ const MainBody = () => {
      categories && categories.map( categoryval => {    
         if (categoryval._id)  { 
            return (            
-              <div className= "col col-md-4 main-class font-weight-bold p-1 d-flex justify-content-right "
-                   key= {categoryval._id}
-                   style ={{'flexDirection' : 'row'}}
+              // <div className= "col col-md-4 main-class font-weight-bold p-1 d-flex justify-content-right "
+              <Col span={8}
+                  key= {categoryval._id}
+                  className= "main-class font-weight-bold p-1 d-flex"
                    >         
-               
+                  <Col span={8} push={1}>
                       
                    <Link to= {`/vendordetails/${categoryval.slug}`} 
                         className= "font-weight-bold h5  text-dark ml-2">
                        {categoryval.name}
                     </Link> 
-                        
-                 <div className= "btn btn-raised font-weight-bold mt-4">
+                    </Col>     
+                 <Col span={10}
+                      className= "btn btn-raised font-weight-bold mt-4">
                    <ListSubcategories 
                         categoryValue = {categoryval._id} />  
-                </div>  
-                <div className= "ml-4">
+                </Col>  
+                <Col span={8} className= "ml-4">
                 <Avatar                  
                     src= {categoryval.imgURL}
                     size= {100}
                     className="category-img"
                   />
-                </div>               
-                                             
-                 </div>                                                 
+                </Col>               
+                </Col>                              
+                //  </div>                                                 
            ) 
           }
         }) 

@@ -3,9 +3,8 @@ import {CardElement, useStripe,useElements} from "@stripe/react-stripe-js";
 import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {Card} from "antd";
-import {PoundOutlined, CheckOutlined} from "@ant-design/icons";
-
-import {createPaymentIntent} from "../../actions/stripe";
+import {PoundOutlined} from "@ant-design/icons";
+import {createPaymentIntent, getSessionId} from "../../actions/stripe";
 import {createOrder, emptyUserCart} from "../../actions/user";
 
 const StripeCheckout= ({history}) => {
@@ -36,7 +35,9 @@ const StripeCheckout= ({history}) => {
     const handleSubmit=  async (e) => {
          e.preventDefault()
          setProcessing(true);
-
+        
+         const res= await getSessionId(user.token,cartTotal);
+         console.log("SESSION ID",res.data.sessionId);
          const payload= await stripe.confirmCardPayment(clientSecret, {
              payment_method: {
                  card: elements.getElement(CardElement),
@@ -70,7 +71,7 @@ const StripeCheckout= ({history}) => {
                setProcessing(false);
                setSucceeded(true);
          }
-    }
+     }
 
     const handleChange= async (e) => {
         //listen to changes to card details and display errors as the customer enters card details

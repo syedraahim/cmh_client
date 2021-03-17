@@ -33,8 +33,25 @@ export const payoutSettings= async (authtoken) => {
   return res;
  }
 
+ 
  export const createPaymentIntent= async(authtoken) => {
   const res= await axios.post("http://localhost:5000/api/create-payment-intent",{},
   {headers: {authtoken}});  
 return res;
  }
+
+ export const getSessionId= async(authtoken,vendorId) => {
+  const res= await axios.post("http://localhost:5000/api/stripe-session-id",{vendorId},
+  {headers: {authtoken}});  
+  console.log("RES from STRIPE SESSION", res);
+ return res;
+ }
+
+ export const stripeSuccessRequest= async(authtoken) => {
+  const res= await axios.post("http://localhost:5000/api/stripesuccess",{},
+  {headers: {authtoken}});  
+  console.log("RES FROM STRIPE SESSION SUCCESS",res);
+ return res; 
+ }
+
+
