@@ -3,24 +3,22 @@ import {useDispatch, useSelector} from "react-redux";
 import {auth} from "../../firebase";
 import {toast, ToastContainer} from "react-toastify";
 import { LOGGED_IN_USER } from "../../actions/types";
-import { createOrUpdateUser} from "../../actions/auth";
+import { createOrUpdateVendor} from "../../actions/auth";
 
-const RegisterComplete = ({history}) => {
+const VendorRegisterComplete = ({history}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch= useDispatch();
   const {user} = useSelector( (state) => ({...state}));
 
-  //history.push(dashboard);
-
+  
   useEffect(() => {
       setEmail(window.localStorage.getItem("emailForRegistration"))
   }, [history]);
 
   const handleSubmit= async (e) => {
     e.preventDefault();
-
     if( !email || !password) {
         toast.error("Email and password must be entered");
         return;
@@ -38,7 +36,7 @@ const RegisterComplete = ({history}) => {
             await user.updatePassword(password);
             const idTokenResult = await user.getIdTokenResult();
             // update in redux store 
-           createOrUpdateUser(idTokenResult.token)     
+           createOrUpdateVendor(idTokenResult.token)     
           .then ( (res) => dispatch ({
                  type: LOGGED_IN_USER,
                  payload: {
@@ -47,10 +45,10 @@ const RegisterComplete = ({history}) => {
                  token: idTokenResult.token,
                  role: res.data.role,
                 _id: res.data._id
-              }
-          })) 
+              }             
+          })         
+          ) 
           .catch ( (err) => console.log(err)); 
-
           history.push('/');
         }
     } 
@@ -113,4 +111,4 @@ const RegisterComplete = ({history}) => {
  );
  }
 
-export default RegisterComplete;
+export default VendorRegisterComplete;

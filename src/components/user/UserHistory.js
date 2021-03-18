@@ -31,7 +31,7 @@ const UserHistory = () => {
            {showOrdersInTable(order)}
            <div className="row">
 
-           <pre>{JSON.stringify(order)}</pre>
+          
              {/* <div className="col">
                {showDownloadLink(order)}
              </div> */}

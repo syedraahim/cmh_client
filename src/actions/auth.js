@@ -7,6 +7,13 @@ export const createOrUpdateUser = async (authtoken) => {
     return res;
    }
 
+   export const createOrUpdateVendor = async (authtoken) => {
+    const res= await axios.post( "http://localhost:5000/api/auth/createupdatevendor", {},
+     {headers: {authtoken} });   
+    console.log("RES from CREATEUPDATE VENDOR",res) ;
+    return res;
+   }
+
 export const currentUser = async (authtoken) => {
     return  await axios.post( "http://localhost:5000/api/auth/currentuser", {},
      {headers: {authtoken} });           

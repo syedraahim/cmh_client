@@ -5,6 +5,7 @@ import {Menu,Badge} from 'antd';
 import { HomeOutlined,
          LoginOutlined, 
          UserAddOutlined,
+         UserSwitchOutlined,
          SettingOutlined,
          LogoutOutlined,
          ShoppingOutlined,
@@ -36,8 +37,8 @@ const logout = () => {
   dispatch ({
      type: LOGOUT,
      payload:null
-
   });
+  window.localStorage.removeItem("user");
   history.push("/login");
 }
 
@@ -65,8 +66,9 @@ const logout = () => {
         </ul>        
       </div>
 
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"
-                                  className= "font-weight-bold menu fontname">
+      <Menu onClick={handleClick} selectedKeys={[current]} 
+                                  mode="horizontal"
+                                  className= "font-weight-bold menu d-flex p-1 mr-5">
 
         <Menu.Item key= "home"  icon={<HomeOutlined />} >
           <Link to= "/">Home </Link>
@@ -83,11 +85,22 @@ const logout = () => {
           </Badge>
         </Link>
         </Menu.Item> 
-                
+      </Menu>
+
+      <Menu onClick={handleClick} selectedKeys={[current]} 
+                                  mode="horizontal"
+                                  className= "font-weight-bold menu fontname ">
+            
+        
         { !user && 
           <Menu.Item  icon={<LoginOutlined /> } > 
          <Link to= "/login">Login</Link>
         </Menu.Item> }
+
+        { !user && 
+          <Menu.Item  icon={<UserSwitchOutlined /> } > 
+         <Link to= "/vendorregister">Vendor Registration</Link>
+        </Menu.Item> }   
          
          { !user &&
           <Menu.Item  icon={<UserAddOutlined />}>
@@ -141,8 +154,6 @@ const logout = () => {
 );
 }
 
- function mapStateToProps(state) {
-     return {auth: state.auth};
- }
 
-export default connect(mapStateToProps)(Header);
+
+export default Header;

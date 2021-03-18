@@ -46,7 +46,7 @@ const Checkout= ({history}) => {
    const handleSubmit= async (e) => {
        e.preventDefault();
        console.log("FROM CHECKOUT",user.token, vendors[0].vendor.userId);
-       const res= await getSessionId(user.token,vendors[0].vendor.userId);
+       const res= await getSessionId(user.token);
        console.log("SESSION ID",res.data.sessionId);
        const stripe= await loadStripe(keys.REACT_APP_STRIPE_KEY);
        stripe.redirectToCheckout({

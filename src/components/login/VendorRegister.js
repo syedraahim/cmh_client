@@ -3,15 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {auth} from "../../firebase";
 import {toast,ToastContainer} from "react-toastify";
 
-const Register = ({history}) => {
+const VendorRegister = ({history}) => {
 
   const [email, setEmail] = useState("");
  
   const {user} = useSelector( (state) => ({...state}));
 
   useEffect( () => {
-      if ( user && user.token ) {
-          history.push("/user/history");
+      if ( user && user.token) {
+          history.push("/");
       }
   }, [user,history]);
 
@@ -19,10 +19,10 @@ const Register = ({history}) => {
 const handleSubmit= async (e) => {
     e.preventDefault();
     const config = {
-       url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+       url: process.env.REACT_APP_VENDOR_REGISTER_REDIRECT_URL,
        handleCodeInApp: true
     }
-
+    console.log("CONFIG",config);
     await auth.sendSignInLinkToEmail(email,config);
     toast.success(`Email is send to ${email}. Please check your email to complete registration.`);
 
@@ -36,6 +36,7 @@ const handleSubmit= async (e) => {
   return (
   <form  onSubmit = {handleSubmit}>
     <div className="form-group font-weight-bold mb-1">
+   
     <label htmlFor="email">Email</label>
     <input type="email" 
            className="form-control" 
@@ -72,4 +73,4 @@ const handleSubmit= async (e) => {
  );
 }
 
-export default Register;
+export default VendorRegister;

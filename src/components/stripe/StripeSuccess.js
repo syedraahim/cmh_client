@@ -13,7 +13,7 @@ const StripeSuccess = ({history}) => {
     useEffect( () => {
        stripeSuccessRequest(user.token)
        .then( (res) => {
-           if (res.data.success) {
+           if (res.data.ok) {
                //empty cart from local storage
                if ( typeof window !== "undefined") localStorage.removeItem("cart");
                //empty cart from redux store
@@ -34,7 +34,7 @@ const StripeSuccess = ({history}) => {
 
        <div className="container">
         <div className="col">
-           <LoadingOutlined  className="display-1 text-danger p-5"/>
+            <LoadingOutlined  className="display-1 text-danger p-5"/>
          </div>
        </div> 
     )

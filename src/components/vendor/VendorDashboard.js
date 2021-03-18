@@ -1,15 +1,29 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import VendorNav from "../navigation/VendorNav";
 import ConnectNav from "../navigation/ConnectNav";
 import {useSelector} from "react-redux";
 import {ToolOutlined} from "@ant-design/icons";
 import {toast} from "react-toastify";
 import {createConnectAccount} from "../../actions/stripe";
+import { getVendorCategoriesUser } from "../../actions/vendor";
+import { Card } from 'antd';
+
+const { Meta } = Card;
 
 const VendorDashboard = ({history}) => {
 
     const {user} = useSelector( (state) => ({...state}));
     const [loading, setLoading] = useState(false);
+    const [vendors,setVendors] = useState([]);
+
+    useEffect(() => {
+      loadVendorDetails();
+    },[]);
+
+    const loadVendorDetails= () => {
+      getVendorCategoriesUser(user._id)
+      .then( res => setVendors(res.data));
+    }
 
     const handleClick=  async () => {
         setLoading(true);
@@ -29,10 +43,30 @@ const VendorDashboard = ({history}) => {
      <div className= "row ml-0 text-align-top">
         <div className= "col-md-3 mt-2 ">
             <VendorNav />   
-        </div> 
-       <div className= "col ">
-            <h2 className= "font-weight-bold "> Your Current Categories</h2>
-            {/* {history.push(`/vendor/vendorcatlistuser/${user._id}`) } */}
+        </div>  
+        <div className="col col-md-9 "> 
+        <div className="row d-flex justify-content-center">             
+           <h2 className= "font-weight-bold mb-2 mt-2 "> Your Current Categories</h2>
+           <br />
+        </div>
+         <div className= "row d-flex justify-content-center mt-3">
+           <div className= "col d-flex m-2">
+             {vendors && vendors.map( (v) => (
+               <Card cover= {
+                <img src= { v.images && v.images.length ? v.images[0].url : ""} 
+                 style= {{ height: "180px", objectFit: "cover"}}
+                 key= {v._id}
+               />
+             }>
+                 <p>{v.vendorInfoId.name}</p>
+                 <p>{v.subcategories[0].name}</p>
+                 <Meta title= {`Price-£${v.price} ${v.pricetype}`} description= {v.subcats} />
+               </Card>
+              
+             )
+            )} 
+            </div>
+        </div>
         </div>
      </div>
     )

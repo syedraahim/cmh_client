@@ -47,6 +47,8 @@ import Login from "./login/Login";
 import Register from "./login/Register";
 import RegisterComplete from "./login/RegisterComplete";
 import ForgotPassword from "./login/ForgotPassword";
+import VendorRegister from "./login/VendorRegister";
+import VendorRegisterComplete from "./login/VendorRegisterComplete";
 // use navigation
 import UserHistory from "./user/UserHistory";
 import UserPassword from "./user/UserPassword";
@@ -124,6 +126,8 @@ const App = () => {
         <Route  path= "/login" exact component= {Login} />
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
+        <Route path= "/vendorregister" exact component= {VendorRegister} />
+        <Route path= "/vendorregistercomplete" exact component= {VendorRegisterComplete} />
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        {/* Home page routes */}
@@ -173,6 +177,8 @@ const App = () => {
         <Route  path= "/login" exact component= {Login} />
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
+        <Route path= "/vendorregister" exact component= {VendorRegister} />
+        <Route path= "/vendorregistercomplete" exact component= {VendorRegisterComplete} />
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        {/* Home page routes */}

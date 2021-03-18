@@ -41,7 +41,7 @@ return res;
  }
 
  export const getSessionId= async(authtoken,vendorId) => {
-  const res= await axios.post("http://localhost:5000/api/stripe-session-id",{vendorId},
+  const res= await axios.post("http://localhost:5000/api/stripe-session-id",{},
   {headers: {authtoken}});  
   console.log("RES from STRIPE SESSION", res);
  return res;

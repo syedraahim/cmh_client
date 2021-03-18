@@ -18,11 +18,13 @@ const ConnectNav= () => {
     const [loading,setLoading] = useState(false);
 
     useEffect( () => {
-      getAccountBalance(user.token).then ( res => {
-          console.log(res);
-          setBalance(res.data);
-      })
+      loadAccountBalance();     
     },[]);
+
+    const loadAccountBalance= () => {
+        getAccountBalance(user.token).then ( res => setBalance(res.data));
+    }
+     
 
     const handlePayoutSettings= async () => {
          setLoading(true);

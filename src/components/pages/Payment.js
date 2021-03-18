@@ -13,7 +13,7 @@ const Payment= () => {
 
         <div className= "container p-5">
           <h4>Complete your payment</h4>
-        
+          {console.log("IN stripe payment")}
           <div className= "col col-md-8 offset-md-2">
             <StripeCheckout />
          </div>

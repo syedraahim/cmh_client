@@ -18,23 +18,15 @@ const VendorNav = () => {
       <ul className= "nav flex-column font-weight-bold mt-2">
       { (vendor) ?
         <li className= "nav-item">
-          <Link to= {`/vendor/vendorinfoedit/${user.email}`} className= "nav-link">VENDOR DETAILS</Link>
+          <Link to= {`/vendor/vendorinfoedit/${user.email}`} className= "nav-link"> YOUR DETAILS</Link>
         </li>     
       :<li className= "nav-item">
-          <Link to= "/vendor/vendorinfocreate" className= "nav-link">VENDOR DETAILS</Link>
+          <Link to= "/vendor/vendorinfocreate" className= "nav-link">YOUR DETAILS</Link>
         </li>
       }
       <li className= "nav-item">
-          <Link to= {`/vendor/vendorcatlistuser/${user._id}`} className= "nav-link">VENDOR CATEGORIES</Link>
-      </li>
-      
-      <li className= "nav-item">
-          <Link to= "/vendor/history" className= "nav-link">VENDOR HISTORY</Link>
-        </li>
-        
-        <li className= "nav-item">
-          <Link to= "/vendor/vendorcategories" className= "nav-link">CHANGE CATEGORIES</Link>
-        </li>
+          <Link to= {`/vendor/vendorcatlistuser/${user._id}`} className= "nav-link">CHANGE CATEGORIES</Link>
+      </li>      
         <li className= "nav-item">
           <Link to= "/vendor/password" className= "nav-link">PASSWORD RESET</Link>
         </li>
