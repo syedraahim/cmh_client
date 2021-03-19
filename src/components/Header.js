@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import {Menu,Badge} from 'antd';
 import { HomeOutlined,
@@ -14,8 +14,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import logo from "./common/cmh_new.png";
 import firebase from 'firebase';
 import { LOGOUT } from "../actions/types";
-import UserHistory from "./user/UserHistory";
-import useSelection from "antd/lib/table/hooks/useSelection";
 import SearchBar from "./utils/Search";
 
 const { SubMenu} = Menu;

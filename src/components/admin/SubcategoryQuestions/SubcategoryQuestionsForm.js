@@ -108,7 +108,7 @@ const SubcategoryQuestionsForm = () => {
                      </select> 
                        </div>
                       
-                      <div className= "col col-md-12">
+                   <div className= "col col-md-12">
                       <label className= "admin-class mt-1 mb-1">Select a Sub category</label>
                       
                       <select 

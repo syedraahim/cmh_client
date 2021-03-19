@@ -1,24 +1,28 @@
 import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {auth} from "../../firebase";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import { LOGGED_IN_USER } from "../../actions/types";
 import { createOrUpdateVendor} from "../../actions/auth";
 
 const VendorRegisterComplete = ({history}) => {
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("abc");
   const [password, setPassword] = useState("");
+  const [loading,setLoading]= useState(false);
   const dispatch= useDispatch();
-  const {user} = useSelector( (state) => ({...state}));
 
-  
+//  const emailVal= window.localStorage.getItem('emailForRegistration');
   useEffect(() => {
-      setEmail(window.localStorage.getItem("emailForRegistration"))
-  }, [history]);
+       setEmail(window.localStorage.getItem('emailForRegistration'));     
+       console.log(window.location.href);
+       console.log(window.localStorage.getItem("emailForRegistration")); 
+       console.log("EMAIL from use Effect",email);   
+  }, [history]); 
 
   const handleSubmit= async (e) => {
     e.preventDefault();
+    console.log("In handle SUBMIT", email,window.location.href);
     if( !email || !password) {
         toast.error("Email and password must be entered");
         return;
@@ -28,13 +32,19 @@ const VendorRegisterComplete = ({history}) => {
         return;
     }
     try {
+        console.log("Before the result", email,window.location.href);
+        console.log("AUTH FROM VENDOR COMP",auth);
+        const email= window.localStorage.getItem('emailForRegistration');
+        if (!email) 
+          email = window.prompt('Please provide your email for confirmation');
         const result = await auth.signInWithEmailLink(email, window.location.href)
-        
+        console.log("RESULT", result)
         if(result.user.emailVerified) {
             window.localStorage.removeItem("emailForRegistration");
             let user = auth.currentUser;
             await user.updatePassword(password);
             const idTokenResult = await user.getIdTokenResult();
+            console.log("user", user, "idTokenResult", idTokenResult);
             // update in redux store 
            createOrUpdateVendor(idTokenResult.token)     
           .then ( (res) => dispatch ({
@@ -49,7 +59,7 @@ const VendorRegisterComplete = ({history}) => {
           })         
           ) 
           .catch ( (err) => console.log(err)); 
-          history.push('/');
+           history.push('/');
         }
     } 
     catch (err) {
@@ -58,17 +68,13 @@ const VendorRegisterComplete = ({history}) => {
     }
     }
 
-    //save the user to local storage
-    // window.localStorage.setItem('emailForRegistration', email);
-    // setEmail("");
-
-
- const completeRegisterForm = ()  => {
-  
-  return (
-  <form  onSubmit = {handleSubmit}>
+ const completeRegisterForm = ()  => (
+  <form  
+    onSubmit = {handleSubmit}
+  >
+    {console.log("IN complete registration EMAIL", email)}
     <div className="form-group font-weight-bold">
-    <label htmlFor="email">Email</label>
+    <label>Email</label>
     <input type="email" 
            className="form-control" 
            value= {email}
@@ -76,7 +82,7 @@ const VendorRegisterComplete = ({history}) => {
     />
     </div>
     <div className="form-group">
-    <label htmlFor="password">Password</label>
+    <label >Password</label>
     <input type="password" 
            className="form-control" 
            placeholder= "Password"
@@ -84,15 +90,17 @@ const VendorRegisterComplete = ({history}) => {
            onChange= { (e) => setPassword(e.target.value)} 
            />
     </div>
-   <button type="submit" className= "btn btn-primary float-center" > Register</button>
+    {console.log("IN Button")}
+   <button type="submit" className= "btn btn-primary d-flex justify-content-center" > Register</button>
   </form>
   )
-  }
+  
 
 
  return (
    <div className="container mt-5 ">
-
+  
+      {console.log("In vendor register completion")}
      <div className="row">
        <div className="col-md-8 offset-md-3">
          <div className="card register-form">
@@ -100,8 +108,8 @@ const VendorRegisterComplete = ({history}) => {
               <h1>Complete Registration</h1>
            </div>
            <div className="card-body">
-             <ToastContainer />
-             {completeRegisterForm()}
+           {console.log("In vendor register completion card body")}
+                 {completeRegisterForm()}
            </div>
          </div>
        </div>

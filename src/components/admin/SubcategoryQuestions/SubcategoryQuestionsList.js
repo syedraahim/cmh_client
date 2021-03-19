@@ -32,8 +32,8 @@ const SubcategoryQuestionList = () => {
 
             {if (subquestionval._id)
             return (
-                <div className= "row"  >
-                  <div className= "col col-md-2 category text-left" key= {subquestionval.category._id}>
+                <div className= "row" key= {subquestionval.category._id} >
+                  <div className= "col col-md-2 category text-left" >
                     <p > {subquestionval.category.name}</p>
                   </div>
                    {/* <div className= "col col-md-2 category text-left" key= {subquestionval.subcategory._id}>                   

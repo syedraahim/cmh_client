@@ -48,7 +48,7 @@ const MainBody = () => {
                     </Col>     
                  <Col span={10}
                       className= "btn btn-raised font-weight-bold mt-4">
-                   <ListSubcategories 
+                 <ListSubcategories 
                         categoryValue = {categoryval._id} />  
                 </Col>  
                 <Col span={8} className= "ml-4">
@@ -68,9 +68,8 @@ const MainBody = () => {
  return (
  <div>
  <section className="feature-class" id="features">
- <div className= "font-weight-bold ml-5 mt-5 mb-3 mr-2 d-flex justify-content-center"
-      >           
-             <PostcodeSearch />
+ <div className= "font-weight-bold mt-2">           
+         <PostcodeSearch />
  </div>  
         
 
