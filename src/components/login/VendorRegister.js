@@ -150,6 +150,7 @@ const roleBasedRedirect = (res) => {
     
     //check if user needs to be redirected to a different page
     let userPage= history.location.state;
+    console.log("User PAGE",userPage);
     if (userPage) {
       history.push(userPage.from);
     }  else { 
@@ -159,7 +160,8 @@ const roleBasedRedirect = (res) => {
      } 
      else if (res.data.role === "vendor") {
        history.push("/vendor/dashboard");
-     } else {
+     } else 
+     {
        history.push("/user/history");
      }
     }
@@ -175,8 +177,7 @@ const roleBasedRedirect = (res) => {
               <h1>Register</h1>
            </div>
            <div className="card-body">
-            <ToastContainer />
-             {registerForm()}
+              {registerForm()}
            </div>
 
            <Button onClick= {googleLogin} 

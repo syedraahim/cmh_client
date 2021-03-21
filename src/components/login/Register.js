@@ -61,8 +61,7 @@ const handleSubmit= async (e) => {
               <h1>Register</h1>
            </div>
            <div className="card-body">
-            <ToastContainer />
-             {registerForm()}
+              {registerForm()}
            </div>
          </div>
        </div>

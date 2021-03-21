@@ -46,21 +46,21 @@ const VendorForm = ( {handleSubmit,
                   autoFocus
                  />
                                 
-                <label className= "admin-class">Postcode</label>
-                <PostcodeSearch 
+                 <label className= "admin-class">Postcode</label>
+                 {/* <PostcodeSearch  
                    className="form-control"
                    name="postcode"
                    value= {postcode}
                    onChange= {() => handlePostcodeChange}
-                />
+                /> */}
 
-                {/* <input
+                <input
                   type= "text"
                   name= "postcode"
                   className= "form-control"
                   value= {postcode}
                   onChange= {handleChange}
-                 /> */}
+                 />
                 <label className= "admin-class">House No</label>
                 <input
                   type= "text"

@@ -1,29 +1,31 @@
 import React, {useState, useEffect} from "react";
 import {fetchSubcategories} from "../../actions/subcategory";
+import {Select} from "antd";
+const {Option} = Select;
 
 const GetSubcategories= () => {
 
     const [subcategories, setSubcategories] = useState([]);
+    const [subcategory,setSubcategory]= useState("");
 
     useEffect(() => {
         fetchSubcategories().then(res => setSubcategories(res.data));
     },[]);
 
  return(                  
-    <select 
+    <Select 
          name= "subcategory"   
-         className= "form-control location-search-input mt-3 mb-3 font-weight-bold h6"
-         placeholder= "Helper Category...."
-         width="500px"
-         onChange= { subcategory => setSubcategories(subcategory)}
+         className= "form-control mt-3 mb-3 font-weight-bold h6"
+         style={{width:"500px"}}         
+         onChange= { subcategory => setSubcategory(subcategory)}
      > 
-    <option value="">Select a Sub Category</option>                  
+    <Option value="">Select a Sub Category</Option>                  
    { subcategories && subcategories.map( (s) => {
-   return (  <option key= {s._id} value= {s._id}>
+   return (  <Option key= {s._id} value= {s._id}>
           {s.name}
-     </option> ) }
+     </Option> ) }
    )}
-   </select> 
+   </Select> 
 
  )    
 

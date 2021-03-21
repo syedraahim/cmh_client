@@ -26,7 +26,10 @@ const VendorNav = () => {
       }
       <li className= "nav-item">
           <Link to= {`/vendor/vendorcatlistuser/${user._id}`} className= "nav-link">CHANGE CATEGORIES</Link>
-      </li>      
+      </li> 
+      <li className= "nav-item">
+          <Link to= {`/vendor/vendorcalendar/${user._id}`} className= "nav-link">AVAILABILITY CALENDAR</Link>
+      </li>        
         <li className= "nav-item">
           <Link to= "/vendor/password" className= "nav-link">PASSWORD RESET</Link>
         </li>

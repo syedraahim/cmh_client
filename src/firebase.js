@@ -16,7 +16,7 @@ import keys from "./config/keys";
   firebase.initializeApp(firebaseConfig);
   }
 
-  console.log("AUTH",firebase.auth());
+  console.log("AUTH",firebaseConfig);
   //export auth provider
 
   export const auth = firebase.auth();

@@ -38,9 +38,8 @@ export class PostcodeSearch extends Component {
       
     render() {
       return (
-        <div className="site-card-wrapper">
-        <Row>
-         <Col span={12}> 
+       <Row gutter={32}>
+         <Col span={6} offset={2}> 
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
@@ -48,16 +47,16 @@ export class PostcodeSearch extends Component {
             searchOptions={this.searchOptions}                 
          >          
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
+          <Col>
                   
             <input
               {...getInputProps({
-                placeholder: 'Location ...',
+                placeholder: 'Search a Location ...',
                 className: 'location-search-input mt-3 mb-3 font-weight-bold h6',
                 style: { height:"50px", width:"500px"}
               })}
             />
-            <div className="autocomplete-dropdown-container">
+            <Col span={32} className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
@@ -68,30 +67,34 @@ export class PostcodeSearch extends Component {
                   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
-                  <div
+                  <Col span={32}
+                    key={suggestion.id}
                     {...getSuggestionItemProps(suggestion, {
                       className,
-                      style,
+                      style                      
                     })}
                   >
                     <span>{suggestion.description}</span>
-                  </div>
+                  </Col>
                 );
               })}
-            </div>
+            </Col>
             
-         </div> 
+         </Col> 
         )}
        
       </PlacesAutocomplete> 
       </Col>
-      <Col span={12}>       
-            <GetSubcategories />                 
-       </Col>   
+      <Col span={6} offset={4} >
+         <GetSubcategories /> 
+      </Col>                         
       
-      </Row>
-          
-      </div>
+       <Col span={2} offset={3}
+            className= "h3 mt-4"  >     
+            <SearchOutlined  />                 
+       </Col>      
+      </Row>       
+     
       )
     }
   }

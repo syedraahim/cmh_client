@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import { Select } from "antd";
+import CalendarBooking from "../../utils/CalendarBooking";
 const {Option} = Select;
 
 const VendorForm = ( {handleSubmit, 
@@ -26,6 +27,13 @@ const VendorForm = ( {handleSubmit,
 }  = values;
 
  {console.log("Vendor....",vendorInfoId)}
+
+ const [calendar,setCalendar] = useState(false);
+
+ const showCalendar= () => {
+  setCalendar(!calendar)   
+ }
+ 
 
     const renderFields= () => {
         return (
@@ -114,11 +122,20 @@ const VendorForm = ( {handleSubmit,
                   name= "vendorInfoId"
                   className= "form-control"
                   value= {vendorInfoId}                 
-                 />                   
-
+                 />                                    
                </div>
                <div className= "d-flex justify-content-center mt-1">
-                  <button type="submit" className = "btn btn-primary font-weight-bold " name="category">Save</button>  
+                  <button type="button"
+                          className = "btn btn-primary font-weight-bold mb-2" 
+                          name="booking"
+                          onClick= {showCalendar}>Appointment Availability</button>  
+               </div> 
+               {calendar && <CalendarBooking />}             
+
+               <div className= "d-flex justify-content-center mt-1">
+                  <button type="submit" 
+                          className = "btn btn-primary font-weight-bold mt-2 " 
+                          name="category">Save</button>  
                </div> 
             </section>
             </form>

@@ -71,6 +71,7 @@ import VendorsInfoList from "./vendor/VendorInfo/VendorsInfoList"
 import VendorCatList from "./admin/Vendors/VendorCatList";
 import VendorCatDelete from "./admin/Vendors/VendorCatDelete";
 import VendorListUser from "./vendor/VendorProducts/VendorListUser";
+import VendorCalendar from "./vendor/VendorProducts/VendorCalendar";
 
 import StripeCallback from "./stripe/StripeCallback";
 import StripeSuccess from "./stripe/StripeSuccess";
@@ -127,7 +128,7 @@ const App = () => {
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
         <Route path= "/vendorregister" exact component= {VendorRegister} />
-        <Route path= "/vendorregistercomplete" exact component= {VendorRegisterComplete} />
+        <Route path= "/vendregistercomplete" exact component= {VendorRegisterComplete} />
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        {/* Home page routes */}
@@ -178,7 +179,7 @@ const App = () => {
         <Route path= "/register" exact component= {Register} />
         <Route path= "/registercomplete" exact component= {RegisterComplete} />
         <Route path= "/vendorregister" exact component= {VendorRegister} />
-        <Route path= "/vendorregistercomplete" exact component= {VendorRegisterComplete} />
+        <Route path= "/vendregistercomplete" exact component= {VendorRegisterComplete} />
         <Route path= "/forgot/password" exact component= {ForgotPassword} />
        </Switch>
        {/* Home page routes */}
@@ -203,6 +204,7 @@ const App = () => {
        <UserRoute path= "/vendor/vendorcategories" exact component= {VendorCategories} />
        <UserRoute path= "/vendor/vendorcatdelete/:id" exact component= {VendorCatDelete} />      
        <UserRoute path= "/vendor/vendorcatlistuser/:userid" exact component= {VendorListUser} />
+       <UserRoute path= "/vendor/vendorcalendar/:userid" exact component= {VendorCalendar} />
            
        <Switch>
          <UserRoute path= "/vendor/vendorinfocreate" exact component= {VendorInfoCreate} />

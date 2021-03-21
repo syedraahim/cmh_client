@@ -66,32 +66,32 @@ const MainBody = () => {
     ) }    
   
  return (
- <div>
+ <Row>
  <section className="feature-class" id="features">
- <div className= "font-weight-bold mt-2">           
+ <Col className= "font-weight-bold mt-2">           
          <PostcodeSearch />
- </div>  
+ </Col>  
         
 
   </section>
   <section className= "content-section" >     
-   <div className= "row">
+   <Row>
        {renderFields()}     
-   </div>         
+   </Row>         
   </section>   
 
    <section className ="testimonial-section">
    
-   <div className= "jumbotron-fluid font-weight-bold h1 text-danger d-flex justify-content-center mb-3">
+   <Col span={24} offset={3} className= "jumbotron-fluid font-weight-bold h1 text-danger mb-3">
           <Jumbotron
              text= {["We will find the best helper for your needs",
                      "Compare the price to find the most affordable helper",
                      "So easy to use that you will have your help sorted in minutes"]}
            />         
-  </div>
+  </Col>
    
    </section>
-   </div>
+   </Row>
   )
 }
 
