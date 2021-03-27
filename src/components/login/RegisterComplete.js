@@ -102,8 +102,7 @@ const RegisterComplete = ({history}) => {
               <h1>Complete Registration</h1>
            </div>
            <div className="card-body">
-             <ToastContainer />
-             {completeRegisterForm()}
+              {completeRegisterForm()}
            </div>
          </div>
        </div>

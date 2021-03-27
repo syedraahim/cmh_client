@@ -362,3 +362,9 @@ sidenavbar {
   font-size:large;
 }
 
+.site-calendar-card {
+  width: 350px;
+  border: 2px solid #f0f0f0;
+  border-radius: 2px;
+}
+

@@ -13,19 +13,19 @@ const GetSubcategories= () => {
     },[]);
 
  return(                  
-    <Select 
+    <select 
          name= "subcategory"   
-         className= "form-control mt-3 mb-3 font-weight-bold h6"
-         style={{width:"500px"}}         
+         className= "form-control mt-3 mb-3 ml-4 font-weight-bold h6"
+         style={{width:"500px", height:"50px"}}         
          onChange= { subcategory => setSubcategory(subcategory)}
      > 
-    <Option value="">Select a Sub Category</Option>                  
+    <option value="">Select a Sub Category</option>                  
    { subcategories && subcategories.map( (s) => {
-   return (  <Option key= {s._id} value= {s._id}>
+   return (  <option key= {s._id} value= {s._id}>
           {s.name}
-     </Option> ) }
+     </option> ) }
    )}
-   </Select> 
+   </select> 
 
  )    
 

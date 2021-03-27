@@ -30,6 +30,9 @@ const AdminNav = () => {
         <li className= "nav-item mb-3" >
           <Link to="/user/userpassword">USER PASSWORD </Link>
         </li>
+        <li className= "nav-item mb-3" >
+          <Link to="/admin/timeslot/timeslotcreate">MANAGE TIMESLOTS</Link>
+        </li>
      </ul>
     </nav>
   )

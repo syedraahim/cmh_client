@@ -70,28 +70,29 @@ const MainBody = () => {
  <section className="feature-class" id="features">
  <Col className= "font-weight-bold mt-2">           
          <PostcodeSearch />
- </Col>  
-        
-
+ </Col>          
+ 
   </section>
+  
   <section className= "content-section" >     
    <Row>
        {renderFields()}     
    </Row>         
   </section>   
-
+  
    <section className ="testimonial-section">
-   
-   <Col span={24} offset={3} className= "jumbotron-fluid font-weight-bold h1 text-danger mb-3">
+  <Row align="middle">
+   <Col span={32} className= "jumbotron-fluid font-weight-bold h1 text-danger mb-3 d-flex justify-content-center">
           <Jumbotron
              text= {["We will find the best helper for your needs",
                      "Compare the price to find the most affordable helper",
                      "So easy to use that you will have your help sorted in minutes"]}
            />         
   </Col>
+  </Row>
    
    </section>
-   </Row>
+ </Row>
   )
 }
 
