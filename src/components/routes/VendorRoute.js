@@ -12,7 +12,7 @@ const VendorRoute = ({ children, ...rest }) => {
 
   useEffect( () => {
       if (user && user.token) {
-          adminUser(user.token)
+          vendorUser(user.token)
       .then ( res => {
           console.log("Vendor user Route",res);
           setVendor(true);

@@ -30,7 +30,6 @@ import SubcategoryQuestionsCreate from "./admin/SubcategoryQuestions/Subcategory
 import SubcategoryQuestionsEdit from "./admin/SubcategoryQuestions/SubcategoryQuestionsEdit";
 import SubcategoryQuestionsDelete from "./admin/SubcategoryQuestions/SubcategoryQuestionsDelete";
 import SubcategoryQuestionsList from "./admin/SubcategoryQuestions/SubcategoryQuestionsList";
-import TimeslotCreate from "./admin/Timeslot/TimeslotCreateold";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -72,8 +71,6 @@ import VendorsInfoList from "./vendor/VendorInfo/VendorsInfoList"
 import VendorCatList from "./admin/Vendors/VendorCatList";
 import VendorCatDelete from "./admin/Vendors/VendorCatDelete";
 import VendorListUser from "./vendor/VendorProducts/VendorListUser";
-import VendorCalendar from "./vendor/VendorCalendar/VendorCalendarCreate";
-
 
 import StripeCallback from "./stripe/StripeCallback";
 import StripeSuccess from "./stripe/StripeSuccess";
@@ -118,19 +115,18 @@ const App = () => {
   return (
     <div className="App">
 
-      {(user && user.role === "admin") ?
-        <Router history={history}>
-          <Header />
-          <SideDrawer />
-          <ToastContainer />
-          {/* login and registration routes */}
-          <Switch>
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/registercomplete" exact component={RegisterComplete} />
-            <Route path="/vendorregister" exact component={VendorRegister} />
-            <Route path="/vendregistercomplete" exact component={VendorRegisterComplete} />
-            <Route path="/forgot/password" exact component={ForgotPassword} />
+      <Router history={history}>
+        <Header />
+        <SideDrawer />
+        <ToastContainer />
+        {/* login and registration routes */}
+        <Switch>
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/registercomplete" exact component={RegisterComplete} />
+          <Route path="/vendorregister" exact component={VendorRegister} />
+          <Route path="/vendorregistercomplete" exact component={VendorRegisterComplete} />
+          <Route path="/forgot/password" exact component={ForgotPassword} />
           {/* Home page routes */}
           <Route path="/" exact component={Mainpage} />
           <Route path="/vendor" exact component={VendorDashboard} />
@@ -144,86 +140,66 @@ const App = () => {
           {/* if {user && user.role==="admin"}
         ( */}
           {/* admin routes   */}
-          <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
-          <AdminRoute path="/admin/categories/categoriescreate" exact component={CategoriesCreate} />
-          <AdminRoute path="/admin/categories/categorieslist" exact component={CategoriesList} />
-          <AdminRoute path="/admin/categories/categoriesedit/:slug" exact component={CategoriesEdit} />
-          <AdminRoute path="/admin/categories/categoriesdelete/:slug" component={CategoriesDelete} />
+          {(user && user.role === "admin") ?
+            <>
+              <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
+              <AdminRoute path="/admin/categories/categoriescreate" exact component={CategoriesCreate} />
+              <AdminRoute path="/admin/categories/categorieslist" exact component={CategoriesList} />
+              <AdminRoute path="/admin/categories/categoriesedit/:slug" exact component={CategoriesEdit} />
+              <AdminRoute path="/admin/categories/categoriesdelete/:slug" component={CategoriesDelete} />
 
-          <AdminRoute path="/admin/subcategories/subcategoriescreate" exact component={SubcategoriesCreate} />
-          <AdminRoute path="/admin/subcategories/subcategorieslist" exact component={SubcategoriesList} />
-          <AdminRoute path="/admin/subcategories/subcategoriesdelete/:slug" component={SubcategoriesDelete} />
-          <AdminRoute path="/admin/subcategories/subcategoriesedit/:slug" component={SubcategoriesEdit} />
+              <AdminRoute path="/admin/subcategories/subcategoriescreate" exact component={SubcategoriesCreate} />
+              <AdminRoute path="/admin/subcategories/subcategorieslist" exact component={SubcategoriesList} />
+              <AdminRoute path="/admin/subcategories/subcategoriesdelete/:slug" component={SubcategoriesDelete} />
+              <AdminRoute path="/admin/subcategories/subcategoriesedit/:slug" component={SubcategoriesEdit} />
 
-          <AdminRoute path="/admin/questions/questionscreate" exact component={QuestionsCreate} />
-          <AdminRoute path="/admin/questions/questionslist" component={QuestionsList} />
-          <AdminRoute path="/admin/questions/questionsedit/:id" component={QuestionsEdit} />
-          <AdminRoute path="/admin/questions/questionsdelete/:id" component={QuestionsDelete} />
-          <AdminRoute path="/vendor/vendorsinfolist" exact component={VendorsInfoList} />
-          <AdminRoute path="/vendor/vendorcatlist" exact component={VendorCatList} />
+              <AdminRoute path="/admin/questions/questionscreate" exact component={QuestionsCreate} />
+              <AdminRoute path="/admin/questions/questionslist" component={QuestionsList} />
+              <AdminRoute path="/admin/questions/questionsedit/:id" component={QuestionsEdit} />
+              <AdminRoute path="/admin/questions/questionsdelete/:id" component={QuestionsDelete} />
+              <AdminRoute path="/vendor/vendorsinfolist" exact component={VendorsInfoList} />
+              <AdminRoute path="/vendor/vendorcatlist" exact component={VendorCatList} />
 
-          <AdminRoute path="/admin/subcatquestions/subcatquestionscreate" component={SubcategoryQuestionsCreate} />
-          <AdminRoute path="/admin/subcatquestions/subcatquestionsedit/:id" component={SubcategoryQuestionsEdit} />
-          <AdminRoute path="/admin/subcatquestions/subcatquestionsdelete/:id" component={SubcategoryQuestionsDelete} />
-          <AdminRoute path="/admin/subcatquestions/subcatquestionslist" exact component={SubcategoryQuestionsList} />
-          <AdminRoute path="/admin/vendor" exact component={Vendor} />
-          <AdminRoute path= "/admin/timeslot/timeslotcreate" exact component= {TimeslotCreate} /> 
+              <AdminRoute path="/admin/subcatquestions/subcatquestionscreate" component={SubcategoryQuestionsCreate} />
+              <AdminRoute path="/admin/subcatquestions/subcatquestionsedit/:id" component={SubcategoryQuestionsEdit} />
+              <AdminRoute path="/admin/subcatquestions/subcatquestionsdelete/:id" component={SubcategoryQuestionsDelete} />
+              <AdminRoute path="/admin/subcatquestions/subcatquestionslist" exact component={SubcategoryQuestionsList} />
+              <AdminRoute path="/admin/vendor" exact component={Vendor} />
+            </>
+            :
+            <>
+              {/* vendor routes */}
+              <UserRoute path="/vendor/vendorcreate" exact component={VendorCreate} />
+              <UserRoute path="/vendor/vendoredit/:id" exact component={VendorEdit} />
+
+              {/* user routes */}
+              <UserRoute path="/user/history" exact component={UserHistory} />
+              <UserRoute path="/user/userpassword" exact component={UserPassword} />
+              <UserRoute exact path="/vendor/dashboard" component={VendorDashboard} />
+              <UserRoute path="/vendor/password" exact component={VendorPassword} />
+              <UserRoute path="/vendor/vendordetails" exact component={VendorNew} />
+              <UserRoute path="/vendor/vendorcategories" exact component={VendorCategories} />
+              <UserRoute path="/vendor/vendorcatdelete/:id" exact component={VendorCatDelete} />
+              <UserRoute path="/vendor/vendorcatlistuser/:userid" exact component={VendorListUser} />
+
+              <UserRoute path="/vendor/vendorinfocreate" exact component={VendorInfoCreate} />
+              <UserRoute path="/vendor/vendorinfoedit/:email" exact component={VendorInfoEdit} />
+
+              <UserRoute path="/checkout" exact component={Checkout} />
+              <UserRoute path="/payment" exact component={Payment} />
+
+              {/* Route for vendor stripe callback */}
+              <UserRoute path="/stripe/callback" component={StripeCallback} />
+              <UserRoute path="/stripesuccess" component={StripeSuccess} />
+              <UserRoute path="/stripecancel" component={StripeCancel} />
+              {/* ) */}
+              {/* <Footer /> */}
+            </>}
           </Switch>
 
-        </Router>
-        :
-        <Router history={history} >
-          <Header />
-          <SideDrawer />
-          <ToastContainer />
-          {/* login and registration routes */}
-          <Switch>
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/registercomplete" component={RegisterComplete} />
-            <Route path="/vendorregister" component={VendorRegister} />
-            <Route path="/vendregistercomplete" component={VendorRegisterComplete} />
-            <Route path="/forgot/password" component={ForgotPassword} />
-          {/* Home page routes */}
-          <Route path="/" exact component={Mainpage} />
-          <Route path="/vendor" exact component={VendorDashboard} />
-          <Route path="/allvendors" exact component={GetAllVendors} />
-          <Route path="/vendorcat/:slug" exact component={GetVendorsSubcat} />
+      </Router>
 
-          <Route path="/vendordetails/:id" exact component={VendorDetails} />
-          <Route path="/shop" exact component={Shop} />
-          <Route path="/cart" exact component={Cart} />
-          {/* vendor routes */}
-          <UserRoute path="/vendor/vendorcreate" exact component={VendorCreate} />
-          <UserRoute path="/vendor/vendoredit/:id" exact component={VendorEdit} />
 
-          {/* user routes */}
-          <UserRoute path="/user/history" exact component={UserHistory} />
-          <UserRoute path="/user/userpassword" exact component={UserPassword} />
-          <UserRoute exact path="/vendor/dashboard" component={VendorDashboard} />
-          <UserRoute path="/vendor/password" exact component={VendorPassword} />
-          <UserRoute path="/vendor/vendordetails" exact component={VendorNew} />
-          <UserRoute path="/vendor/vendorcategories" exact component={VendorCategories} />
-          <UserRoute path="/vendor/vendorcatdelete/:id" exact component={VendorCatDelete} />
-          <UserRoute path="/vendor/vendorcatlistuser/:userid" exact component={VendorListUser} />
-
-          <UserRoute path="/vendor/vendorinfocreate" exact component={VendorInfoCreate} />
-          <UserRoute path="/vendor/vendorinfoedit/:email" exact component={VendorInfoEdit} />
-          <UserRoute path= "/vendor/vendorcalendar/:userid" exact component= {VendorCalendar} />
-
-          <UserRoute path="/checkout" exact component={Checkout} />
-          <UserRoute path="/payment" exact component={Payment} />
-
-          {/* Route for vendor stripe callback */}
-          <UserRoute path="/stripe/callback" component={StripeCallback} />
-          <UserRoute path="/stripesuccess" component={StripeSuccess} />
-          <UserRoute path="/stripecancel" component={StripeCancel} />
-          {/* ) */}
-          {/* <Footer /> */}
-          </Switch>
-
-        </Router>
-      }
     </div>
   )
 }

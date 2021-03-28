@@ -24,8 +24,10 @@ const AdminRoute = ({ children, ...rest }) => {
       })
       }
   }, [user]);
+ console.log("ADMIN VAL",admin);
+   return  <Route {...rest}  />
 
-  return admin ? <Route {...rest}  />  : <Redirect  to= "/" />
+  // return admin ? <Route {...rest}  />  : <Redirect  to= "/" />
     // <CounterToRedirect />
   
 }
