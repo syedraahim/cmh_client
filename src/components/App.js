@@ -30,6 +30,10 @@ import SubcategoryQuestionsCreate from "./admin/SubcategoryQuestions/Subcategory
 import SubcategoryQuestionsEdit from "./admin/SubcategoryQuestions/SubcategoryQuestionsEdit";
 import SubcategoryQuestionsDelete from "./admin/SubcategoryQuestions/SubcategoryQuestionsDelete";
 import SubcategoryQuestionsList from "./admin/SubcategoryQuestions/SubcategoryQuestionsList";
+import TimeslotCreate from "./admin/Timeslot/TimeslotCreate";
+import TimeslotList from "./admin/Timeslot/TimeSlotList";
+import TimeslotEdit from "./admin/Timeslot/TimeslotEdit";
+import TimeslotDelete from "./admin/Timeslot/TimeslotDelete";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -165,6 +169,11 @@ const App = () => {
               <AdminRoute path="/admin/subcatquestions/subcatquestionsdelete/:id" component={SubcategoryQuestionsDelete} />
               <AdminRoute path="/admin/subcatquestions/subcatquestionslist" exact component={SubcategoryQuestionsList} />
               <AdminRoute path="/admin/vendor" exact component={Vendor} />
+
+              <AdminRoute path= "/admin/timeslot/timeslotcreate" exact component= {TimeslotCreate} /> 
+              <AdminRoute path= "/admin/timeslot/listslots" exact component= {TimeslotList} /> 
+              <AdminRoute path= "/admin/timeslot/editslot/:id" exact component= {TimeslotEdit} />
+              <AdminRoute path= "/admin/timeslot/deleteslot/:id" exact component= {TimeslotDelete} />
             </>
             :
             <>

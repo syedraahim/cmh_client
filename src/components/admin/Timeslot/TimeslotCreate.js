@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from "react";
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import {toast} from "react-toastify";
+import AdminNav from "../../navigation/AdminNav";
 import {addTimeslot} from "../../../actions/timeslot";
 import {useSelector} from "react-redux";
 
@@ -10,15 +11,15 @@ const TimeslotCreate= () => {
    const [endslot, setEndslot] = useState("");
    const [loading,setLoading]= useState(false);
    
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
         addTimeslot({startslot,endslot},user.token)
         .then ( (res) => {
             setLoading(false);
             setStartslot("");
-            setEndSlot("");
-            toast.success(`Successfully created ${res.data.startslot || "-"|| res.data.endslot}`);
+            setEndslot("");
+            toast.success(`Successfully created timeslot`);
            })
            .catch (err => {
              console.log(err);
@@ -32,11 +33,15 @@ const TimeslotCreate= () => {
         
     return ( 
  
-        <div className= "row mt-5 d-flex justify-content-center">
-        <h1 className= "font-weight-bold d-flex justify-content-center mb-4">Add New Timeslots</h1>
-         <div className= "col col-md-12 d-flex justify-content-center mt-2">
+        <div className= "row mt-5">
+        <div className= "col col-md-3" >
+          <AdminNav />
+        </div>         
+         <div className= "col col-md-8 mt-2">
+         <h1 className= "font-weight-bold d-flex justify-content-center mb-4">Add New Timeslots</h1>
          <form onSubmit= {handleSubmit}>
-         <label className= " admin-class">Start Slot</label>
+         <div className="row d-flex justify-content-center mb-4">
+         <div className="col col-md-3">
            <input 
              type="text"
              name="startslot"
@@ -46,15 +51,19 @@ const TimeslotCreate= () => {
                 value= {startslot}   
                 autoFocus         
             />
+          </div>
+           <div className="col col-md-3">
             <input 
              type="text"
              name="endslot"
              className= "form-control"
              placeholder= "End Slot" 
                 onChange= {(e) => setEndslot(e.target.value)}
-                value= {startslot} 
-             />          
-           <div className= "d-flex justify-content-center mt-2  ">
+                value= {endslot} 
+             />  
+            </div> 
+            </div>       
+           <div className= " d-flex justify-content-center mt-3  ">
              <button type="submit" className = "btn btn-primary font-weight-bold " name="timeslot">Save</button>  
            </div>  
          </form>        

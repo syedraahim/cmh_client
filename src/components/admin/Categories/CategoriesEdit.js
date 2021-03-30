@@ -21,8 +21,7 @@ const  CategoriesEdit = ({history, match}) =>
   }, [] );
 
   const getCategory = () => {
-   fetchCategory(slug)
-         .then ( (res) =>
+   fetchCategory(slug).then ( (res) =>
           {
           setName(res.data.name)
           setImgURL(res.data.imgURL)
