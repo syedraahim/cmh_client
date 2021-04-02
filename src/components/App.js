@@ -75,6 +75,7 @@ import VendorsInfoList from "./vendor/VendorInfo/VendorsInfoList"
 import VendorCatList from "./admin/Vendors/VendorCatList";
 import VendorCatDelete from "./admin/Vendors/VendorCatDelete";
 import VendorListUser from "./vendor/VendorProducts/VendorListUser";
+import VendorCalendarCreate from "./vendor/VendorCalendar/VendorCalendarCreate"
 
 import StripeCallback from "./stripe/StripeCallback";
 import StripeSuccess from "./stripe/StripeSuccess";
@@ -193,6 +194,7 @@ const App = () => {
 
               <UserRoute path="/vendor/vendorinfocreate" exact component={VendorInfoCreate} />
               <UserRoute path="/vendor/vendorinfoedit/:email" exact component={VendorInfoEdit} />
+              <UserRoute path="/vendor/vendorcalcreate/:id" exact component={VendorCalendarCreate} />
 
               <UserRoute path="/checkout" exact component={Checkout} />
               <UserRoute path="/payment" exact component={Payment} />

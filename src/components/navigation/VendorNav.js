@@ -13,22 +13,23 @@ const VendorNav = () => {
     .then ( res => setVendor(res.data));
   },[]);
 
+  {console.log("FETCH VENDOR INFO",user)}
   return(
     <nav className="navbar mt-2  navlist">
       <ul className= "nav flex-column font-weight-bold mt-2">
       { (vendor) ?
         <li className= "nav-item">
-          <Link to= {`/vendor/vendorinfoedit/${user.email}`} className= "nav-link"> YOUR DETAILS</Link>
+          <Link to= {`/vendor/vendorinfoedit/${user.email}`} className= "nav-link"> CHANGE YOUR DETAILS</Link>
         </li>     
       :<li className= "nav-item">
-          <Link to= "/vendor/vendorinfocreate" className= "nav-link">YOUR DETAILS</Link>
+          <Link to= "/vendor/vendorinfocreate" className= "nav-link">ADD YOUR DETAILS</Link>
         </li>
       }
       <li className= "nav-item">
           <Link to= {`/vendor/vendorcatlistuser/${user._id}`} className= "nav-link">CHANGE CATEGORIES</Link>
       </li> 
       <li className= "nav-item">
-          <Link to= {`/vendor/vendorcalendar/${user._id}`} className= "nav-link">AVAILABILITY CALENDAR</Link>
+          <Link to= {`/vendor/vendorcalcreate/${user._id}`} className= "nav-link">AVAILABILITY CALENDAR</Link>
       </li>        
         <li className= "nav-item">
           <Link to= "/vendor/password" className= "nav-link">PASSWORD RESET</Link>

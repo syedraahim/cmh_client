@@ -33,7 +33,7 @@ const VendorListUser = () => {
     <div className= "container-fluid">
         <div className= "row ml-0 text-align-top">
            <div className= "col-md-2 mt-2 ">
-               < VendorNav />   
+               <VendorNav />   
            </div>  
            <div className= "col col-md-10">
            

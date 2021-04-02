@@ -11,10 +11,12 @@ import { Card } from 'antd';
 const { Meta } = Card;
 
 const VendorDashboard = ({history}) => {
-
+    
     const {user} = useSelector( (state) => ({...state}));
     const [loading, setLoading] = useState(false);
     const [vendors,setVendors] = useState([]);
+
+    {console.log("User data from vendor dashboard",user._id, user.email)}
 
     useEffect(() => {
       loadVendorDetails();
@@ -51,14 +53,18 @@ const VendorDashboard = ({history}) => {
         </div>
          <div className= "row d-flex justify-content-center mt-3">
            <div className= "col d-flex m-2">
+
+           {/* {JSON.stringify(vendors)} */}
              {vendors && vendors.map( (v) => (
-               <Card cover= {
-                <img src= { v.images && v.images.length ? v.images[0].url : ""} 
-                 style= {{ height: "180px", objectFit: "cover"}}
+               <Card  key= {v._id} cover= {
+                <img 
                  key= {v._id}
+                 src= { v.images && v.images.length ? v.images[0].url : ""} 
+                 style= {{ height: "180px", objectFit: "cover"}}                
                />
              }>
                  <p>{v.vendorInfoId.name}</p>
+                 <p>{v.vendorInfoId.email}</p>
                  <p>{v.subcategories[0].name}</p>
                  <Meta title= {`Price-£${v.price} ${v.pricetype}`} description= {v.subcats} />
                </Card>

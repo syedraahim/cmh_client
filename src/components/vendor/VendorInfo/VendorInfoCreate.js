@@ -10,7 +10,7 @@ const VendorInfoCreate = () => {
  const {user} = useSelector( state => ({...state})); 
  
  const initialState= {  
-    userid: user._id,
+    userId: user._id,
     email: user.email,    
     postcode: "",
     name: "",

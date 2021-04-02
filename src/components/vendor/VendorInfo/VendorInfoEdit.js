@@ -13,8 +13,9 @@ const VendorInfoEdit = ({match}) => {
  const {user} = useSelector( state => ({...state}));   
  const [values, setValues] = useState([]); 
  const [loading,setLoading] = useState(false);
- const slug= match.params.slug;
+ const email= match.params.email
 
+ {console.log("MATCH",match)}
   useEffect( () => {
      getVendorInfo();
  },[]);
@@ -22,7 +23,10 @@ const VendorInfoEdit = ({match}) => {
  const getVendorInfo= () => 
  {
     fetchVendorInfo(user.email)
-      .then ( res => setValues(res.data));
+      .then ( res => setValues(res.data))
+      .catch ( (err)  => {
+         console.log("No vendor info was found",err);         
+      })
  } 
 
  
@@ -53,7 +57,7 @@ console.log("Authtoken:",user.token );
         e.preventDefault();
         setLoading(true);  
         console.log("Values before EDIT",values);           
-        editVendorInfo(slug,values, user.token)
+        editVendorInfo(email,values, user.token)
         .then ( (res) => {
             setLoading(false);
             window.alert(`Vendor Information is changed successfully for ${user.email}` );
