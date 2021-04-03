@@ -66,13 +66,16 @@ const VendorCalendar= () => {
             <div className= "col d-flex justify-content-center mt-2">
             <DatePicker
               className="site-calendar-card mt-3 ml-4 h6"
-              placeholder="From date"    
-              locale="gb"          
+              placeholder="From date"
+              locale= "en_GB"    
+              format= "DD/MM/YYYY"          
               onChange= {(date,dateString) => console.log(date,dateString)}
              /> 
              <DatePicker
               className="site-calendar-card mt-3 ml-4 h6"
               placeholder="To date" 
+              locale= "en_GB"  
+              format= "DD/MM/YYYY"  
               onChange= {(date,dateString) => console.log(date,dateString)}
              /> 
              </div>
