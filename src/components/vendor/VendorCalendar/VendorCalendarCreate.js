@@ -4,10 +4,11 @@ import VendorNav from "../../navigation/VendorNav";
 import {DatePicker,TimePicker, Calendar} from "antd";
 import {fetchTimeslots} from "../../../actions/timeslot";
 import { NodeIndexOutlined } from "@ant-design/icons";
+import {toast} from "react-toastify";
 
 const VendorCalendar= () => {
 
-  const [startDate, setStartDate] = useState("");
+  const [fromDate, setFromDate] = useState("");
   const [timeslots, setTimeslots] = useState([]);
   const [toDate, setToDate] = useState("");
   const [clicked, setClicked] = useState([]);
@@ -51,37 +52,34 @@ const VendorCalendar= () => {
 
   const handleSubmit= (e) => {
     e.preventDefault();
-    console.log("CALDATA",caldata);
+    console.log("CALDATA",caldata, fromDate, toDate);
   }
 
   return (
         <div className="row">
-        {console.log("CLICKED",clicked)}
-        <div className="col col-md-2 mt-2">
+         <div className="col col-md-2 mt-1">
            <VendorNav />
         </div>
         <div className="col col-md-10 mt-2 ">
            <h1 className="font-weight-bold">Update your Availability</h1>
            <form>
-            <div className= "col d-flex justify-content-center mt-2">
+            <div className= "col d-flex justify-content-center mt-1">
             <DatePicker
-              className="site-calendar-card mt-3 ml-4 h6"
+              className="site-calendar-card mt-2 ml-4 h6"
               placeholder="From date"
-              locale= "en_GB"    
               format= "DD/MM/YYYY"          
-              onChange= {(date,dateString) => console.log(date,dateString)}
+              onChange= {(date,dateString) => setFromDate(date)}
              /> 
              <DatePicker
-              className="site-calendar-card mt-3 ml-4 h6"
-              placeholder="To date" 
-              locale= "en_GB"  
+              className="site-calendar-card mt-2 ml-4 h6"
+              placeholder="To date"              
               format= "DD/MM/YYYY"  
-              onChange= {(date,dateString) => console.log(date,dateString)}
+              onChange= {(date,dateString) => setToDate(date)}
              /> 
              </div>
              <br />
              {timeslots && timeslots.map( (t, index) => (
-              <div className= "col  font-weight-bold d-flex justify-content-center mt-2 "
+              <div className= "col  font-weight-bold d-flex justify-content-center mt-1 "
                    key= {t._id}>
                 <button className=  { !clicked.includes(index) ? "btn btn-primary" : "btn btn-danger"}
                         value= {t.startSlot}

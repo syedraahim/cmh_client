@@ -34,6 +34,8 @@ import TimeslotCreate from "./admin/Timeslot/TimeslotCreate";
 import TimeslotList from "./admin/Timeslot/TimeSlotList";
 import TimeslotEdit from "./admin/Timeslot/TimeslotEdit";
 import TimeslotDelete from "./admin/Timeslot/TimeslotDelete";
+import AreaLoad from "./admin/Area/AreaLoad";
+import ListAreas from "./admin/Area/ListAreas";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -175,6 +177,9 @@ const App = () => {
               <AdminRoute path= "/admin/timeslot/listslots" exact component= {TimeslotList} /> 
               <AdminRoute path= "/admin/timeslot/editslot/:id" exact component= {TimeslotEdit} />
               <AdminRoute path= "/admin/timeslot/deleteslot/:id" exact component= {TimeslotDelete} />
+
+              <AdminRoute path="/admin/areas/addareas" exact component={AreaLoad} />
+              <AdminRoute path="/admin/areas/listareas" exact component={ListAreas} />
             </>
             :
             <>

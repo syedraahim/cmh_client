@@ -33,6 +33,9 @@ const AdminNav = () => {
         <li className= "nav-item mb-3" >
           <Link to="/admin/timeslot/listslots">MANAGE TIMESLOTS</Link>
         </li>
+        <li className= "nav-item mb-3" >
+          <Link to="/admin/areas/listareas">UPLOAD AREAS</Link>
+        </li>
      </ul>
     </nav>
   )
