@@ -47,7 +47,7 @@ const MainBody = () => {
                     </Link> 
                     </Col>     
                  <Col span={10}
-                      className= "btn btn-raised font-weight-bold mt-4">
+                      className= "btn btn-raised font-weight-bold mt-2">
                  <ListSubcategories 
                         categoryValue = {categoryval._id} />  
                 </Col>  
@@ -82,7 +82,7 @@ const MainBody = () => {
   
    <section className ="testimonial-section">
   <Row align="middle">
-   <Col span={24} className= "jumbotron-fluid font-weight-bold h1 text-danger mb-3 d-flex justify-content-center">
+   <Col span={24} className= "jumbotron-fluid font-weight-bold h1 text-danger mb-1 d-flex justify-content-center">
           <Jumbotron
              text= {["We will find the best helper for your needs",
                      "Compare the price to find the most affordable helper",

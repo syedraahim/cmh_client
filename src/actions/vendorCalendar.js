@@ -11,6 +11,7 @@ export const addVendorCalendar =  async (id, formvalues, authtoken) =>  {
 
   
 export const fetchVendorCalendar =  async (id) =>  {
-  return await axios.get(`http://localhost:5000/api/vendorcalendar/${id}`);  
-  console.log("Category values") ;  
+ const res= await axios.get(`http://localhost:5000/api/vendorcalendar/${id}`);  
+  console.log("Vendor Calendar values",res) ;  
+  return res;
  };

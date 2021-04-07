@@ -17,7 +17,7 @@ export const getVendorsByCount = async (count) => {
 
 export const getVendorCategoriesUser = async(userid,page) => {
   console.log("user from actions",userid );
-  return await axios.get(`http://localhost:5000/api/vendors/${userid}`,{page}); 
+  return await axios.get(`http://localhost:5000/api/vendors/user/${userid}`,{page}); 
 }
 
 export const getVendorCategory = async(id) => {

@@ -13,8 +13,7 @@ const VendorNav = () => {
     .then ( res => setVendor(res.data));
   },[]);
 
-  {console.log("FETCH VENDOR INFO",user)}
-  return(
+   return(
     <nav className="navbar mt-2  navlist">
       <ul className= "nav flex-column font-weight-bold mt-2">
       { (vendor) ?
@@ -29,7 +28,7 @@ const VendorNav = () => {
           <Link to= {`/vendor/vendorcatlistuser/${user._id}`} className= "nav-link">CHANGE CATEGORIES</Link>
       </li> 
       <li className= "nav-item">
-          <Link to= {`/vendor/vendorcalcreate/${user._id}`} className= "nav-link">AVAILABILITY CALENDAR</Link>
+          <Link to= {`/vendor/vendorcallist/${user._id}`} className= "nav-link">AVAILABILITY CALENDAR</Link>
       </li>        
         <li className= "nav-item">
           <Link to= "/vendor/password" className= "nav-link">PASSWORD RESET</Link>
