@@ -1,8 +1,16 @@
 import axios from "axios";
 import history from "../history";
 
-export const addVendorCalendar =  async (formvalues, authtoken) =>  {
-    const res = await axios.post("http://localhost:5000/api/vendorcal",formvalues,
+export const addVendorCalendar =  async (id, formvalues, authtoken) =>  {
+  console.log("Before response", formvalues);
+    const res = await axios.post(`http://localhost:5000/api/vendorcalendar/${id}`,formvalues,
     {headers: {authtoken}}); 
-    history.push("/vendor/dashboard");   
+    console.log("RES from Vendor Calendar",res);
+    // history.push("/vendor/dashboard");   
   };
+
+  
+export const fetchVendorCalendar =  async (id) =>  {
+  return await axios.get(`http://localhost:5000/api/vendorcalendar/${id}`);  
+  console.log("Category values") ;  
+ };

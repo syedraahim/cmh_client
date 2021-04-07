@@ -38,8 +38,8 @@ export class PostcodeSearch extends Component {
 
   render() {
     return (
-      <Row gutter={32} >
-        <Col span={10}>
+      <Row gutter={44} >
+        <Col span={6}offset={4}>
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
@@ -85,10 +85,10 @@ export class PostcodeSearch extends Component {
 
           </PlacesAutocomplete>
         </Col>
-        <Col  span={10} >
+        <Col  span={5} offset={2}>
           <GetSubcategories />
         </Col>
-        <Col span={1} offset={1}
+        <Col span={1} offset={3}
           className="h3 mt-2"  >
           <SearchOutlined />
         </Col>

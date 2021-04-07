@@ -1,18 +1,22 @@
 import React, {useState,useEffect} from "react";
+import {useSelector} from "react-redux";
 import CalendarBooking from "../../utils/CalendarBooking";
 import VendorNav from "../../navigation/VendorNav";
-import {DatePicker,TimePicker, Calendar} from "antd";
+import {DatePicker} from "antd";
 import {fetchTimeslots} from "../../../actions/timeslot";
-import { NodeIndexOutlined } from "@ant-design/icons";
+import {addVendorCalendar} from "../../../actions/vendorCalendar";
 import {toast} from "react-toastify";
+import moment from "moment";
 
 const VendorCalendar= () => {
 
+  const {user} = useSelector( state => ({...state}));
   const [fromDate, setFromDate] = useState("");
   const [timeslots, setTimeslots] = useState([]);
   const [toDate, setToDate] = useState("");
   const [clicked, setClicked] = useState([]);
   const [caldata,setCaldata] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect( () => {
     fetchTimeslots().then( res => setTimeslots(res.data));
@@ -24,19 +28,16 @@ const VendorCalendar= () => {
 
   const handleClick= (e,t,index) => {
     e.preventDefault();
-    console.log("E, index",e.target.value, index);
     timeslots && timeslots.map ( (slot,i) => {
       if (clicked.includes(index)) {
         const temp = [...clicked];
         const tempCal= [...caldata];
-        console.log("TEMP1 INDEX",index);
-        // removing the element using splice
+       // removing the element using splice
         temp.splice(temp.indexOf(index),1);
         tempCal.splice(temp.indexOf(index),1);
       // updating the list
         setClicked(temp);
         setCaldata(tempCal);
-        console.log("TEMP2",temp);
         return;
       }
       if (i === index) {        
@@ -48,11 +49,35 @@ const VendorCalendar= () => {
        })
        }
    
-  
-
+ 
   const handleSubmit= (e) => {
     e.preventDefault();
-    console.log("CALDATA",caldata, fromDate, toDate);
+    if (!fromDate || !toDate) {
+      toast.error("Please select the dates");
+    } else {
+      setLoading(true);
+      addVendorCalendar(user._id,{vendorInfoId: user._id, 
+                      availability: [ {start: fromDate,end: toDate,timeslots:caldata }
+                                    ]},user.token)
+      .then ( (res) => {
+                      setLoading(false);
+                      // setFromDate("");
+                      // setToDate("");
+                      // setCaldata([]);
+                      toast.success("Successfully created calendar booking ");
+                     })
+      .catch ( err => {
+                      console.log(err);
+                      setLoading(false);
+                      if(err.response===400) 
+                            toast.error(err.response.data);
+                      else
+                            toast.error(err.response);
+                      })
+      console.log("CALDATA",caldata, fromDate, toDate);
+
+    }
+    
   }
 
   return (
@@ -67,14 +92,20 @@ const VendorCalendar= () => {
             <DatePicker
               className="site-calendar-card mt-2 ml-4 h6"
               placeholder="From date"
+              size= "large"
               format= "DD/MM/YYYY"          
-              onChange= {(date,dateString) => setFromDate(date)}
+              onChange= {(date,dateString) => setFromDate(dateString)}
+              disabledDate= { (current => 
+                    current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
              <DatePicker
               className="site-calendar-card mt-2 ml-4 h6"
-              placeholder="To date"              
+              placeholder="To date" 
+              size="large"             
               format= "DD/MM/YYYY"  
-              onChange= {(date,dateString) => setToDate(date)}
+              onChange= {(date,dateString) => setToDate(dateString)}
+              disabledDate= { (current => 
+                    current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
              </div>
              <br />
@@ -82,7 +113,7 @@ const VendorCalendar= () => {
               <div className= "col  font-weight-bold d-flex justify-content-center mt-1 "
                    key= {t._id}>
                 <button className=  { !clicked.includes(index) ? "btn btn-primary" : "btn btn-danger"}
-                        value= {t.startSlot}
+                        value= {t._id}
                         onClick= {(e) => handleClick(e,t,index)}                        
                 >  
                  {t.startSlot} - {t.endSlot} </button>

@@ -77,7 +77,8 @@ import VendorsInfoList from "./vendor/VendorInfo/VendorsInfoList"
 import VendorCatList from "./admin/Vendors/VendorCatList";
 import VendorCatDelete from "./admin/Vendors/VendorCatDelete";
 import VendorListUser from "./vendor/VendorProducts/VendorListUser";
-import VendorCalendarCreate from "./vendor/VendorCalendar/VendorCalendarCreate"
+import VendorCalendarCreate from "./vendor/VendorCalendar/VendorCalendarCreate";
+import VendorCalendarList from "./vendor/VendorCalendar/VendorCalendarList";
 
 import StripeCallback from "./stripe/StripeCallback";
 import StripeSuccess from "./stripe/StripeSuccess";
@@ -200,6 +201,7 @@ const App = () => {
               <UserRoute path="/vendor/vendorinfocreate" exact component={VendorInfoCreate} />
               <UserRoute path="/vendor/vendorinfoedit/:email" exact component={VendorInfoEdit} />
               <UserRoute path="/vendor/vendorcalcreate/:id" exact component={VendorCalendarCreate} />
+              <UserRoute path="/vendor/vendorcallist/:id" exact component={VendorCalendarList} />
 
               <UserRoute path="/checkout" exact component={Checkout} />
               <UserRoute path="/payment" exact component={Payment} />
@@ -208,7 +210,7 @@ const App = () => {
               <UserRoute path="/stripe/callback" component={StripeCallback} />
               <UserRoute path="/stripesuccess" component={StripeSuccess} />
               <UserRoute path="/stripecancel" component={StripeCancel} />
-              {/* ) */}
+             
               {/* <Footer /> */}
             </>}
           </Switch>

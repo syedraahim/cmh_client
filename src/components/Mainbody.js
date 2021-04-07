@@ -66,7 +66,7 @@ const MainBody = () => {
     ) }    
   
  return (
- <Row>
+ <>
  <section className="feature-class" id="features">
  <Col className= "font-weight-bold mt-2">           
          <PostcodeSearch />
@@ -92,7 +92,7 @@ const MainBody = () => {
   </Row>
    
    </section>
- </Row>
+ </>
   )
 }
 
