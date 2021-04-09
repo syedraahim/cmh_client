@@ -18,12 +18,14 @@ const VendorCalendarList = () => {
       loadVendorCalendar();
    }, []);
 
+  
    const loadVendorCalendar= () => {
     setLoading(true);
     fetchVendorCalendar(user._id)
     .then (res => setVendorCal(res.data));
     setLoading(false);
    }
+   
 
     return (
         <div className= "row">
@@ -35,7 +37,7 @@ const VendorCalendarList = () => {
             <Link to= "/vendor/vendorcalcreate/:user._id" className= "nav-link">Add New Calendar Availability</Link>
          </li>
          { loading ? <h4>Loading....</h4>
-                      :  <h4 className= "font-weight-bold"> Your Current Calendar Availability</h4>
+                      :  <h4 className= "font-weight-bold"> Your Current Bookings</h4>
          }
 
          <div className= "row pb-3">

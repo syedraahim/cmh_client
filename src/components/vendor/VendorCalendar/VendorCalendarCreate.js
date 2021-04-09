@@ -1,11 +1,11 @@
 import React, {useState,useEffect} from "react";
 import {useSelector} from "react-redux";
-import CalendarBooking from "../../utils/CalendarBooking";
 import VendorNav from "../../navigation/VendorNav";
 import {DatePicker} from "antd";
 import {fetchTimeslots} from "../../../actions/timeslot";
-import {addVendorCalendar} from "../../../actions/vendorCalendar";
+import {addVendorCalendar,fetchVendorCalendar} from "../../../actions/vendorCalendar";
 import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
 import moment from "moment";
 
 const VendorCalendar= () => {
@@ -17,13 +17,16 @@ const VendorCalendar= () => {
   const [clicked, setClicked] = useState([]);
   const [caldata,setCaldata] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [calBookings, setCalBookings] = useState([]);
+  
 
   useEffect( () => {
     fetchTimeslots().then( res => setTimeslots(res.data));
   },[]);
 
-  const onChange= (value,mode) => {
-    console.log(value,mode);
+  const loadVendorCalendar= () => {
+    fetchVendorCalendar()
+    .then ( res => setCalBookings(res.data) )
   }
 
   const handleClick= (e,t,index) => {
@@ -56,15 +59,20 @@ const VendorCalendar= () => {
       toast.error("Please select the dates");
     } else {
       setLoading(true);
+    // const newFrom= new Date(moment(fromDate).format('YYYY-MM-DD[T00:00:00.000Z]'));
+    // const newTo= new Date(moment(toDate).format('YYYY-MM-DD[T00:00:00.000Z]'));
+      
       addVendorCalendar(user._id,{vendorInfoId: user._id, 
-                      availability: [ {start: fromDate,end: toDate,timeslots:caldata }
+                      availability: [ {start: fromDate ,
+                                       end: toDate
+                                       ,timeslots:caldata }
                                     ]},user.token)
       .then ( (res) => {
                       setLoading(false);
-                      // setFromDate("");
-                      // setToDate("");
-                      // setCaldata([]);
                       toast.success("Successfully created calendar booking ");
+                      setTimeout( () => {
+                        window.location.reload();
+                      },1000);
                      })
       .catch ( err => {
                       console.log(err);
@@ -85,25 +93,29 @@ const VendorCalendar= () => {
          <div className="col col-md-2 mt-1">
            <VendorNav />
         </div>
-        <div className="col col-md-10 mt-2 ">
-           <h1 className="font-weight-bold">Update your Availability</h1>
+        <div className="col col-md-10">
+           <h2 className="font-weight-bold">Add your Availability</h2>
            <form>
-            <div className= "col d-flex justify-content-center mt-1">
+            <div className= "col d-flex justify-content-center">
             <DatePicker
-              className="site-calendar-card mt-2 ml-4 h6"
+              className="site-calendar-card mt-1 ml-4 h6"
               placeholder="From date"
               size= "large"
-              format= "DD/MM/YYYY"          
-              onChange= {(date,dateString) => setFromDate(dateString)}
+              // format= "DD/MM/YYYY"          
+              onChange= {(date,dateString) => 
+                        setFromDate(dateString)
+                       }
               disabledDate= { (current => 
                     current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
              <DatePicker
-              className="site-calendar-card mt-2 ml-4 h6"
+              className="site-calendar-card mt-1 ml-4 h6"
               placeholder="To date" 
               size="large"             
-              format= "DD/MM/YYYY"  
-              onChange= {(date,dateString) => setToDate(dateString)}
+              // format= "DD/MM/YYYY"  
+              onChange= {(date,dateString) => 
+                          setToDate(dateString)
+                          }
               disabledDate= { (current => 
                     current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
@@ -121,9 +133,16 @@ const VendorCalendar= () => {
              ))
              }
           
-            <div className= "col col-md-12 d-flex justify-content-center mt-3">
-              <button className="btn btn-secondary font-weight-bold"
-                      onClick= {handleSubmit}> Submit your Availability Slots</button>
+            <div className= "row  mt-3">
+              <div className= "col col-md-6 d-flex justify-content-end" >
+               <button className="btn btn-secondary font-weight-bold"
+                      onClick= {handleSubmit}> Submit your Availability</button>
+               </div>
+            
+            <div className= "col col-md-6 d-flex justify-content-start">
+              <Link to= {`/vendor/vendorcallist/${user._id}`}
+               type="button" className= "btn btn-secondary font-weight-bold">Back</Link>
+            </div>
             </div>
             </form>
         </div>

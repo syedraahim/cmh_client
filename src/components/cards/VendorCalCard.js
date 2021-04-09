@@ -7,13 +7,18 @@ import moment from "moment";
 const {Meta} = Card;
 
 const VendorCalCard = ({cal}) => {
-   const start= moment(cal.availability[0].start).format('DD/MM/YYYY');
-   const end= moment(cal.availability[0].end).format('DD/MM/YYYY');
+
+      const start = new Date(cal.availability[0].start).toLocaleDateString();
+      const end = new Date(cal.availability[0].end).toLocaleDateString();
    
   return (
-      <Card>
-        <b className= "mb-2">From: {start}   To : {end}  </b>
-        
+      <Card 
+       actions= {[ <Link to= {`/admin/vendors/vendorcaledit/${cal._id}`}>
+                      <EditOutlined  className= "text-warning" />
+                      </Link>                   
+                 ]} 
+      >        
+        <b className= "mb-2">From: {start}   To : {end}  </b>        
         {cal.availability[0].timeslots && cal.availability[0].timeslots.map ( (ts) => (
             <p key= {ts._id} className= "bg-info font-weight-bold ">{ts.startSlot}-{ts.endSlot}</p>
         )
