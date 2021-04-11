@@ -13,7 +13,7 @@ const VendorCalCard = ({cal}) => {
    
   return (
       <Card 
-       actions= {[ <Link to= {`/admin/vendors/vendorcaledit/${cal._id}`}>
+       actions= {[ <Link to= {`/vendor/vendorcaledit/${cal._id}`}>
                       <EditOutlined  className= "text-warning" />
                       </Link>                   
                  ]} 

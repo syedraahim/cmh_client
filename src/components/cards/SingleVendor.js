@@ -20,12 +20,11 @@ const SingleVendor= ({vendor, onRatingClick, rating}) => {
 
   const dispatch= useDispatch();
    
-  console.log("Rating from single vendor",{rating});
-
     const {_id,vendorInfoId, images} = vendor;
 
     const handleAddToCart= () => {
-      let cart = [];
+
+       let cart = [];
       //check if the cart already has an item
       if ( typeof window !== "undefined") {
         if (localStorage.getItem("cart")) {

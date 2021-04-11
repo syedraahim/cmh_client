@@ -5,23 +5,59 @@ import {DatePicker} from "antd";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {fetchTimeslots} from "../../../actions/timeslot";
+import {readVendorCalendar} from "../../../actions/vendorCalendar";
 
-const VendorCalendarEdit= () => {
+const VendorCalendarEdit= ({match}) => {
 
 const {user} = useSelector( (state) => ({...state}));
 const [fromDate, setFromDate] = useState("");
+const [caldata, setCaldata] = useState([]);
 const [toDate, setToDate] = useState("");
 const [timeslots, setTimeslots] = useState([]);
+const [currentSlots, setCurrentSlots] = useState([]);
+
 const [clicked, setClicked] = useState([]);
 const [loading,setLoading] = useState("false");
 
-useEffect( () => {
+useEffect( () => {    
     fetchTimeslots().then( res => setTimeslots(res.data));
 },[]);
 
-const handleClick= () => {
+useEffect( () => {
+   readVendorCalendar(match.params.id)
+   .then ( (res) => {
+        console.log(res.data.availability[0].start);
+        setFromDate(res.data.availability[0].start)
+        setToDate (res.data.availability[0].end)
+        setCurrentSlots(res.data.availability[0].timeslots)
+   });  
+},[]);
 
-}
+console.log("Current slots",  currentSlots);
+
+
+const handleClick= (e,t,index) => {
+    e.preventDefault();
+    timeslots && timeslots.map ( (slot,i) => {
+      if (clicked.includes(index)) {
+        const temp = [...clicked];
+        const tempCal= [...caldata];
+       // removing the element using splice
+        temp.splice(temp.indexOf(index),1);
+        tempCal.splice(temp.indexOf(index),1);
+      // updating the list
+        setClicked(temp);
+        setCaldata(tempCal);
+        return;
+      }
+      if (i === index) {        
+        setClicked(prevArray => [...prevArray, i]);
+        setCaldata(prevArray => [...prevArray, e.target.value]);                 
+      } else {
+        return slot
+      }
+       })
+       }
 
 const handleSubmit= () => {
 
@@ -36,44 +72,56 @@ const handleSubmit= () => {
         <h2 className="font-weight-bold">Update your Availability</h2>
         <form>
             <div className= "col d-flex justify-content-center">
-            <DatePicker
-              className="site-calendar-card mt-1 ml-4 h6"
+            { fromDate && <DatePicker
+              className="site-calendar-card  ml-4 h6"
               placeholder="From date"
               size= "large"   
-              value= {fromDate}              
+              defaultValue= {moment(fromDate, "YYYY-MM-DD")}              
               onChange= {(date,dateString) => 
                         setFromDate(dateString)
                        }
               disabledDate= { (current => 
                     current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
-             <DatePicker
-              className="site-calendar-card mt-1 ml-4 h6"
+            }
+            { toDate && <DatePicker
+              className="site-calendar-card  ml-4 h6"
               placeholder="To date" 
               size="large"   
-              value= {toDate}          
-              // format= "DD/MM/YYYY"  
+              defaultValue= {moment(toDate, "YYYY-MM-DD")}       
               onChange= {(date,dateString) => 
                           setToDate(dateString)
                           }
               disabledDate= { (current => 
                     current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
+            }
              </div>
              <br />
-             {timeslots && timeslots.map( (t, index) => (
+             {/* {JSON.stringify(currentSlots)} */}
+              {/* {currentSlots && currentSlots.map( (sl) => ( */}
+              {/* <div key= {sl._id}>     */}
+                {timeslots && timeslots.map( (t, index) => (
               <div className= "col  font-weight-bold d-flex justify-content-center mt-1 "
-                   key= {t._id}>
-                <button className=  { !clicked.includes(index) ? "btn btn-primary" : "btn btn-danger"}
+                   key= {t._id}>                         
+                        
+                 {/* {sl._id === t._id ? setClicked=== index : setClicked=== null} */}
+                 <button className=  { !clicked.includes(index) ? "btn btn-primary" : "btn btn-danger"}
                         value= {t._id}
+                       
                         onClick= {(e) => handleClick(e,t,index)}                        
                 >  
-                 {t.startSlot} - {t.endSlot} </button>
+                   {t.startSlot} - {t.endSlot} </button>          
+                           
               </div>
              ))
              }
+             {/* </div> */}
+              )
+              
+             {/* )}  */}
           
-            <div className= "row  mt-3">
+            <div className= "row ">
               <div className= "col col-md-6 d-flex justify-content-end" >
                <button className="btn btn-secondary font-weight-bold"
                       onClick= {handleSubmit}> Submit your Availability</button>

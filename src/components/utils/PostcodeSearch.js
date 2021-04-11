@@ -22,11 +22,11 @@ export class PostcodeSearch extends Component {
     geocodeByAddress(address)
       .then(results => {
         getLatLng(results[0])
-        .then(latLng => {
-          console.log('Success', latLng);
-          this.setState({ address })
-          console.log("Results", results);
-        })
+          .then(latLng => {
+            console.log('Success', latLng);
+            this.setState({ address })
+            console.log("Results", results);
+          })
       })
       .catch(error => console.error('Error', error));
   };
@@ -38,8 +38,8 @@ export class PostcodeSearch extends Component {
 
   render() {
     return (
-      <Row gutter={44} >
-        <Col span={6}offset={4}>
+      <Row>
+        <Col span={6} offset={3}>
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
@@ -85,11 +85,12 @@ export class PostcodeSearch extends Component {
 
           </PlacesAutocomplete>
         </Col>
-        <Col  span={5} offset={2}>
+        <Col span={6} offset={1} >
           <GetSubcategories />
         </Col>
-        <Col span={1} offset={3}
-          className="h3 mt-2"  >
+
+        <Col span={2} offset={1}
+          className="h3 mt-3" style={{marginLeft : '90px'}}  >
           <SearchOutlined />
         </Col>
       </Row>

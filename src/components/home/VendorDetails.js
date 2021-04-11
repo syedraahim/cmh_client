@@ -62,7 +62,7 @@ const VendorDetails= ({match}) => {
                                  /> 
         }          
        </div>  
-       <div clasName="row">
+       <div className="row">
         <div className= "col pt-5 pb-5">
          <hr />
           <h4>Other Vendors in your area</h4>

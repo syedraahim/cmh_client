@@ -45,7 +45,7 @@ const logout = () => {
 <header>
 <section className="header-section" id="title">
   <div className="container-fluid">
-    <nav className="navbar navbar-expand-lg navbar-dark">
+     <nav className="navbar navbar-expand-lg navbar-dark"> 
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -61,8 +61,8 @@ const logout = () => {
           <li className="nav-item">
             <a className="nav-link font-weight-bold" href="/download">Download</a>
           </li>
-        </ul>        
-      </div>
+        </ul>      
+      </div>  
 
       <Menu onClick={handleClick} selectedKeys={[current]} 
                                   mode="horizontal"
@@ -138,7 +138,7 @@ const logout = () => {
       </Menu>
             
       
-    </nav>
+     </nav> 
 
     <div className="row">
       <div className="pull-left col-sm-12">
