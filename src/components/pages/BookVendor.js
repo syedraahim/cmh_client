@@ -1,40 +1,69 @@
 import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
-import { vendorCheck } from "../../../../server/middlewares/auth";
-import {fetchTimeslots} from "../../../actions/timeslots";
-import {fetchVendorCalendar} from "../../../actions/vendorCalendar";
+import {fetchTimeslots} from "../../actions/timeslot";
+import {fetchVendorCalendar, fetchVendorCalendarVend} from "../../actions/vendorCalendar";
+import SelectCalendar from "../utils/SelectCalendar";
 
-const BookVendor = () => {
+const BookVendor = ({match}) => {
 
     const [timeslots, setTimeslots] = useState([]);
-    const [vendorcal, setVendorCal] = useState([]);
+    const [vendorCal, setVendorCal] = useState([]);
     const [loading, setLoading] = useState(false);
+    {console.log ("MATCH",match.params)}
 
-    useState( () => {
+    useEffect( () => {
+        setLoading(true);
         fetchTimeslots()
         .then ( (res) => setTimeslots(res.data));
+        setLoading(false);
     },[]);
     
-    useState( () => {
-       fetchVendorCalendar()
+    useEffect( () => {
+       setLoading(true);
+       fetchVendorCalendarVend(match.params.id)
        .then ( (res) => setVendorCal(res.data));
+       setLoading(false);
     },[]);
-    
-    return (
-       
-       <div className= "row">
-         <h1>Check Vendor Availability</h1>
-         <div className= "col col-md-12">
-           
-         { vendorCal && vendorCal.map ( (vc) => (
-              <div key= {vc._id}>
-                  <p>vc.availability.start</p>                  
-              </div>
-         ))
-         }
 
+
+    {console.log("VENDORCAL",vendorCal)}
+    const renderList = () => (
+         vendorCal && vendorCal.map ( vc => {
+         return (
+               <div className= "row" key= {vc._id}>
+                 <div className= "col col-md-3">
+                    {vc.availability[0].start}   
+                 </div>
+                 <div className= "col col-md-3">
+                    {vc.availability[0].end}   
+                 </div>
+                  <p>{vc.availability.endSlot}</p>                     
+              </div>
+            )
+         }
+         )         
+    )
+
+       
+    return (
+      <div className= "container-fluid category-center">
+       <div className= "row d-flex justify-content-center mb-2">
+        { loading ? <h2>Loading....</h2>
+                  : <h6 className= "font-weight-bold ">Select a date to Check Vendor Availability</h6>
+        }
+        
+         <div className= "row">
+          <div className= "col col-md-12 mt-2">
+          <form>
+
+            <SelectCalendar /> 
+           {/* {renderList()}  */}
+           </form>
+            
+         </div>
          </div>
 
+       </div>
        </div>
 
     )

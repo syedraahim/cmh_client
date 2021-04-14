@@ -16,7 +16,7 @@ const GetSubcategories= () => {
     <select 
          name= "subcategory"   
          className= "form-control mt-3 mb-3 ml-4 font-weight-bold h6"
-         style={{width:"500px", height:"50px"}}         
+         style={{height:"50px"}}         
          onChange= { subcategory => setSubcategory(subcategory)}
      > 
     <option value="">Select a Sub Category</option>                  

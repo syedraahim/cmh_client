@@ -38,8 +38,8 @@ export class PostcodeSearch extends Component {
 
   render() {
     return (
-      <Row>
-        <Col span={6} offset={3}>
+      <Row justify="center">
+        <Col span={5} >
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
@@ -48,12 +48,11 @@ export class PostcodeSearch extends Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
               <Col>
-
                 <input
                   {...getInputProps({
                     placeholder: 'Search a Location ...',
                     className: 'location-search-input mt-3 mb-3 font-weight-bold h6',
-                    style: { height: "50px", width: "500px" }
+                    style: { height:"50px" }
                   })}
                 />
                 <Col span={32} className="autocomplete-dropdown-container">
@@ -85,11 +84,11 @@ export class PostcodeSearch extends Component {
 
           </PlacesAutocomplete>
         </Col>
-        <Col span={6} offset={1} >
+        <Col span={5}  >
           <GetSubcategories />
         </Col>
 
-        <Col span={2} offset={1}
+        <Col span={1} 
           className="h3 mt-3" style={{marginLeft : '90px'}}  >
           <SearchOutlined />
         </Col>

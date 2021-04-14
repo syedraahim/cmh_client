@@ -44,6 +44,7 @@ import Cart from "./Cart";
 import SideDrawer from "./drawer/SideDrawer";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
+import BookVendor from "./pages/BookVendor";
 // home page
 import VendorDetails from "./home/VendorDetails";
 import GetVendorsSubcat from "./home/GetVendorsSubcat";
@@ -207,6 +208,7 @@ const App = () => {
 
               <UserRoute path="/checkout" exact component={Checkout} />
               <UserRoute path="/payment" exact component={Payment} />
+              <UserRoute path="/bookvendor/:id" exact component={BookVendor} />
 
               {/* Route for vendor stripe callback */}
               <UserRoute path="/stripe/callback" component={StripeCallback} />

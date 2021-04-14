@@ -26,7 +26,7 @@ const VendorCalendarList = () => {
     setLoading(false);
    }
    
-
+  
     return (
         <div className= "row">
          <div className= "col col-md-2">

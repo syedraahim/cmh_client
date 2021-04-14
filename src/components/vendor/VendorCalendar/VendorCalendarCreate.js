@@ -62,14 +62,14 @@ const VendorCalendar= () => {
     // const newFrom= new Date(moment(fromDate).format('YYYY-MM-DD[T00:00:00.000Z]'));
     // const newTo= new Date(moment(toDate).format('YYYY-MM-DD[T00:00:00.000Z]'));
       
-      addVendorCalendar(user._id,{vendorInfoId: user._id, 
+      addVendorCalendar(user._id,{vendorInfoId: user._id,                      
                       availability: [ {start: fromDate ,
                                        end: toDate
                                        ,timeslots:caldata }
                                     ]},user.token)
       .then ( (res) => {
                       setLoading(false);
-                      toast.success("Successfully created calendar booking ");
+                      toast.success("Successfully created calendar booking");
                       setTimeout( () => {
                         window.location.reload();
                       },1000);
@@ -122,7 +122,7 @@ const VendorCalendar= () => {
              </div>
              <br />
              {timeslots && timeslots.map( (t, index) => (
-              <div className= "col  font-weight-bold d-flex justify-content-center mt-1 "
+              <div className= "font-weight-bold "
                    key= {t._id}>
                 <button className=  { !clicked.includes(index) ? "btn btn-primary" : "btn btn-danger"}
                         value= {t._id}

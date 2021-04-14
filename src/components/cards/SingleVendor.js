@@ -10,6 +10,7 @@ import StarRatings from  "react-star-ratings";
 import StarRatingModal from "../Modal/StarRatingModal";
 import {showAverageRating} from "../../actions/rating";
 import _ from "lodash";
+import BookVendor from "../pages/BookVendor";
 
 const {TabPane} = Tabs;
 
@@ -22,33 +23,39 @@ const SingleVendor= ({vendor, onRatingClick, rating}) => {
    
     const {_id,vendorInfoId, images} = vendor;
 
-    const handleAddToCart= () => {
+    {console.log("vendor from single vendor XXXX",vendor)}
 
-       let cart = [];
-      //check if the cart already has an item
-      if ( typeof window !== "undefined") {
-        if (localStorage.getItem("cart")) {
-          cart= JSON.parse(localStorage.getItem("cart"))
-        }
-        cart.push({
-          ...vendor,
-          count: 1
-        })
-        let unique=_.uniqWith(cart,_.isEqual);
-        console.log(unique);
-        localStorage.setItem("cart",JSON.stringify(unique));
-        setTooltip("Added");
+    const handleAddToCart= ({vendor}) => {
 
-        //add to redux store
-        dispatch({
-          type: "ADD_TO_CART",
-          payload:unique
-        });
-        dispatch({
-          type: "SET_VISIBLE",
-          payload:true
-        });
-      }
+      <BookVendor
+          vendor= {vendor}
+       />
+
+      //  let cart = [];
+      // //check if the cart already has an item
+      // if ( typeof window !== "undefined") {
+      //   if (localStorage.getItem("cart")) {
+      //     cart= JSON.parse(localStorage.getItem("cart"))
+      //   }
+      //   cart.push({
+      //     ...vendor,
+      //     count: 1
+      //   })
+      //   let unique=_.uniqWith(cart,_.isEqual);
+      //   console.log(unique);
+      //   localStorage.setItem("cart",JSON.stringify(unique));
+      //   setTooltip("Added");
+
+      //   //add to redux store
+      //   dispatch({
+      //     type: "ADD_TO_CART",
+      //     payload:unique
+      //   });
+      //   dispatch({
+      //     type: "SET_VISIBLE",
+      //     payload:true
+      //   });
+      // }
     } 
     return (
         <div className="row">
@@ -71,11 +78,14 @@ const SingleVendor= ({vendor, onRatingClick, rating}) => {
             }
              <Card
               actions= {[
-                    <Tooltip title= {tooltip}>
-                     <a onClick= {handleAddToCart}>
-                      <ShoppingCartOutlined  className= "text-info" /><br />Select Vendor
-                      </a>
-                    </Tooltip>,
+                    // <Tooltip title= {tooltip}>
+                    //  <a onClick= {handleAddToCart}>
+                    //   <ShoppingCartOutlined  className= "text-info" /><br />Select Vendor
+                    //   </a>
+                    // </Tooltip>,
+                    <Link to= {`/bookvendor/${_id}`} >
+                       <ShoppingCartOutlined  className= "text-info" /><br />Select Vendor
+                    </Link>,
                      <Link to= {`/vendor/vendorcatdelete/${_id}`}>
                       <HeartOutlined  className= "text-danger" /><br />Add to Wishlist
                       </Link>,
