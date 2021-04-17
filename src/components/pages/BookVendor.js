@@ -9,8 +9,7 @@ const BookVendor = ({match}) => {
     const [timeslots, setTimeslots] = useState([]);
     const [vendorCal, setVendorCal] = useState([]);
     const [loading, setLoading] = useState(false);
-    {console.log ("MATCH",match.params)}
-
+    {console.log("MATCH", match.params.id)}
     useEffect( () => {
         setLoading(true);
         fetchTimeslots()
@@ -56,7 +55,8 @@ const BookVendor = ({match}) => {
           <div className= "col col-md-12 mt-2">
           <form>
 
-            <SelectCalendar /> 
+            <SelectCalendar 
+              vendor= {match.params.id} /> 
            {/* {renderList()}  */}
            </form>
             

@@ -52,7 +52,7 @@ export class PostcodeSearch extends Component {
                   {...getInputProps({
                     placeholder: 'Search a Location ...',
                     className: 'location-search-input mt-3 mb-3 font-weight-bold h6',
-                    style: { height:"50px" }
+                    style: { height:"50px", width:"100%" }
                   })}
                 />
                 <Col span={32} className="autocomplete-dropdown-container">
@@ -89,7 +89,7 @@ export class PostcodeSearch extends Component {
         </Col>
 
         <Col span={1} 
-          className="h3 mt-3" style={{marginLeft : '90px'}}  >
+          className="h3 mt-3" style={{marginLeft : '50px'}}  >
           <SearchOutlined />
         </Col>
       </Row>

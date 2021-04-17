@@ -45,6 +45,7 @@ import SideDrawer from "./drawer/SideDrawer";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import BookVendor from "./pages/BookVendor";
+import SelectTimeslot from "./utils/SelectTimeslot";
 // home page
 import VendorDetails from "./home/VendorDetails";
 import GetVendorsSubcat from "./home/GetVendorsSubcat";
@@ -209,6 +210,7 @@ const App = () => {
               <UserRoute path="/checkout" exact component={Checkout} />
               <UserRoute path="/payment" exact component={Payment} />
               <UserRoute path="/bookvendor/:id" exact component={BookVendor} />
+              <UserRoute path="/selectslot/:vendor/:selectedvalue" exact component={SelectTimeslot} />
 
               {/* Route for vendor stripe callback */}
               <UserRoute path="/stripe/callback" component={StripeCallback} />
