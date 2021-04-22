@@ -11,6 +11,8 @@ import userReducer from "./userReducer";
 import cartReducer from "./cartReducer";
 import { serachReducer } from "./searchReducer";
 import drawerReducer from "./drawerReducer";
+import dayReducer from "./dayReducer";
+import timeslotReducer from "./timeslotReducer";
 
 export default combineReducers(
                { alert: alertReducer,
@@ -24,5 +26,7 @@ export default combineReducers(
                 subcategories: subcategoryReducer,
                 util: utilReducer,
                 questions: questionReducer,
-                subquestion: subcatQuestionReducer
+                subquestion: subcatQuestionReducer,
+                dayval: dayReducer,
+                timeslotsval: timeslotReducer
                });

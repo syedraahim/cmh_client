@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {fetchTimeslots} from "../../actions/timeslot";
 import {fetchVendorCalendar, fetchVendorCalendarVend} from "../../actions/vendorCalendar";
-import SelectCalendar from "../utils/SelectCalendar";
+import SelectCalendar from "../booking/SelectCalendar";
 
 const BookVendor = ({match}) => {
 

@@ -45,7 +45,7 @@ import SideDrawer from "./drawer/SideDrawer";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import BookVendor from "./pages/BookVendor";
-import SelectTimeslot from "./utils/SelectTimeslot";
+import SelectTimeslot from "./booking/SelectTimeslot";
 // home page
 import VendorDetails from "./home/VendorDetails";
 import GetVendorsSubcat from "./home/GetVendorsSubcat";
