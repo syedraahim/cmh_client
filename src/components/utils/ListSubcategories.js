@@ -11,7 +11,6 @@ const ListSubcategories = (props) =>
  },[]);
 
 
-    
    const renderSubcategories= () => {        
     return(
       subcat.map( subcategoryval => {

@@ -58,12 +58,12 @@ const RenderTimeslot = ({timeslotval,index,day,isDate}) => {
       dispatch({
             type: "SELECTED_TIMESLOT",
              payload:{ 
-                 tsdayval:dayval,
-                 timeslotsval:unique
+                 tsday:day,
+                 tstimeslot:unique
              }
           });         
            
-      console.log("redux store val", timeslotval, dayval);     
+       console.log("redux store val", dayval.dayval, timeslotsval);     
      } 
      
      const disableButtons= (timeslots,key) => {
@@ -78,12 +78,12 @@ const RenderTimeslot = ({timeslotval,index,day,isDate}) => {
              <div>                  
               <button className= "btn btn-primary btn-sm font-weight-bold"
                       key={timeslotval._id}
-                      className=  { !color && !isDate ? "btn btn-secondary mb-1" : "btn btn-danger mb-1"}
+                      className=  { timeslotval.tsday==dayval.dayval
+                                    && timeslotsval.timeslotsval.some(slot => {return slot._id == timeslotval._id})
+                                    ?  "btn btn-danger" :  "btn btn-primary"}
                        value= {timeslotval._id}
                         onClick= {(e) => handleClick(e,timeslotval,index,day)} 
-                        disabled = { dayval.length > 0 && 
-                                   (!(day) == dayval ? false : true)}
-                      >
+                                             >
                     {timeslotval.startSlot}-{timeslotval.endSlot}
                     
                </button>

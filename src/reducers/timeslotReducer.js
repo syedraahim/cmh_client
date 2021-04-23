@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 let initialState= {
     timeslotsval: []
 };
@@ -5,10 +7,14 @@ let initialState= {
 const timeslotReducer = ( state= initialState, action) => {
    switch(action.type) {
     case "SELECTED_TIMESLOT":
-         console.log(state.timeslotsval,action.payload)
+         let temp= state.timeslotsval;
+         let unique=_.uniqWith(temp,_.isEqual); 
+         unique.push(action.payload);
+         let a= unique.filter(timeslot => timeslot.tsday === action.payload.tsday)  
+         console.log("Value of A",a);
          return {
               ...state,
-              timeslotsval: [...state.timeslotsval,action.payload.timeslotsval]            
+              timeslotsval: a           
          }   
     default:
         return state;

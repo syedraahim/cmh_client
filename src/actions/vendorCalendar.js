@@ -21,6 +21,12 @@ export const fetchVendorCalendar =  async (userid) =>  {
    console.log("Vendor Calendar by vendor values",res) ;  
    return res;
   };
+
+  export const fetchVendorCalendarDate= async (vendorid, start,end) => {
+    const res= await axios.get(`http://localhost:5000/api/vendorcalendar/vendor/date/${vendorid}/${start}/${end}`);
+    console.log("Vendor calendar by date range",res);
+    return res;
+  }
  
 
  export const readVendorCalendar =  async (id) =>  {

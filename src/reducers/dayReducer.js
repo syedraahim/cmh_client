@@ -1,11 +1,9 @@
-let initialState= {
-    dayval: ""   
-};
-
+let initialState= "";
+ 
 const dayReducer = ( state= initialState, action) => {
    switch(action.type) {
     case "SELECTED_DAY" :
-        return {dayval: action.payload };       
+        return action.payload;       
      default:
         return state;
    }

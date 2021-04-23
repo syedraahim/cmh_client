@@ -46,7 +46,7 @@ const MainBody = () => {
                        {categoryval.name}
                     </Link> 
                     </Col>     
-                 <Col span={10}
+                 <Col span={12}
                       className= "btn btn-raised font-weight-bold mt-2">
                  <ListSubcategories 
                         categoryValue = {categoryval._id} />  

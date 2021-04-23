@@ -108,7 +108,9 @@ const handleSubmit= () => {
                         {console.log(t,!currentSlots.some(slot => {return slot._id == t._id}),'t')}
                         {}
                  {/* {sl._id === t._id ? setClicked=== index : setClicked=== null} */}
-                 <button className=  { currentSlots.some(slot => {return slot._id == t._id}) ? "btn btn-secondary" : !clicked.includes(index)  ?  "btn btn-primary" :  "btn btn-danger"}
+                 <button className=  { currentSlots.some(slot => {return slot._id == t._id})
+                                       ? "btn btn-secondary" : !clicked.includes(index) 
+                                       ?  "btn btn-primary" :  "btn btn-danger"}
                         value= {t._id}
                        disabled = {currentSlots.some(slot => {return slot._id == t._id})}
                         onClick= {(e) => handleClick(e,t,index)}                        

@@ -6,18 +6,23 @@ import {fetchTimeslots} from "../../actions/timeslot";
 import moment from "moment";
 import RenderTimeslot from "./RenderTimeslot";
 import _ from "lodash";
+import { fetchVendorCalendarDate } from "../../actions/vendorCalendar";
 
 const SelectTimeslot = ({match}) => {
 
-   {console.log("Selected Date", match.params.vendor, match.params.selectedvalue)}
+   {console.log("Selected Date XXXX", match.params.vendor, match.params.selectedvalue)}
 
     const [ timeslots, setTimeslots] = useState([]);
+    const [currentslots,setCurrentslots] = useState([]);
     const [loading, setLoading] = useState(false);
     const [clicked, setClicked] = useState([]);
     const [caldata,setCaldata] = useState("");
    
     const days= [];
     const dispatch = useDispatch();
+    let noOfDays= 6;
+    let startDate= match.params.selectedvalue;
+    let endDate= moment(match.params.selectedvalue).add(noOfDays, 'days'); 
 
     useEffect( () => {
         setLoading(true);
@@ -25,9 +30,17 @@ const SelectTimeslot = ({match}) => {
         setLoading(false);
     },[]);
 
+    useEffect( () => {
+       setLoading(true);
+       fetchVendorCalendarDate(match.params.vendor,match.params.selectedvalue,endDate)
+       .then( res => setCurrentslots(res.data));
+    },[]);
+
+    {console.log("Current timeslots YYY", currentslots)}
+
     const fetchDates= () => {
-       for (let i=0; i< 6; i++) {
-         days.push( moment(match.params.selectedvalue).add(i, 'days').format('DD/MM/YYYY') )
+       for (let i=0; i< noOfDays; i++) {
+         days.push( moment(match.params.selectedvalue).add(i, 'days').format('DD/MM/YYYY'));
        }
     };
 
@@ -74,13 +87,14 @@ const SelectTimeslot = ({match}) => {
       {days && days.map ( day => (
        <div className= "col col-md-2 d-flex justify-content-center" key={day}>
         <Card   title= {day} >
-         {timeslots && timeslots.map ( (timeslot,index) => ( 
+         {timeslots && timeslots.map ( (timeslot,index) => (
             <RenderTimeslot 
               timeslotval= {timeslot}
               index={index}
               key={index}
-              day={day}             
-            />  
+              day={day}  
+              disabled = {currentslots.some(slot => {return (slot._id == timeslot._id && slot.availability.start== day)})}                       
+            />            
          ))
          }
         </Card>
