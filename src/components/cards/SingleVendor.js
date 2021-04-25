@@ -17,7 +17,7 @@ const {TabPane} = Tabs;
 const SingleVendor= ({vendor, onRatingClick, rating}) => {
 
   const {user, cart} = useSelector((state) => ({...state}));
-  const [tooltip, setTooltip] = useState('Click to add');
+
 
   const dispatch= useDispatch();
    

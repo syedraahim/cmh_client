@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const SearchBar = ({keyword, setKeyword}) =>
+const SearchBar = ({keyword,setKeyword}) =>
 {
 
   const handleSearch = (e) => {

@@ -34,3 +34,10 @@ export const fetchVendorCalendar =  async (userid) =>  {
    console.log("Vendor Calendar values",res) ;  
    return res;
   };
+
+  export const editVendorCalendar = async (userid, formValues, authtoken)  => {
+    const res= await axios.put(`http://localhost:5000/api/vendorcalendar/${userid}`,formValues,
+     {headers: {authtoken }});
+     console.log("Response from edit",res);
+    // history.push("/admin/categories/categorieslist"); 
+ }; 

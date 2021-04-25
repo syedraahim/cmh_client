@@ -15,6 +15,7 @@ const SelectCalendar= ({vendor}) => {
         setSelectedValue(value); 
         <SelectTimeslot 
           selectedValue= {value}
+          vendor= {vendor}
         />             
       }
     const onPanelChange = value => {
