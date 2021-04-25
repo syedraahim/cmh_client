@@ -5,10 +5,10 @@ const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0
 export default (email) =>
 {
  if( re.test(email)) {
-     return  true;
+     return true;
    } else {    
     return false;
-    }   
+ }   
   }
  
 

@@ -5,7 +5,7 @@ import {fetchTimeslots} from "../../actions/timeslot";
 import moment from "moment";
 import _ from "lodash";
 
-const RenderTimeslot = ({timeslotval,index,day,isDate}) => {  
+const RenderTimeslot = ({timeslotval,index,day,currentslots}) => {  
 
      const {dayval} = useSelector( (state) => ({...state}));
      const {timeslotsval}= useSelector( (state) => ({...state}));
@@ -14,7 +14,9 @@ const RenderTimeslot = ({timeslotval,index,day,isDate}) => {
     
     const dispatch= useDispatch();
     const timeslots= [];
-      
+
+     {console.log("Current slots ZZZ", currentslots,timeslotval,index,day)}
+
     const handleClick= (e,timeslotval,index,day) => {
       e.preventDefault();
       setColor(!color); 
@@ -73,14 +75,17 @@ const RenderTimeslot = ({timeslotval,index,day,isDate}) => {
           return newslots.has(k) ? false : newslots.add(k);
       });
   } 
+
+ 
         
   return (
-             <div>                  
+             <div>     
               <button className= "btn btn-primary btn-sm font-weight-bold"
                       key={timeslotval._id}
-                      className=  { timeslotval.tsday==dayval.dayval
-                                    && timeslotsval.timeslotsval.some(slot => {return slot._id == timeslotval._id})
-                                    ?  "btn btn-danger" :  "btn btn-primary"}
+                      disabled = {currentslots.some(slot => {return(slot._id == timeslotval._id && moment(slot.availability[0].start).format('DD/MM/YYYY') == day)})}  
+                      className=  { day==dayval.dayval
+                                    && timeslotsval.timeslotsval.some(slot => {return slot.tstimeslot[0]._id == timeslotval._id})
+                                    ?  "btn btn-danger mb-1" :  "btn btn-primary mb-1"}
                        value= {timeslotval._id}
                         onClick= {(e) => handleClick(e,timeslotval,index,day)} 
                                              >

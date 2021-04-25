@@ -34,6 +34,7 @@ const SelectTimeslot = ({match}) => {
        setLoading(true);
        fetchVendorCalendarDate(match.params.vendor,match.params.selectedvalue,endDate)
        .then( res => setCurrentslots(res.data));
+       setLoading(false);
     },[]);
 
     {console.log("Current timeslots YYY", currentslots)}
@@ -93,7 +94,7 @@ const SelectTimeslot = ({match}) => {
               index={index}
               key={index}
               day={day}  
-              disabled = {currentslots.some(slot => {return (slot._id == timeslot._id && slot.availability.start== day)})}                       
+              currentslots= {currentslots}                     
             />            
          ))
          }
