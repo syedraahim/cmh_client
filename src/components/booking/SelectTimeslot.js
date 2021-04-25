@@ -1,22 +1,27 @@
 import React, {useState, useEffect} from "react";
 import { List, Card } from "antd";
-import {useDispatch} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {fetchTimeslots} from "../../actions/timeslot";
 import moment from "moment";
 import RenderTimeslot from "./RenderTimeslot";
 import _ from "lodash";
 import { fetchVendorCalendarDate } from "../../actions/vendorCalendar";
+import {getVendorCategory} from "../../actions/vendor";
 
 const SelectTimeslot = ({match}) => {
+  
+ //  {console.log("Selected Date XXXX", match.params.vendor, match.params.selectedvalue)}
 
-   {console.log("Selected Date XXXX", match.params.vendor, match.params.selectedvalue)}
-
+    const {cart} = useSelector( (state) => ({...state}));
     const [ timeslots, setTimeslots] = useState([]);
     const [currentslots,setCurrentslots] = useState([]);
     const [loading, setLoading] = useState(false);
     const [clicked, setClicked] = useState([]);
-    const [caldata,setCaldata] = useState("");
+    const [tooltip, setTooltip] = useState('Click to add');
+    const [vendata,setVendata] = useState("");
+
+    const vendorFinal= [];  
    
     const days= [];
     const dispatch = useDispatch();
@@ -37,48 +42,56 @@ const SelectTimeslot = ({match}) => {
        setLoading(false);
     },[]);
 
-    {console.log("Current timeslots YYY", currentslots)}
+    useEffect( () => {
+      getVendorCategory(match.params.vendor)
+      .then ( res => setVendata(res.data));
+  },[]);
 
-    const fetchDates= () => {
+   const fetchDates= () => {
        for (let i=0; i< noOfDays; i++) {
          days.push( moment(match.params.selectedvalue).add(i, 'days').format('DD/MM/YYYY'));
        }
     };
 
-    const handleTimeslots= () => {    
-      
-       setClicked(clicked);
-     }
+    const fetchVendorDetails= () => {
+
+    }
+   {console.log("VENDOR FROM SELECT VENDOR", match.params)}
+   {console.log("Vendor NNNN",vendata)} 
+
+  //  vendorFinal.push(vendata._id, vendata.vendorInfoId.name, vendata.images[0]);
+
+   {console.log("Vendor OOO",vendorFinal)} 
 
     const handleSubmit= (e,timeslot,index,day) => {
       e.preventDefault();
-      {console.log("VALUES FROM SLOT",e,index,timeslot,day)}
-      //  let cart = [];
-      // //check if the cart already has an item
-      // if ( typeof window !== "undefined") {
-      //   if (localStorage.getItem("cart")) {
-      //     cart= JSON.parse(localStorage.getItem("cart"))
-      //   }
-      //   cart.push({
-      //     ...vendor,
-      //     count: 1
-      //   })
-      //   let unique=_.uniqWith(cart,_.isEqual);
-      //   console.log(unique);
-      //   localStorage.setItem("cart",JSON.stringify(unique));
-      //   setTooltip("Added");
+      {console.log("VALUES FROM SLOT",e,index,timeslot,day,match.params.vendor,match.params.selectedValue)}
+       let cart = [];
+      //check if the cart already has an item
+      if ( typeof window !== "undefined") {
+        if (localStorage.getItem("cart")) {
+          cart= JSON.parse(localStorage.getItem("cart"))
+        }
+        cart.push({
+          ...vendata,
+          count: 1
+        })
+        let unique=_.uniqWith(cart,_.isEqual);
+         console.log("VALUE OF CART",unique);
+           localStorage.setItem("cart",JSON.stringify(unique));
+           setTooltip("Added");
 
-      //   //add to redux store
-      //   dispatch({
-      //     type: "ADD_TO_CART",
-      //     payload:unique
-      //   });
-      //   dispatch({
-      //     type: "SET_VISIBLE",
-      //     payload:true
-      //   });
-      // }
-         }  
+        //add to redux store
+        dispatch({
+          type: "ADD_TO_CART",
+          payload:unique
+        });
+        dispatch({
+          type: "SET_VISIBLE",
+          payload:true
+        });
+       }
+     }  
 
   return (
    <form  onSubmit= {handleSubmit}>

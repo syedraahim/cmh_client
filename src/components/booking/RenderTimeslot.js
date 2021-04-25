@@ -15,30 +15,11 @@ const RenderTimeslot = ({timeslotval,index,day,currentslots}) => {
     const dispatch= useDispatch();
     const timeslots= [];
 
-     {console.log("Current slots ZZZ", currentslots,timeslotval,index,day)}
+    //  {console.log("Current slots ZZZ", currentslots,timeslotval,index,day)}
 
     const handleClick= (e,timeslotval,index,day) => {
       e.preventDefault();
       setColor(!color); 
-       // timeslots && timeslots.map ( (slot,i) => {
-      //   if (color.includes(index)) {
-      //     const temp = [...color];
-      //     const tempCal= [...caldata];
-      //    // removing the element using splice
-      //     temp.splice(temp.indexOf(index),1);
-      //     tempCal.splice(temp.indexOf(index),1);
-      //   // updating the list
-      //     setColor(temp);
-      //     setCaldata(tempCal);
-      //     return;
-      //   }
-      //   if (i === index) {        
-      //     setColor(prevArray => [...prevArray, i]);
-      //     setCaldata(prevArray => [...prevArray, e.target.value]);                 
-      //   } else {
-      //     return slot
-      //   }
-      //    })
       localStorage.setItem("dayval", day);
       if (typeof window !== "undefined")  {
         if (localStorage.getItem("timeslots")) {
@@ -75,20 +56,22 @@ const RenderTimeslot = ({timeslotval,index,day,currentslots}) => {
           return newslots.has(k) ? false : newslots.add(k);
       });
   } 
-
- 
         
   return (
              <div>     
+               {/* {console.log(currentslots.map(slots => moment(slots?.availability[0].start).format('DD/MM/YYYY') == day &&  slots?.availability[0].timeslots?.some(slot => {return(slot._id == timeslotval._id)})))} */}
+              
               <button className= "btn btn-primary btn-sm font-weight-bold"
                       key={timeslotval._id}
-                      disabled = {currentslots.some(slot => {return(slot._id == timeslotval._id && moment(slot.availability[0].start).format('DD/MM/YYYY') == day)})}  
-                      className=  { day==dayval.dayval
+                      disabled = {currentslots.map(slots => moment(slots?.availability[0].start).format('DD/MM/YYYY') == day &&  slots?.availability[0].timeslots?.some(slot => {return(slot._id == timeslotval._id)})).includes(true)}  
+                      className=  { currentslots.map(slots => moment(slots?.availability[0].start).format('DD/MM/YYYY') == day &&  slots?.availability[0].timeslots?.some(slot => {return(slot._id == timeslotval._id)})).includes(true) ? "btn btn-secondary mb-1" : 
+                                    day==dayval.dayval
                                     && timeslotsval.timeslotsval.some(slot => {return slot.tstimeslot[0]._id == timeslotval._id})
                                     ?  "btn btn-danger mb-1" :  "btn btn-primary mb-1"}
                        value= {timeslotval._id}
                         onClick= {(e) => handleClick(e,timeslotval,index,day)} 
-                                             >
+                                             
+              >
                     {timeslotval.startSlot}-{timeslotval.endSlot}
                     
                </button>
