@@ -63,6 +63,16 @@ const dispatch= useDispatch();
              <td>{v.subcategories[0].name} </td>
              <td>{v.vendorInfoId.city}</td>
              <td> £{v.price} , {v.pricetype}</td>
+             <td>{v.bookingDate}</td>
+             <td>
+                 {v.bookingSlots && v.bookingSlots.map( bslot => (
+                     bslot.tstimeslot && bslot.tstimeslot.map ( tslot => (
+                           <p key= {tslot._id}>{tslot.startSlot}- {tslot.endSlot}</p> 
+                     ))                       
+                     )
+                 )                  
+                 }
+             </td>
              <td >
               <input 
                   type="number"

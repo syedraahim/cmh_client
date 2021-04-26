@@ -33,6 +33,8 @@ const Cart= ({history}) => {
              <th scope="col">Sub Catgeory</th>
              <th scope="col">Area</th>
              <th scope="col">Price</th>
+             <th scope="col">Booking Date</th>
+             <th scope="col"> Booked Timeslots</th>
              <th scope="col">Count</th>
              <th scope="col"> Remove</th>
          </tr>

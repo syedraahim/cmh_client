@@ -13,17 +13,16 @@ const SelectTimeslot = ({match}) => {
   
  //  {console.log("Selected Date XXXX", match.params.vendor, match.params.selectedvalue)}
 
-    const {cart} = useSelector( (state) => ({...state}));
+    const {dayval,timeslotsval} = useSelector( (state) => ({...state}));
     const [ timeslots, setTimeslots] = useState([]);
     const [currentslots,setCurrentslots] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [clicked, setClicked] = useState([]);
     const [tooltip, setTooltip] = useState('Click to add');
     const [vendata,setVendata] = useState("");
 
-    const vendorFinal= [];  
-   
+  
     const days= [];
+    
     const dispatch = useDispatch();
     let noOfDays= 6;
     let startDate= match.params.selectedvalue;
@@ -53,16 +52,11 @@ const SelectTimeslot = ({match}) => {
        }
     };
 
-    const fetchVendorDetails= () => {
-
-    }
+   
    {console.log("VENDOR FROM SELECT VENDOR", match.params)}
    {console.log("Vendor NNNN",vendata)} 
 
-  //  vendorFinal.push(vendata._id, vendata.vendorInfoId.name, vendata.images[0]);
-
-   {console.log("Vendor OOO",vendorFinal)} 
-
+ 
     const handleSubmit= (e,timeslot,index,day) => {
       e.preventDefault();
       {console.log("VALUES FROM SLOT",e,index,timeslot,day,match.params.vendor,match.params.selectedValue)}
@@ -74,7 +68,9 @@ const SelectTimeslot = ({match}) => {
         }
         cart.push({
           ...vendata,
-          count: 1
+          bookingDate:dayval.dayval,
+          bookingSlots:timeslotsval.timeslotsval,
+          count: timeslotsval.timeslotsval.length
         })
         let unique=_.uniqWith(cart,_.isEqual);
          console.log("VALUE OF CART",unique);
