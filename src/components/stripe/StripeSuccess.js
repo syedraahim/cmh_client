@@ -4,14 +4,14 @@ import {stripeSuccessRequest} from "../../actions/stripe";
 import {createOrder, emptyUserCart} from "../../actions/user";
 import {LoadingOutlined} from "@ant-design/icons";
 
-const StripeSuccess = ({history}) => {
+const StripeSuccess = ({match,history}) => {
 
     const {user} = useSelector( (state) => ({...state}));
     const dispatch= useDispatch();
-   
-    console.log("user TOKEN",user.token);
+    {console.log("VENDOR FROM success page",match.params.vendor)}
+    console.log("user TOKEN",user.token, match.params.vendor);
     useEffect( () => {
-       stripeSuccessRequest(user.token)
+       stripeSuccessRequest(user.token,match.params.vendor)
        .then( (res) => {
            if (res.data.ok) {
                //empty cart from local storage
@@ -23,12 +23,12 @@ const StripeSuccess = ({history}) => {
                });
                emptyUserCart(user.token);
                console.log("RES from stripe success", res.data)
-              history.push("/user/history");
+            //  history.push("/user/history");
            } else {
-               history.push("/stripe/cancel");
+              history.push("/stripe/cancel");
            }
        })
-    },[])
+    },[match.params.vendor])
 
     return (
 

@@ -8,7 +8,7 @@
     "@david.kucsai/react-pdf-table": "^0.3.0",
     "@react-pdf/renderer": "^1.6.13",
     "@stripe/react-stripe-js": "^1.4.0",
-    "@stripe/stripe-js": "^1.13.1",
+    "@stripe/stripe-js": "^1.13.2",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",

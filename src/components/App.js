@@ -214,7 +214,7 @@ const App = () => {
 
               {/* Route for vendor stripe callback */}
               <UserRoute path="/stripe/callback" component={StripeCallback} />
-              <UserRoute path="/stripesuccess" component={StripeSuccess} />
+              <UserRoute path="/stripesuccess/:vendor" component={StripeSuccess} />
               <UserRoute path="/stripecancel" component={StripeCancel} />
              
               {/* <Footer /> */}

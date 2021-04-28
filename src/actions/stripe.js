@@ -41,17 +41,18 @@ return res;
  }
 
  export const getSessionId= async(authtoken,vendorId) => {
-  const res= await axios.post("http://localhost:5000/api/stripe-session-id",{},
+  const res= await axios.post("http://localhost:5000/api/stripe-session-id",{vendorId},
   {headers: {authtoken}});  
   console.log("RES from STRIPE SESSION", res);
  return res;
  }
 
- export const stripeSuccessRequest= async(authtoken) => {
-  const res= await axios.post("http://localhost:5000/api/stripesuccess",{},
+ export const stripeSuccessRequest= async(authtoken,vendor) => {
+   console.log("FROM stripe success action",vendor);
+  const res= await axios.post("http://localhost:5000/api/stripesuccess",{vendor},
   {headers: {authtoken}});  
   console.log("RES FROM STRIPE SESSION SUCCESS",res);
- return res; 
+  return res; 
  }
 
 
