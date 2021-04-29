@@ -14,11 +14,12 @@ const RenderTimeslot = ({timeslotval,index,day,currentslots}) => {
     
     const dispatch= useDispatch();
     const timeslots= [];
-
+    
+    
     //  {console.log("Current slots ZZZ", currentslots,timeslotval,index,day)}
 
     const handleClick= (e,timeslotval,index,day) => {
-      e.preventDefault();
+      e.preventDefault();     
       setColor(!color); 
       localStorage.setItem("dayval", day);
       if (typeof window !== "undefined")  {

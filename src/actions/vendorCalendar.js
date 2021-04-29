@@ -35,8 +35,8 @@ export const fetchVendorCalendar =  async (userid) =>  {
    return res;
   };
 
-  export const editVendorCalendar = async (userid, formValues, authtoken)  => {
-    const res= await axios.put(`http://localhost:5000/api/vendorcalendar/${userid}`,formValues,
+  export const editVendorCalendar = async (userid, startdate,formValues, authtoken)  => {
+    const res= await axios.put(`http://localhost:5000/api/vendorcalendar/${userid}/${startdate}`,formValues,
      {headers: {authtoken }});
      console.log("Response from edit",res);
     // history.push("/admin/categories/categorieslist"); 

@@ -5,7 +5,8 @@ import {DatePicker} from "antd";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {fetchTimeslots} from "../../../actions/timeslot";
-import {readVendorCalendar} from "../../../actions/vendorCalendar";
+import {readVendorCalendar,editVendorCalendar} from "../../../actions/vendorCalendar";
+import {toast} from "react-toastify";
 
 const VendorCalendarEdit= ({match}) => {
 
@@ -59,9 +60,27 @@ const handleClick= (e,t,index) => {
        })
        }
 
-const handleSubmit= () => {
+const handleSubmit= (e) => {  
+    e.preventDefault();
+    setLoading(true);
+    editVendorCalendar(user._id, fromDate,{  availability: [ {timeslots:caldata }
+                                                 ]}, user.token)
+    .then ( (res) => {
+      setLoading(false);
+      setCaldata([]);
+      toast.success("Timeslots data is updated successfully");  
+           
+    })
+    .catch (err => {
+      console.log(err);
+      setLoading(false);
+      if(err.response===400) 
+         toast.error(err.response.data);
+      else
+          toast.error(err.response);
+    })
+}    
 
-}
 
     return (
      <div className= "row">
@@ -102,10 +121,10 @@ const handleSubmit= () => {
               {/* {currentSlots && currentSlots.map( (sl) => ( */}
               {/* <div key= {sl._id}>     */}
                 {timeslots && timeslots.map( (t, index) => (
-              <div className= "col  font-weight-bold d-flex justify-content-center mt-1 "
+               <div className= "col  font-weight-bold d-flex justify-content-center mt-1 "
                    key= {t._id}>                         
                         
-                        {console.log(t,!currentSlots.some(slot => {return slot._id == t._id}),'t')}
+                        {/* {console.log(t,!currentSlots.some(slot => {return slot._id == t._id}),'t')} */}
                         {}
                  {/* {sl._id === t._id ? setClicked=== index : setClicked=== null} */}
                  <button className=  { currentSlots.some(slot => {return slot._id == t._id})

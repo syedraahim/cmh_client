@@ -122,7 +122,7 @@ const VendorCalendar= () => {
              </div>
              <br />
              {timeslots && timeslots.map( (t, index) => (
-              <div className= "font-weight-bold "
+              <div className= "font-weight-bold d-flex justify-content-center mt-1"
                    key= {t._id}>
                 <button className=  { !clicked.includes(index) ? "btn btn-primary" : "btn btn-danger"}
                         value= {t._id}

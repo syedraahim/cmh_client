@@ -13,6 +13,7 @@ const StripeSuccess = ({match,history}) => {
     useEffect( () => {
        stripeSuccessRequest(user.token,match.params.vendor)
        .then( (res) => {
+           console.log("RES",res);
            if (res.data.ok) {
                //empty cart from local storage
                if ( typeof window !== "undefined") localStorage.removeItem("cart");
@@ -23,12 +24,12 @@ const StripeSuccess = ({match,history}) => {
                });
                emptyUserCart(user.token);
                console.log("RES from stripe success", res.data)
-            //  history.push("/user/history");
+               history.push("/user/history");
            } else {
               history.push("/stripe/cancel");
            }
        })
-    },[match.params.vendor])
+    },[]);
 
     return (
 
