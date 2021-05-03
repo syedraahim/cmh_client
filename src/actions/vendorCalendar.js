@@ -35,6 +35,12 @@ export const fetchVendorCalendar =  async (userid) =>  {
    return res;
   };
 
+  export const fetchVendorCalendarCurrent= async( userid, start) => {
+    const res= await axios.get(`http://localhost:5000/api/vendorcalendar/existing/${userid}/${start}`);
+    console.log("Existing res ZZZZ",res);
+    return res;
+  }
+
   export const editVendorCalendar = async (userid, startdate,formValues, authtoken)  => {
     const res= await axios.put(`http://localhost:5000/api/vendorcalendar/${userid}/${startdate}`,formValues,
      {headers: {authtoken }});

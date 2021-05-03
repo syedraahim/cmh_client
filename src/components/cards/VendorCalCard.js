@@ -9,7 +9,7 @@ const {Meta} = Card;
 const VendorCalCard = ({cal}) => {
 
       const start = new Date(cal.availability[0].start).toLocaleDateString();
-      const end = new Date(cal.availability[0].end).toLocaleDateString();
+      
    
   return (
       <Card 
@@ -18,7 +18,7 @@ const VendorCalCard = ({cal}) => {
                       </Link>                   
                  ]} 
       >        
-        <b className= "mb-2">From: {start}   To : {end}  </b>        
+        <b className= "mb-2">Booking Date: {start}    </b>        
         {cal.availability[0].timeslots && cal.availability[0].timeslots.map ( (ts) => (
             <p key= {ts._id} className= "bg-info font-weight-bold ">{ts.startSlot}-{ts.endSlot}</p>
         )

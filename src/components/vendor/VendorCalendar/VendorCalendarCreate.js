@@ -3,31 +3,34 @@ import {useSelector} from "react-redux";
 import VendorNav from "../../navigation/VendorNav";
 import {DatePicker} from "antd";
 import {fetchTimeslots} from "../../../actions/timeslot";
-import {addVendorCalendar,fetchVendorCalendar} from "../../../actions/vendorCalendar";
+import {addVendorCalendar,readVendorCalendar, fetchVendorCalendarCurrent} from "../../../actions/vendorCalendar";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 import moment from "moment";
 
-const VendorCalendar= () => {
+const VendorCalendar= ({match}) => {
 
   const {user} = useSelector( state => ({...state}));
   const [fromDate, setFromDate] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
   const [timeslots, setTimeslots] = useState([]);
-  const [toDate, setToDate] = useState("");
+  const [currentBooking, setCurrentBooking] = useState([]);
   const [clicked, setClicked] = useState([]);
   const [caldata,setCaldata] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [calBookings, setCalBookings] = useState([]);
+  const [loading, setLoading] = useState(false); 
   
 
   useEffect( () => {
     fetchTimeslots().then( res => setTimeslots(res.data));
   },[]);
 
-  const loadVendorCalendar= () => {
-    fetchVendorCalendar()
-    .then ( res => setCalBookings(res.data) )
-  }
+//   useEffect(() => {
+//     readVendorCalendar(match.params.id)
+//     .then ( (res) => {
+//          setCurrentDate(res.data.availability[0].start)       
+//     });  
+//  },[]);
+
 
   const handleClick= (e,t,index) => {
     e.preventDefault();
@@ -52,27 +55,36 @@ const VendorCalendar= () => {
        })
        }
    
- 
+ {console.log("CALDATA 1",caldata)}
+ {console.log("DATES", fromDate, currentDate)}
   const handleSubmit= (e) => {
     e.preventDefault();
-    if (!fromDate || !toDate) {
-      toast.error("Please select the dates");
+
+    fetchVendorCalendarCurrent(user._id, fromDate)
+    .then( res => setCurrentBooking(res.data));
+
+    {console.log("CURRENT BOOKING",currentBooking, user._id, fromDate)}
+        
+    if (!fromDate ) {
+      toast.error("Please select the booking date");
+    } else if (caldata.length === 0)
+    {
+      toast.error("Please select the slots to book");
+    } else if (currentBooking.start=== currentDate) {
+      toast.error ("Bookings already exist for this date. Please go to edit bookings");
     } else {
       setLoading(true);
-    // const newFrom= new Date(moment(fromDate).format('YYYY-MM-DD[T00:00:00.000Z]'));
-    // const newTo= new Date(moment(toDate).format('YYYY-MM-DD[T00:00:00.000Z]'));
-      
+    
       addVendorCalendar(user._id,{vendorInfoId: user._id,                      
-                      availability: [ {start: fromDate ,
-                                       end: toDate
+                      availability: [ {start: fromDate                                        
                                        ,timeslots:caldata }
                                     ]},user.token)
       .then ( (res) => {
                       setLoading(false);
                       toast.success("Successfully created calendar booking");
-                      setTimeout( () => {
-                        window.location.reload();
-                      },1000);
+                      // setTimeout( () => {
+                      //   window.location.reload();
+                      // },1000);
                      })
       .catch ( err => {
                       console.log(err);
@@ -81,9 +93,7 @@ const VendorCalendar= () => {
                             toast.error(err.response.data);
                       else
                             toast.error(err.response);
-                      })
-      console.log("CALDATA",caldata, fromDate, toDate);
-
+                      })     
     }
     
   }
@@ -99,26 +109,16 @@ const VendorCalendar= () => {
             <div className= "col d-flex justify-content-center">
             <DatePicker
               className="site-calendar-card mt-1 ml-4 h6"
-              placeholder="From date"
+              placeholder="Enter booking date"
               size= "large"
-              // format= "DD/MM/YYYY"          
+              format= "DD/MM/YYYY"          
               onChange= {(date,dateString) => 
                         setFromDate(dateString)
                        }
               disabledDate= { (current => 
                     current && current.valueOf() < moment().subtract( 1- "days"))}
              /> 
-             <DatePicker
-              className="site-calendar-card mt-1 ml-4 h6"
-              placeholder="To date" 
-              size="large"             
-              // format= "DD/MM/YYYY"  
-              onChange= {(date,dateString) => 
-                          setToDate(dateString)
-                          }
-              disabledDate= { (current => 
-                    current && current.valueOf() < moment().subtract( 1- "days"))}
-             /> 
+           
              </div>
              <br />
              {timeslots && timeslots.map( (t, index) => (

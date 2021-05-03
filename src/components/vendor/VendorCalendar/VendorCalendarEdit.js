@@ -27,7 +27,6 @@ useEffect( () => {
 useEffect( () => {
    readVendorCalendar(match.params.id)
    .then ( (res) => {
-        console.log(res.data.availability[0].start);
         setFromDate(res.data.availability[0].start)
         setToDate (res.data.availability[0].end)
         setCurrentSlots(res.data.availability[0].timeslots)
@@ -62,6 +61,13 @@ const handleClick= (e,t,index) => {
 
 const handleSubmit= (e) => {  
     e.preventDefault();
+    if (!fromDate ) {
+      toast.error("Please select the booking date");
+    } else if (caldata.length === 0)
+    {
+      toast.error("Please select the slots to book");
+    } else
+    {
     setLoading(true);
     editVendorCalendar(user._id, fromDate,{  availability: [ {timeslots:caldata }
                                                  ]}, user.token)
@@ -79,6 +85,7 @@ const handleSubmit= (e) => {
       else
           toast.error(err.response);
     })
+  }
 }    
 
 
@@ -88,7 +95,8 @@ const handleSubmit= (e) => {
         <VendorNav />
       </div>
       <div className="col col-md-9">
-        <h2 className="font-weight-bold">Update your Availability</h2>
+        { loading ? <h2>Loading....</h2> : <h2 className="font-weight-bold">Update your Availability</h2>
+        }
         <form>
             <div className= "col d-flex justify-content-center">
             { fromDate && <DatePicker
