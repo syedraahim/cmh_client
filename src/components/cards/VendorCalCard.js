@@ -8,14 +8,13 @@ const {Meta} = Card;
 
 const VendorCalCard = ({cal}) => {
 
-      const start = new Date(cal.availability[0].start).toLocaleDateString();
-      
+      const start = new Date(cal.availability[0].start).toLocaleDateString();      
    
   return (
       <Card 
        actions= {[ <Link to= {`/vendor/vendorcaledit/${cal._id}`}>
                       <EditOutlined  className= "text-warning" />
-                      </Link>                   
+                    </Link>                   
                  ]} 
       >        
         <b className= "mb-2">Booking Date: {start}    </b>        

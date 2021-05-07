@@ -61,7 +61,11 @@ const VendorCalendar= ({match}) => {
     e.preventDefault();
 
     fetchVendorCalendarCurrent(user._id, fromDate)
-    .then( res => setCurrentBooking(res.data));
+    .then( res => setCurrentBooking(res.data))
+    .catch ((err) => {
+       console.log(err);
+     }
+    );
 
     {console.log("CURRENT BOOKING",currentBooking, user._id, fromDate)}
         
@@ -111,7 +115,7 @@ const VendorCalendar= ({match}) => {
               className="site-calendar-card mt-1 ml-4 h6"
               placeholder="Enter booking date"
               size= "large"
-              format= "DD/MM/YYYY"          
+              // format= "DD/MM/YYYY"          
               onChange= {(date,dateString) => 
                         setFromDate(dateString)
                        }

@@ -11,7 +11,7 @@ import {getVendorCategory} from "../../actions/vendor";
 
 const SelectTimeslot = ({match}) => {
   
- //  {console.log("Selected Date XXXX", match.params.vendor, match.params.selectedvalue)}
+   {console.log("Selected Date XXXX", match.params.vendor, match.params.selectedvalue)}
 
     const {dayval,timeslotsval} = useSelector( (state) => ({...state}));
     const [ timeslots, setTimeslots] = useState([]);
@@ -25,8 +25,10 @@ const SelectTimeslot = ({match}) => {
     
     const dispatch = useDispatch();
     let noOfDays= 6;
-    let startDate= match.params.selectedvalue;
-    let endDate= moment(match.params.selectedvalue).add(noOfDays, 'days'); 
+    let startDate= moment(match.params.selectedvalue);
+    let endDate= moment(startDate).add(noOfDays, 'days'); 
+
+    console.log("End date XXXX",endDate._d);
 
     useEffect( () => {
         setLoading(true);
@@ -36,7 +38,7 @@ const SelectTimeslot = ({match}) => {
 
     useEffect( () => {
        setLoading(true);
-       fetchVendorCalendarDate(match.params.vendor,match.params.selectedvalue,endDate)
+       fetchVendorCalendarDate(match.params.vendor,startDate,endDate._d)
        .then( res => setCurrentslots(res.data));
        setLoading(false);
     },[]);
@@ -48,7 +50,7 @@ const SelectTimeslot = ({match}) => {
 
    const fetchDates= () => {
        for (let i=0; i< noOfDays; i++) {
-         days.push( moment(match.params.selectedvalue).add(i, 'days').format('DD/MM/YYYY'));
+         days.push( moment(startDate).add(i, 'days').format('DD/MM/YYYY'));
        }
     };
 

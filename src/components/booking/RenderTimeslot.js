@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {useSelector,useDispatch} from "react-redux";
-import { List, Card } from "antd";
-import {fetchTimeslots} from "../../actions/timeslot";
 import moment from "moment";
 import _ from "lodash";
 

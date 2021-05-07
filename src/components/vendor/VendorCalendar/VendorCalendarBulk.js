@@ -1,16 +1,88 @@
 import React, {useState} from "react";
+import {useSelector} from "react-redux";
 import VendorNav from "../../navigation/VendorNav";
+import {addBulkBooking} from "../../../actions/vendorCalendar";
 import {DatePicker} from "antd";
+import {toast} from "react-toastify";
 import moment from "moment";
 
 const VendorCalendarBulk = () => {
 
+    const {user} = useSelector( state => ({...state}));
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
+    const [loading,setLoading] = useState(false);
+    const days= [];
 
-    const handleSubmit= () => {
+   
+    const handleSubmitUnavail= (e) => {
+        e.preventDefault();
+        setLoading(true); 
+        const noOfDaysU= moment(toDate).diff(moment(fromDate),"days");
+        console.log("NO OF days",noOfDaysU);
+        for (let i=0; i< noOfDaysU; i++) {
+            days.push( moment(fromDate).add(i, 'days')+1);
+          }
+          console.log("DAYS",days);
+        for (let j=0; j < days.length; j++)
+          {
+            addBulkBooking(user._id,{vendorInfoId: user._id,                      
+                                 start: days[j]                                        
+                             },user.token)
+            .then ( (res) => {
+               console.log(res.data);
+            // setTimeout( () => {
+            //   window.location.reload();
+            // },1000);
+           })
+           .catch ( err => {
+            console.log(err);
+            setLoading(false);
+            if(err.response===400) 
+                  toast.error(err.response.data);
+            else
+                  toast.error(err.response);
+            })   
+         }
+           setLoading(false);
+           toast.success("Successfully created bulk calendar bookings");      
 
-    }
+} 
+
+const handleSubmitAvail= (e) => {
+      e.preventDefault();
+      setLoading(true); 
+      const noOfDaysA= moment(toDate).diff(moment(fromDate),"days");
+      console.log("NO OF days",noOfDaysA);
+      for (let i=0; i< noOfDaysA; i++) {
+          days.push( moment(fromDate).add(i, 'days')+1);
+        }
+        console.log("DAYS",days);
+      for (let j=0; j < days.length; j++)
+        {
+          addBulkBooking(user._id,{vendorInfoId: user._id,                      
+                               start: days[j]                                        
+                           },user.token)
+          .then ( (res) => {
+             console.log(res.data);
+          // setTimeout( () => {
+          //   window.location.reload();
+          // },1000);
+         })
+         .catch ( err => {
+          console.log(err);
+          setLoading(false);
+          if(err.response===400) 
+                toast.error(err.response.data);
+          else
+                toast.error(err.response);
+          })   
+       }
+         setLoading(false);
+         toast.success("Successfully created bulk calendar bookings");      
+
+} 
+
 
 return (
   <div className= "row">
@@ -25,7 +97,7 @@ return (
               className="site-calendar-card mt-2 ml-4 h6"
               placeholder="Enter booking start date"
               size= "large"
-              format= "DD/MM/YYYY"          
+            //   format= "DD/MM/YYYY"          
               onChange= {(date,dateString) => 
                         setFromDate(dateString)
                        }
@@ -36,7 +108,7 @@ return (
               className="site-calendar-card mt-2 ml-4 h6"
               placeholder="Enter booking end date"
               size= "large"
-              format= "DD/MM/YYYY"          
+            //   format= "DD/MM/YYYY"          
               onChange= {(date,dateString) => 
                         setToDate(dateString)
                        }
@@ -44,14 +116,22 @@ return (
                     current && current.valueOf() < moment().subtract( 1- "days"))}
         /> 
           </div>
-          <div  className="row mb-2">
-              <div className= "col d-flex justify-content-center mt-3">
+          <div  className="row mb-4">
+              <div className= "col d-flex justify-content-end mt-3">
                 <button className="btn btn-primary font-weight-bold"
-                      onClick= {handleSubmit}> Submit your Bulk Availability</button>
+                      onClick= {handleSubmitAvail}> Submit your Bulk Availability
+                </button>
                </div>
+               <div className= "col d-flex justify-content-start mt-3">
+                <button className="btn btn-danger font-weight-bold"
+                      onClick= {handleSubmitUnavail}> Submit your Bulk Unavailability
+                </button>
+               </div>
+           </div>
+            <div className= "row mt-4 d-flex justify-content-center">
 
-          </div>
-            
+                <p className= "font-weight-bold "> *Book block dates of all slots available or your holiday/unavailable dates</p>
+            </div>
             
          </form>
        </div>
