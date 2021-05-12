@@ -83,6 +83,7 @@ import VendorCalendarCreate from "./vendor/VendorCalendar/VendorCalendarCreate";
 import VendorCalendarList from "./vendor/VendorCalendar/VendorCalendarList";
 import VendorCalendarEdit from "./vendor/VendorCalendar/VendorCalendarEdit";
 import VendorCalendarBulk from "./vendor/VendorCalendar/VendorCalendarBulk";
+import BulkTimeslots from "./vendor/VendorCalendar/BulkTimeslots";
 
 import StripeCallback from "./stripe/StripeCallback";
 import StripeSuccess from "./stripe/StripeSuccess";
@@ -208,7 +209,8 @@ const App = () => {
               <UserRoute path="/vendor/vendorcallist/:userid" exact component={VendorCalendarList} />
               <UserRoute path="/vendor/vendorcaledit/:id" exact component={VendorCalendarEdit} />
               <UserRoute path="/vendor/vendorcalbulk/:id" exact component={VendorCalendarBulk} />
-
+              <UserRoute path="/vendor/bulktimeslots/:id/:fromDate/:toDate" exact component={BulkTimeslots} />
+           
               <UserRoute path="/checkout" exact component={Checkout} />
               <UserRoute path="/payment" exact component={Payment} />
               <UserRoute path="/bookvendor/:id" exact component={BookVendor} />

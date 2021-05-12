@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 import VendorNav from "../../navigation/VendorNav";
-import {addBulkBooking} from "../../../actions/vendorCalendar";
+import {addBulkBooking,addBulkAvail} from "../../../actions/vendorCalendar";
+import BulkTimeslots from "./BulkTimeslots";
 import {DatePicker} from "antd";
 import {toast} from "react-toastify";
 import moment from "moment";
@@ -18,23 +20,20 @@ const VendorCalendarBulk = () => {
     const handleSubmitUnavail= (e) => {
         e.preventDefault();
         setLoading(true); 
-        const noOfDaysU= moment(toDate).diff(moment(fromDate),"days");
+        const noOfDaysU= moment(toDate).diff(moment(fromDate),"days") +1;
         console.log("NO OF days",noOfDaysU);
         for (let i=0; i< noOfDaysU; i++) {
             days.push( moment(fromDate).add(i, 'days')+1);
           }
           console.log("DAYS",days);
-        for (let j=0; j < days.length; j++)
+        for (let j=0; j <= days.length; j++)
           {
             addBulkBooking(user._id,{vendorInfoId: user._id,                      
                                  start: days[j]                                        
                              },user.token)
             .then ( (res) => {
                console.log(res.data);
-            // setTimeout( () => {
-            //   window.location.reload();
-            // },1000);
-           })
+            })
            .catch ( err => {
             console.log(err);
             setLoading(false);
@@ -46,42 +45,15 @@ const VendorCalendarBulk = () => {
          }
            setLoading(false);
            toast.success("Successfully created bulk calendar bookings");      
+      } 
 
-} 
-
-const handleSubmitAvail= (e) => {
-      e.preventDefault();
-      setLoading(true); 
-      const noOfDaysA= moment(toDate).diff(moment(fromDate),"days");
-      console.log("NO OF days",noOfDaysA);
-      for (let i=0; i< noOfDaysA; i++) {
-          days.push( moment(fromDate).add(i, 'days')+1);
-        }
-        console.log("DAYS",days);
-      for (let j=0; j < days.length; j++)
-        {
-          addBulkBooking(user._id,{vendorInfoId: user._id,                      
-                               start: days[j]                                        
-                           },user.token)
-          .then ( (res) => {
-             console.log(res.data);
-          // setTimeout( () => {
-          //   window.location.reload();
-          // },1000);
-         })
-         .catch ( err => {
-          console.log(err);
-          setLoading(false);
-          if(err.response===400) 
-                toast.error(err.response.data);
-          else
-                toast.error(err.response);
-          })   
-       }
-         setLoading(false);
-         toast.success("Successfully created bulk calendar bookings");      
-
-} 
+   const handleSubmitAvail= (e) => {
+        console.log("IN handle submit AVAIL");
+        <BulkTimeslots 
+          fromDate= {fromDate}
+          toDate={toDate}
+        />
+      } 
 
 
 return (
@@ -118,9 +90,7 @@ return (
           </div>
           <div  className="row mb-4">
               <div className= "col d-flex justify-content-end mt-3">
-                <button className="btn btn-primary font-weight-bold"
-                      onClick= {handleSubmitAvail}> Submit your Bulk Availability
-                </button>
+                 <Link to= {`/vendor/bulktimeslots/${user._id}/${fromDate}/${toDate}`} className= "btn btn-primary font-weight-bold">Submit your Bulk Availability</Link>
                </div>
                <div className= "col d-flex justify-content-start mt-3">
                 <button className="btn btn-danger font-weight-bold"

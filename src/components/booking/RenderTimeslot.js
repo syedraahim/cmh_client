@@ -57,8 +57,10 @@ const RenderTimeslot = ({timeslotval,index,day,currentslots}) => {
   } 
         
   return (
-             <div>     
-               {/* {console.log(currentslots.map(slots => moment(slots?.availability[0].start).format('DD/MM/YYYY') == day &&  slots?.availability[0].timeslots?.some(slot => {return(slot._id == timeslotval._id)})))} */}
+             <div>    
+              {console.log("DAY",day)} 
+              {console.log(currentslots.map(slots => moment(slots?.availability[0].start).format('DD/MM/YYYY') == moment(day) 
+                                            &&  slots?.availability[0].timeslots?.some(slot => {return(slot._id == timeslotval._id)})))} 
               
               <button className= "btn btn-primary btn-sm font-weight-bold"
                       key={timeslotval._id}

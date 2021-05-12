@@ -1,6 +1,12 @@
 import axios from "axios";
 import history from "../history";
 
+export const fetchVendorCalendarCurrent= async( userid, start) => {
+  const res= await axios.get(`http://localhost:5000/api/vendorcalendar/existing/${userid}/${start}` );
+  console.log("Existing res ZZZZ",res);
+  return res;
+}
+
 export const addVendorCalendar =  async (userid, formvalues, authtoken) =>  {
   console.log("Before response", formvalues);
     const res = await axios.post(`http://localhost:5000/api/vendorcalendar/${userid}`,formvalues,
@@ -8,7 +14,6 @@ export const addVendorCalendar =  async (userid, formvalues, authtoken) =>  {
     console.log("RES from Vendor Calendar",res);
     // history.push("/vendor/dashboard");   
   };
-
   
 export const fetchVendorCalendar =  async (userid) =>  {
  const res= await axios.get(`http://localhost:5000/api/vendorcalendar/${userid}`);  
@@ -35,12 +40,7 @@ export const fetchVendorCalendar =  async (userid) =>  {
    return res;
   };
 
-  export const fetchVendorCalendarCurrent= async( userid, start) => {
-    const res= await axios.get(`http://localhost:5000/api/vendorcalendar/existing/${userid}/${start}` );
-    console.log("Existing res ZZZZ",res);
-    return res;
-  }
-  
+ 
   export const editVendorCalendar = async (userid, startdate,formValues, authtoken)  => {
     const res= await axios.put(`http://localhost:5000/api/vendorcalendar/${userid}/${startdate}`,formValues,
     {headers: {authtoken }});
@@ -54,3 +54,10 @@ export const fetchVendorCalendar =  async (userid) =>  {
     console.log("Response from bulk booking",res);
     return res;
  }
+
+ export const addBulkAvail= async (userid, formvalues,authtoken ) => {
+  const res= await axios.post(`http://localhost:5000/api/vendorcalendar/bulkavail/${userid}`,formvalues,
+  {headers: {authtoken}}); 
+  console.log("Response from bulk avail",res);
+  return res;
+}

@@ -12,95 +12,97 @@ const VendorCalendar= ({match}) => {
 
   const {user} = useSelector( state => ({...state}));
   const [fromDate, setFromDate] = useState("");
-  const [currentDate, setCurrentDate] = useState("");
   const [timeslots, setTimeslots] = useState([]);
   const [currentBooking, setCurrentBooking] = useState([]);
   const [clicked, setClicked] = useState([]);
   const [caldata,setCaldata] = useState([]);
   const [loading, setLoading] = useState(false); 
+  let currentDate= [];
   
 
   useEffect( () => {
     fetchTimeslots().then( res => setTimeslots(res.data));
   },[]);
 
-//   useEffect(() => {
-//     readVendorCalendar(match.params.id)
-//     .then ( (res) => {
-//          setCurrentDate(res.data.availability[0].start)       
-//     });  
-//  },[]);
 
+//   { loading ?  <h2>"loading..."</h2> : console.log(currentBooking)
+//   //  : console.log("CURRENT BOOKING",currentDate= moment(currentBooking.availability[0].start).format("YYYY-MM-DD"), fromDate)
+// }
+// { loading ?  <h2>"loading..."</h2>
+//   :  currentDate= moment(currentBooking.availability[0].start).format("YYYY-MM-DD") 
+// }
 
-  const handleClick= (e,t,index) => {
-    e.preventDefault();
-    timeslots && timeslots.map ( (slot,i) => {
-      if (clicked.includes(index)) {
-        const temp = [...clicked];
-        const tempCal= [...caldata];
-       // removing the element using splice
-        temp.splice(temp.indexOf(index),1);
-        tempCal.splice(temp.indexOf(index),1);
-      // updating the list
-        setClicked(temp);
-        setCaldata(tempCal);
-        return;
-      }
-      if (i === index) {        
-        setClicked(prevArray => [...prevArray, i]);
-        setCaldata(prevArray => [...prevArray, e.target.value]);                 
-      } else {
-        return slot
-      }
-       })
-       }
-   
- {console.log("CALDATA 1",caldata)}
- {console.log("DATES", fromDate, currentDate)}
-  const handleSubmit= (e) => {
-    e.preventDefault();
-
-    fetchVendorCalendarCurrent(user._id, fromDate)
-    .then( res => setCurrentBooking(res.data))
-    .catch ((err) => {
-       console.log(err);
-     }
-    );
-
-    {console.log("CURRENT BOOKING",currentBooking, user._id, fromDate)}
-        
-    if (!fromDate ) {
-      toast.error("Please select the booking date");
-    } else if (caldata.length === 0)
-    {
-      toast.error("Please select the slots to book");
-    } else if (currentBooking.start=== currentDate) {
-      toast.error ("Bookings already exist for this date. Please go to edit bookings");
-    } else {
-      setLoading(true);
-    
-      addVendorCalendar(user._id,{vendorInfoId: user._id,                      
-                      availability: [ {start: fromDate                                        
-                                       ,timeslots:caldata }
-                                    ]},user.token)
-      .then ( (res) => {
-                      setLoading(false);
-                      toast.success("Successfully created calendar booking");
-                      // setTimeout( () => {
-                      //   window.location.reload();
-                      // },1000);
-                     })
-      .catch ( err => {
-                      console.log(err);
-                      setLoading(false);
-                      if(err.response===400) 
-                            toast.error(err.response.data);
-                      else
-                            toast.error(err.response);
-                      })     
+const handleClick= (e,t,index) => {
+  e.preventDefault();
+  timeslots && timeslots.map ( (slot,i) => {
+    if (clicked.includes(index)) {
+      const temp = [...clicked];
+      const tempCal= [...caldata];
+     // removing the element using splice
+      temp.splice(temp.indexOf(index),1);
+      tempCal.splice(temp.indexOf(index),1);
+    // updating the list
+      setClicked(temp);
+      setCaldata(tempCal);
+      return;
     }
-    
+    if (i === index) {        
+      setClicked(prevArray => [...prevArray, i]);
+      setCaldata(prevArray => [...prevArray, e.target.value]);                 
+    } else {
+      return slot
+    }
+     })
+   }
+ 
+const loadCurrentBookings= async () => {
+  setLoading(true);
+  fetchVendorCalendarCurrent(user._id, fromDate)
+   .then( res => {      
+      setCurrentBooking(res.data);
+      setLoading(false);
+  }).catch (err => {
+     console.log(err);
+   });
+}
+
+const handleSubmit=  async (e) => {
+  e.preventDefault();
+  await loadCurrentBookings(); 
+ console.log("CURRE DATE", currentBooking); 
+ currentDate= moment(currentBooking.availability[0].start).format("YYYY-MM-DD");
+     
+   if (!fromDate ) {
+    toast.error("Please select the booking date");
+  } else if (caldata.length === 0)
+  {
+    toast.error("Please select the slots to book");
+  } else if (currentDate == fromDate) {
+    toast.error ("Bookings already exist for this date. Please go to edit bookings");
+  } else {
+    setLoading(true);    
+    addVendorCalendar(user._id,{vendorInfoId: user._id,                      
+                    availability: [ {start: fromDate                                        
+                                     ,timeslots:caldata }
+                                  ]},user.token)
+    .then ( (res) => {
+                    setLoading(false);
+                    toast.success("Successfully created calendar booking");
+                    // setTimeout( () => {
+                    //   window.location.reload();
+                    // },1000);
+                   })
+    .catch ( err => {
+                    console.log(err);
+                    setLoading(false);
+                    if(err.response===400) 
+                          toast.error(err.response.data);
+                    else
+                          toast.error(err.response);
+                    })     
   }
+}    
+  
 
   return (
         <div className="row">
@@ -108,8 +110,12 @@ const VendorCalendar= ({match}) => {
            <VendorNav />
         </div>
         <div className="col col-md-10">
-           <h2 className="font-weight-bold">Add your Availability</h2>
-           <form>
+        { (!currentBooking) 
+             ? <h2>Loading.....</h2>  
+          :  <h2 className="font-weight-bold">Add your Availability</h2>
+        }
+          
+           <form onSubmit= {handleSubmit} >
             <div className= "col d-flex justify-content-center">
             <DatePicker
               className="site-calendar-card mt-1 ml-4 h6"
@@ -140,7 +146,7 @@ const VendorCalendar= ({match}) => {
             <div className= "row  mt-3">
               <div className= "col col-md-6 d-flex justify-content-end" >
                <button className="btn btn-secondary font-weight-bold"
-                      onClick= {handleSubmit}> Submit your Availability</button>
+                     type="submit"> Submit your Availability</button>
                </div>
             
             <div className= "col col-md-6 d-flex justify-content-start">
