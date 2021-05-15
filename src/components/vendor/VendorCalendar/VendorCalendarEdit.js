@@ -16,13 +16,14 @@ const [caldata, setCaldata] = useState([]);
 const [toDate, setToDate] = useState("");
 const [timeslots, setTimeslots] = useState([]);
 const [currentSlots, setCurrentSlots] = useState([]);
-
 const [clicked, setClicked] = useState([]);
-const [loading,setLoading] = useState("false");
+const [loading,setLoading] = useState('false');
 
 useEffect( () => {    
     fetchTimeslots().then( res => setTimeslots(res.data));
 },[]);
+
+{console.log("MATCH", match.params.id)}
 
 useEffect( () => {
    readVendorCalendar(match.params.id)
@@ -34,6 +35,17 @@ useEffect( () => {
 },[]);
 
 console.log("Current slots",  currentSlots);
+
+const getDateForApiFormat = (dateStr) => {
+  let dtstr = "";
+  if (dateStr) {
+    let dtArr = dateStr.split("/");
+    if (dtArr && dtArr.length) {
+      dtstr = dtArr[2] + "-" + dtArr[1] + "-" + dtArr[0];
+    }
+  }
+  return dtstr;
+}
 
 
 const handleClick= (e,t,index) => {
@@ -69,13 +81,22 @@ const handleSubmit= (e) => {
     } else
     {
     setLoading(true);
+    let currentDateStr = "";
+    // console.log("CURRE DATE", currentBooking);
+
+    // if (currentBooking) {
+    //   currentDate = moment(currentBooking.availability[0].start).format("YYYY-MM-DD");
+    //   currentDateStr = moment(currentBooking.availability[0].start).format("DD/MM/YYYY");
+    // }
+
+    let dtstr = getDateForApiFormat(fromDate);
+    console.log("Date String",dtstr)
     editVendorCalendar(user._id, fromDate,{  availability: [ {timeslots:caldata }
                                                  ]}, user.token)
     .then ( (res) => {
       setLoading(false);
       setCaldata([]);
-      toast.success("Timeslots data is updated successfully");  
-           
+      toast.success("Timeslots data is updated successfully");           
     })
     .catch (err => {
       console.log(err);
@@ -103,6 +124,7 @@ const handleSubmit= (e) => {
               className="site-calendar-card  ml-4 h6"
               placeholder="From date"
               size= "large"   
+              // format= "DD-MM-YYYY"
               defaultValue= {moment(fromDate, "YYYY-MM-DD")}              
               onChange= {(date,dateString) => 
                         setFromDate(dateString)
