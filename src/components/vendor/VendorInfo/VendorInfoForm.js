@@ -1,3 +1,4 @@
+//changes for vendorinfo form
 import React, {useState,useEffect} from "react";
 import PostcodeSearch from "../../utils/PostcodeSearch";
 import {fetchCities, fetchCounties} from "../../../actions/area";
