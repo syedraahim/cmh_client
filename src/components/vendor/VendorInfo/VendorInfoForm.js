@@ -130,7 +130,7 @@ const renderFields= () => {
               {
                  return (<option key={cityval} 
                         value={cityval}
-                        selected={cityval===city}
+                         selected={cityval===city}
                         > 
                     {cityval} </option> 
                )})}	 
@@ -190,4 +190,3 @@ const renderFields= () => {
 
 
  export default VendorForm;
-
