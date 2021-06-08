@@ -3,7 +3,7 @@ import {fetchSubcategories} from "../../actions/subcategory";
 import {Select} from "antd";
 const {Option} = Select;
 
-const GetSubcategories= () => {
+const GetSubcategories= (props) => {
 
     const [subcategories, setSubcategories] = useState([]);
     const [subcategory,setSubcategory]= useState("");
@@ -17,7 +17,7 @@ const GetSubcategories= () => {
          name= "subcategory"   
          className= "form-control mt-3 mb-3 ml-4 font-weight-bold h6"
          style={{height:"50px"}}         
-         onChange= { subcategory => setSubcategory(subcategory)}
+         onChange= { subcategory => setSubcategory(subcategory) , props.onChange}
      > 
     <option value="">Select a Sub Category</option>                  
    { subcategories && subcategories.map( (s) => {
