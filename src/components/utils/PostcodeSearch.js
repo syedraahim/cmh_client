@@ -11,7 +11,7 @@ import GetSubcategories from "./GetSubcategories";
 export class PostcodeSearch extends Component {
   constructor(props) {
     super(props);
-    this.state = { address: '' };
+    this.state = { address: '', subcategory: '' };
   }
 
   handleChange = address => {
@@ -34,9 +34,21 @@ export class PostcodeSearch extends Component {
   searchOptions = {
     componentRestrictions: { country: ['gb'] }
   }
-
-
+  getSubCategory = (subcategory) => {
+    this.setState({
+      subcategory: subcategory.target.value
+    })
+    console.log(subcategory.target.value)
+  }
+  onSearch = () => {
+    let vendor = this.props.vendors.filter(vendor => {
+      let subcat = vendor.subcategories.map(sub => sub._id)
+      return  vendor.vendorInfoId.city == this.state.address && subcat.includes(this.state.subcategory) 
+    })
+    console.log(vendor)
+  }
   render() {
+    // console.log(this.state.address)  
     return (
       <Row justify="center">
         <Col span={5} >
@@ -85,11 +97,11 @@ export class PostcodeSearch extends Component {
           </PlacesAutocomplete>
         </Col>
         <Col span={5}  >
-          <GetSubcategories />
+          <GetSubcategories onChange={this.getSubCategory} />
         </Col>
 
         <Col span={1}
-          className="h3 mt-3" style={{marginLeft : '50px'}}  >
+          className="h3 mt-3" style={{ marginLeft: '50px' }} onClick={this.onSearch}>
           <SearchOutlined />
         </Col>
       </Row>
