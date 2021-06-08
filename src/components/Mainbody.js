@@ -84,7 +84,7 @@ const MainBody = () => {
  <>
  <section className="feature-class" id="features">
  <Col className= "font-weight-bold mt-2">           
-         <PostcodeSearch />
+         <PostcodeSearch vendors = {vendors} />
  </Col>          
  
   </section>
